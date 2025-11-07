@@ -1,0 +1,146 @@
+---
+title: "Annotated Bibliography"
+author: "Victoria Garfield"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+bibliography: references.bib
+csl: apa.csl
+---
+---
+## Annotated Bibliography
+---
+Wu, Z., Zohner, C. M., Zhou, Y., Crowther, T. W., Wang, H., Wang, Y., Peñuelas, J., Gong, Y., Zhang, J., Zou, Y., Van den Hoogen, J., & Fu, Y. H. (2025). Tree species composition governs urban phenological responses to warming. Nature Communications, 16, Article 3696. https://doi.org/10.1038/s41467-025-02038-9  [@wuTreeSpeciesComposition2025]
+
+Summary: This study approaches how tree species composition governs urban phenological resonses to warming. They do this by setting up a system in cities across the northern hemisphere using their trees and harvesting data through satellite-derived phenology data in conjuction with field observations. they came to the conclusions using temperature metrics with species level comparisons. They found that urban and rural differences in spring phenology was driven mainly by species configuration rather than just temperature. urban dominant species were shown to have higher heat sensitivity.
+
+Evaluation: The evaluation of this study shows the strength was they were able to use both large scale observation and smaller scale (field study). limitations include focus on trees rather than other flora, like flowers. This can create a gap in knowledge which is uneven coverage of cities and species. 
+
+Relevance: This study informs my investigation of seasonal changes in urban versus rural environments by showing that species composition drives urban phenological differences. It highlights factors that could affect temporal bee activity due to shifts in tree flowering timing.
+
+Tags: urban-phenology, species-composition, tree-flowering, temporal-bee-dynamics
+
+Park, D. S., Xie, Y., Ellison, A. M., Lyra, G. M., & Davis, C. C. (2023). Complex climate-mediated effects of urbanization on plant reproductive phenology and frost risk. New Phytologist, 239(2), 635–648. https://doi.org/10.1111/nph.18893 [@parkComplexClimatemediatedEffects2023]
+
+Summary: This paper looks at how urbanization and climate interact and impact the flowering/fruiting of plants. Also looking at frost risk across multiple sites around the world. The authors use a phenocam and observational datasets across varying urbanized cities. In doing this we found that urbanization can davnce flowering, but delay fruiting. Also increases risk of frost. 
+
+Evaluation: the strength of this study was their global dataset and their focus on fruiting/flowering helps us understand how urbanization impacts pollinators. Weakness of this study was reproductive phenology is less studied and therefore could be more biased towards certain species or regions. Urbanization is also measured broadly, so we may be missing finer details on smaller communities. This is a potential bias, observational data may include different species across site making comparisons harder. 
+
+Relevance: Shows how urbanization and climate interact to drive seasonal shifts, helping identify the environmental drivers behind phenology differences relevant to bees.
+
+Tags: urban-phenology, climate-effects, temporal-bee-dynamics
+
+Meng, L., Mao, J., Zhou, Y., & Jia, G. (2020). Urban warming advances spring phenology but reduces the response of phenology to temperature in the conterminous United States. Proceedings of the National Academy of Sciences, 117(8), 4228–4233. https://doi.org/10.1073/pnas.1911117117 [@mengUrbanWarmingAdvances2020]
+
+
+Summary (What they did & found): This study was based on the idea that urbanization causes environmental changes. Urban Heat Island (UHIs) effect ecosystems living within these urbanized areas. They used SOS satellite data, which is start of the season data and temperature across 85 cities. They found that there was significantly earlier start of seasons in urban areas as compared to rural areas. 
+
+Evaluation (quality & limits):  Strength of this study is that they were able to use satellite data, which helped with broad spectrum cover for this experiment. The weakness of this study would be that there are a lot of simplified climate variables, there are multiple other factors that influence climates of area. Temperature, precipitation and radiation were used but things like air pollution, or even light pollution. 
+
+Relevance (how you’ll use it): Start of seasons impact flowering times, which in turn impacts pollinators and where they may be at times of the year. This could provide insight on why bees may be where they are, depending on climate (change) and time of year. 
+
+Tags: Urban ecology, climate change, phenology, urbanization effects 
+
+
+
+
+Leong, M., Ponisio, L. C., Kremen, C., Thorp, R. W., & Roderick, G. K. (2016). Temporal dynamics influenced by global change: Bee community phenology in urban, agricultural, and natural landscapes. Global Change Biology, 22(3), 1046–1053. https://doi.org/10.1111/gcb.13141 [@leongTemporalDynamicsInfluenced2016]
+
+Summary (What they did & found): observed how largely urbanized landscapes compared with natural landscapes brought about change of local diversity in pollinators. They studied around Contra Costa County and Brentwood, CA for 3 years. They used NOAA’s 2006 Pacific Coasts Land Cover data set. They found that urban and agriculturally converted lands impact temporal dynamic of bee activity, this was impacted through floral resource availability and timing.  
+
+Evaluation (quality & limits):  Strengths of this experiment was it was replicated sites, over long periods of time, sites were chosen to minimize overlap. Sampling bias could come from pan traps, this could underrepresent certain species of pollinators, or specialists. 
+
+Relevance (how you’ll use it): This is relevant to my study because this offers insight on how certain kinds of human colonizations can impact how bees utilize what is in that area and floral diversity. This impact what pollinators live there and when they start pollinating. 
+
+Tags: Urbanization, agriculture, ecology, species distribution
+
+
+
+Li, X., Zhou, Y., Asrar, G. R., Mao, J., Li, X., & Li, W. (2017). Response of vegetation phenology to urbanization in the conterminous United States. Global Change Biology, 23(7), 2818–2830. https://doi.org/10.1111/gcb.13562 [@liResponseVegetationPhenology2017]
+
+
+Summary (What they did & found): This study looked at the relationship between vegetation growth and urban size are correlated, and how they are an indicator of stages of urbanization. Used a variety of data from around the US ranging from 2003 to 2012. They used urban cluster series from MODIS. Looked at 7 categories of land cover. They found that certain growth indicators show a marked difference in urban and rural areas. Found that vegetative growth starts earlier in urban areas as compared to rural. 
+
+Evaluation (quality & limits): Strengths are long period of analyzation, from 2003 to 2012. Used also nighttime light data to define urban clusters. Weaknesses would be only a 10 year study. This, while broad may not fully capture long-term phenological trends or recent urbanization impacts only within a 10 year time span.  
+
+Relevance (how you’ll use it): This is relevant to me, because this offered me other ways to explore data, like with the nighttime light data is something I would consider using in my dataset. 
+
+Tags: Urbanization, Land-use change, human-environment interactions
+
+
+Wilson, C. J., & Jamieson, M. A. (2019). The effects of urbanization on bee communities depends on floral resource availability and bee functional traits. PLOS ONE, 14(12), e0225852. https://doi.org/10.1371/journal.pone.0225852 [@wilsonEffectsUrbanizationBee2019]
+
+Summary (What they did & found):  this study looked at degradation of ecosystems in replacement of urbanization and the impact on pollinators. They surveyed bee communities in farmland and gardens. They found that urbanization positively impacted bee diversity in this case. They found that urbanization held more exotic and specialized bees. They also acknowledged this abundance and richness could also be attributed to factors such as urban warming. 
+
+Evaluation (quality & limits): Weakness could be net collection, and visual abundance rather than quantitative measuring. Strengths would be they do acknowledge the blind spots in this study and the specific focus on exotic species in these environment 
+
+Relevance (how you’ll use it): I liked this for my own research because I will most likely be looking at a smaller sample size, so this shows how people analyze similar data within one state rather than globally, or across the US. 
+
+Tags: bee-collecting, diversity, ecology 
+
+Ayers, A. C., & Rehan S. M. (2025). Determining bee community response to urbanization through multi-year monitoring. Urban Ecosystems 28:177. https://doi.org/10.1007/s11252-025-01797-1 [@ayersDeterminingBeeCommunity2025]
+
+Summary:  Looked at the homogenizing effects of urban landscapes on bee species. Over a three year monitoring program, 19,000 bees were sampled (194 species), and their plant interactions. Habitat loss was found to be the largest cause for population decline, as well as richness decrease due to unsupported wild bee diets. Functional traits studied included: nesting, diet breadth, sociality, body size. Also reinforced the importance of native and consistent green spaces throughout urban areas, for which bee populations could potentially be supported (as these would be much healthier than pesticide-heavy agricultural plots). 
+
+Evaluation: It was a pretty large study, with a rather large sample size. The data is from Canada, which Oregon shares climate likeness with to a degree, however, Canada is colder on average, so the colder temperatures could greatly affect more bee and plant species than the less extreme temperatures of Oregon might. Used a specific R package called “bipartite” that could be interest to explore in own research. 
+
+Relevance: Overall, had a smaller sampling site than what we might aim for, however, we might be able to “recreate” their sampling style (ie the gridding and selection) for our own maps. It also can give us hints to look at urban green spaces, and possibly make connections similar to the ones they made in our own paper.
+
+Tags: urbanisation, sampling, green space, homogenization, homogenous, habitat-loss, community
+
+
+Cardoso M. C., & Goncalves R. B. (2018). Reduction by half: the impact on bees of 34 years of urbanization. Urban Ecosystems (2018) 21:943-949. https://doi.org/10.1007/s11252-018-0773-7
+[@cardosoReductionHalfImpact2018]
+
+Summary: found a substantial decrease of 45% in species richness, possibly but not definitively associated with the growing urban center of Curitiba, Brazil. However, green spaces showed hope as they still maintained some richness. Some interesting changes in traits, such as body size and sociality, were found. 
+
+Evaluation: Although it may seem as a very lengthy paper at first, it is only a comparison of two different samples in the same site, 34 years apart. As such, the intricate webs and networks were not studied year to year or even decade to decade; only the before and after was observed. Nonetheless, the population and richness decline was found not to be congruent with simple adaptation or habitat change models, pointing towards the important influence of urbanization on these measures. As such, it might not be incredibly helpful since it’s not a large or lengthy sampling, however, still has some interesting conclusions. On the otehr hand, contrasting with the Canadian study, this analyses bee communities in a subtropical climate, where warm temperatures and flora abundance outside of urban spaces wasn't as constrained (and may be idyllic otherwise, supporting the conclusion towards urbanisation and not just climate change). 
+
+Relevance: I wish this research was more detailed and had more monitoring and sampling “snapshots” as they called them throughout the paper, to really get a better idea of how the richness declined over time. 
+
+Tags: richness, assemblages, green areas, subtropical, sociality 
+
+Buchholz, S., & Egerer, M. H. (2020). Functional ecology of wild bees in cities: towards a better understanding of trait-urbanization relationships. Biodiversity and Conservation (2020) 29:2779–2801. https://doi.org/10.1007/s10531-020-02003-8(0123456789().,-volV)(0123456789().,-volV)
+[@buchholzFunctionalEcologyWild2020]
+
+Summary: this research is quite detailed in terms of functional traits, which is the other half of our research project, and most importantly, in direct relationship with urbanisation. They studied the traits conserved and lost in wild bees when interacting with urbanized areas. It looks at what type of species richness analysis is done (ie regression), and suggests more refined and trait-specific analysis, such as diversity indices like dispersion. 
+
+Evaluation: it is a systematic review, so not exactly raw data that we could pull from; however, it had breadth and the references are worth looking into. It also described using Web of Knowledge as a search engine and how to specifically adapt it for this type of functional trait research, which would be incredibly handy, since we are also doing a review in some ways (we do not have access to our own raw data). 
+
+Relevance: I think this study does help us with maintaining a level of detail that can be lost when looking at larger scale sites and studies. It proposes the importance of looking at these specific interactions, not just overall population decline or richness loss, as urban interactions could be either negative or positive for pollinators adapting to the new environments, for which looking at them in detail helps with understanding more the reason why rather than just the what of species richness decline. 
+
+Tags: functional trait, review, interactions, functional diversity, body size, sociality, nesting 
+
+
+Leong, M. (2014). Bees in a Changing World: How Land Surface Phenology, Bee Community Distributions, and Pollinator-Plant Interactions are Impacted by Urbanization and Agriculure. Remote sensing and spatio-temporal pollinator distribution dataset detect vegetation phenological diversity and bee community abundance to be out of synchrony between urban, agricultural, and natural landscapes.Dissertations & Theses Global.  1667091613. 
+[@leongBeesChangingWorld2014]
+
+Summary: Studies how remote sensing can be deceiving in urban and agricultural areas, since it might not be reflective or completely accurate to the real life vegetative phenology of the area. Particularly, seen as these urban areas might appear on remote sensing to have more vegetation cover than is functionally there (in other words, may appear greener and more productive than what is realistically occurring); it also doesn’t take into account the plant-pollinator interactions, or the “quality” of the coverage, which might be more important in pollinator studies than just overall “quantity”. Additionally, these sensors usually don’t take into account the temporality or seasonality of the vegetative cover, which clearly affects the phenology and availability of pollinator-friendly flora. 
+
+Evaluation: Although majorly studied in California, the foundations are crucial and definitely something we should keep in mind when categorizing urban spaces and their quality, as we might be led to deduce based on their coverage only (which the paper strongly advises against). It also provides some qualities to look out for in these spaces relating to bees particularly, and the different data processing sensors and indices used, and how those gave differing results. 
+
+Relevance: similarly to the previous paper, this section is to do more with the qualitative analysis we might carry out, which is key for us to look beyond the already established quantitative measures. It also discusses specific sensors that we might encounter in our raw data collection, which will help us assess the reliability and relevance of the data, as well as any biases these systems might inherently have. 
+
+Tags: sensors, remote sensing, EVI, NDVI, vegetative cover, plant phenology, vegetative diversity, urban expansion
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# References
+
+
+
+
