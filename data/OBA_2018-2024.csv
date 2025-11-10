@@ -1,0 +1,57 @@
+occurrenceID,Text (museum-based specimen unique identifier)
+userId,Ordinal (iNaturalist user id number - corresponds to the ientify of the person collecting the specimen)
+userLogin,Text (iNaturalist user login name - corresponds to the ientify of the person collecting the specimen)
+firstName,Text (First name of of the person collecting the specimen)
+firstNameInitial,Text (First name initial of the person collecting the specimen)
+lastName,Text (Last name of the person collecting the specimen)
+recordedBy,Text (Full name of the person collecting the specimen)
+sampleId,Ordinal (number indicating a unique sample event for a given date and for a given person collecting - the numbering typically restarts the next date the person begins collecting again)
+specimenId,Ordinal (number indicating a unique specimen for a given Sample ID)
+day,Date (the day when a specimen was collected)
+month,Date (the month when a specimen was collected)
+year,Date (the year when a specimen was collected)
+verbatimEventDate,Date (the date when a specimen was collected M/D/YY)
+day2,"Date (for trapped samples - ""day"" is the day the trap was started and ""day2"" the day the trap was disengaged - specimen assumed to be collected during the date range)"
+month2,"Date (for trapped samples - ""month"" is the month the trap was started and ""month2"" the month the trap was disengaged - specimen assumed to be collected during the date range)"
+year2,"Date (for trapped samples - ""year"" is the year the trap was started and ""year2"" the year the trap was disengaged - specimen assumed to be collected during the date range)"
+startDayofYear,Date (the date when a the trap that collected the specimen was installed  M/D/YY)
+endDayofYear,Date (the date when a the trap that collected the specimen was disengaged  M/D/YY)
+country,"Text (abriviated name for the country the specimen was caught in; USA - United States of America, CAN - Canada)"
+verbatimEventDate,"Text (abriviated name for the country the specimen was caught in; USA - United States of America, CAN - Canada)"
+stateProvince,Text (abbreviation for US state or Canadian province the specimen was caught in)
+county,Text (name of county specimen was caught in)
+locality,Text (description of the location where the specimen was caught)
+verbatimElevation,Continuous (elevation that the specimen was caught in meters above sea level)
+decimalLongitude,Continuous ordinal coordinate (degree decimal global positioning system latitude coordinate)
+decimalLongitude,Continuous ordinal coordinate (degree decimal global positioning system longitudinal coordinate)
+coordinateUncertaintyInMeters,Continuous (uncertainty of GPS coordinates as reported by iNaturalist; the value may be blank if the location was precisely defined by the person collecting the specimen)
+samplingProtocol,"Text (the method used to collect specimen; aerial net = collected with a net, or some type of trap)"
+relationshipOfResource,"Text (controlled, ""visits flowers of"", for subject - relationship- object)"
+resourceID,String (=occurrenceID)
+relatedResourceID,"String (=""uuid"" for iNat plant records)"
+relationshipRemarks,Text (for notes regarding visitation)
+phylumPlant,"Text (controlled for Tracheophyta, the phylum of plant the bee specimen was caught from. Blank for all other sampling.)"
+orderPlant,"Text (the order of plant the bee specimen was caught from - note, this field will be blank for specimens caught with traps or in transit)"
+familyPlant,"Text (the family the bee specimen was caught from - note, this field will be blank for specimens caught with traps or in transit)"
+genusPlant,"Text (the genus the bee specimen was caught from - note, this field will be blank for specimens caught with traps or in transit)"
+speciesPlant,"Text (the speciesof genus the bee specimen was caught from - note, this field will be blank for specimens caught with traps or in transit)"
+taxonRankPlant,"Text (the taxonomic rank of the highest resolution name - note, this field will be blank for specimens caught with traps or in transit)"
+url,website (the location of the sample voucher on the iNaturalist website)
+phylum,Text (the phylum of bee specimen caught)
+class,Text (the class of bee specimen caught)
+order,Text (the order of bee specimen caught)
+family,Text (the family of bee specimen caught)
+genus,Text (the genus of bee specimen caught)
+subgenus,Text (the subgenus of bee specimen caught)
+specificEpithet,Text (the species of bee specimen caught)
+taxonomicNotes,Text (notes by the taxonomist who determined the bee)
+scientificName,Text (the scientific name of the bee identified by the taxonomist)
+sex,Text (the sex of bee specimen caught)
+caste,Text (the caste of bee specimen caught)
+taxonRank,Text (the taxonomic rank of the most specific name of bee specimen caught)
+identifiedBy,"Text (the names of people, groups, or organizations who assigned the name to the specimen)"
+familyVolDet,Text (the family of bee specimen caught as identified by the person collecting the specimen)
+genusVolDet,Text (the genus of bee specimen caught as identified by the person collecting the specimen)
+specificVolDet,Text (the species of bee specimen caught as identified by the person collecting the specimen)
+sexVolDet,Text (the sex of bee specimen caught as identified by the person collecting the specimen)
+casteVolDet,Text (the caste of bee specimen caught as identified by the person collecting the specimen)
