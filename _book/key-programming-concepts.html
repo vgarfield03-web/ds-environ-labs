@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Key Programming Concepts | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="3 Key Programming Concepts | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Key Programming Concepts | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Key Programming Concepts | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="syllabus.html"/>
+<link rel="next" href="using-the-tidyverse-for-data-manipulation-and-visualization.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth"><i class="fa fa-check"></i><b>3.2</b> Demo: Exponential Population Growth</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.2.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.2.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.2.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.2.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.3</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.3.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.4</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.4.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.4.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.4.3</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.4.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.4.4</b> Individual things</a></li>
+<li class="chapter" data-level="3.4.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.4.5</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.4.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.4.6</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.4.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.4.7</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.4.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.4.8</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.4.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.4.9</b> Groups of things</a></li>
+<li class="chapter" data-level="3.4.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.4.10</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.4.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.4.11</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.4.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.4.12</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.4.13" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.4.13</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.4.14" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.4.14</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.4.15" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.4.15</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.4.16" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.4.16</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.4.17" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.4.17</b> Creating chunks</a></li>
+<li class="chapter" data-level="3.4.18" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.4.18</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.4.19" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.4.19</b> Question 8 (Extra credit or graduate students)</a></li>
+<li class="chapter" data-level="3.4.20" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-visualize-baseline"><i class="fa fa-check"></i><b>3.4.20</b> Simulate &amp; visualize (baseline)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="02-key-programming-concepts.html"><a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="02-key-programming-concepts.html"><a href="#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="02-key-programming-concepts.html"><a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.7</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.3.2</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.3.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.3.3</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.3.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-joining-data"><i class="fa fa-check"></i><b>5.3.4</b> Question 2: Joining data</a></li>
+<li class="chapter" data-level="5.3.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-3-1"><i class="fa fa-check"></i><b>5.3.5</b> Question 3</a></li>
+<li class="chapter" data-level="5.3.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.3.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.3.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.3.7</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.3.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-5"><i class="fa fa-check"></i><b>5.3.8</b> Lab Question 5</a></li>
+<li class="chapter" data-level="5.3.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.3.9</b> Question 6</a></li>
+<li class="chapter" data-level="5.3.10" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.3.10</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.3.11" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-7"><i class="fa fa-check"></i><b>5.3.11</b> Question 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> ## Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-questions-week-2"><i class="fa fa-check"></i><b>6.2.2</b> Discussion Questions (Week 2)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-5-question-1"><i class="fa fa-check"></i><b>6.3</b> Lab 5 Question 1</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2a-partners"><i class="fa fa-check"></i><b>6.3.1</b> Question 2a (partners)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2b-solo-project"><i class="fa fa-check"></i><b>6.3.2</b> Question 2b (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lecture-summary-4"><i class="fa fa-check"></i><b>7.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.1.2</b> Linear‑algebra essentials for ecological networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data"><i class="fa fa-check"></i><b>7.2</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.2.1</b> From data to networks</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.2.2</b> Core network properties (formulas, intuition, tools)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-building-networks-and-characterizing-their-structure"><i class="fa fa-check"></i><b>7.2.3</b> Demo: Building networks and characterizing their structure</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ecological-networks.html"><a href="ecological-networks.html#null-models-for-fair-comparisons"><i class="fa fa-check"></i><b>7.2.4</b> Null models for fair comparisons</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-pollination"><i class="fa fa-check"></i><b>7.2.5</b> Demo: Calculating network metrics (pollination)</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.2.6</b> Demo: Create a graph from OBA data, visualize it</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.2.7</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.2.8" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.2.8</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.2.9" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.2.9</b> Further reading &amp; software</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.3</b> Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.3.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-questions"><i class="fa fa-check"></i><b>7.3.2</b> Discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.4</b> Lab — Food Webs &amp; Network Measures (Student Version)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.4.2</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.4.3</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.4.4</b> Lab question 3: Visualize the networks</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.4.5</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html"><i class="fa fa-check"></i><b>8</b> String Processing &amp; Debugging</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lecture-summary-5"><i class="fa fa-check"></i><b>8.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.1.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-in-base-r"><i class="fa fa-check"></i><b>8.1.2</b> String manipulation in base R</a></li>
+<li class="chapter" data-level="8.1.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-using-stringr"><i class="fa fa-check"></i><b>8.1.3</b> String manipulation using <em>stringr</em></a></li>
+<li class="chapter" data-level="8.1.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#regular-expressions-regexregexp"><i class="fa fa-check"></i><b>8.1.4</b> Regular expressions (regex/regexp)</a></li>
+<li class="chapter" data-level="8.1.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#general-principles-for-working-with-regex"><i class="fa fa-check"></i><b>8.1.5</b> General principles for working with regex</a></li>
+<li class="chapter" data-level="8.1.6" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#working-with-patterns"><i class="fa fa-check"></i><b>8.1.6</b> Working with patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match"><i class="fa fa-check"></i><b>8.2</b> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?</a></li>
+<li class="chapter" data-level="8.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string"><i class="fa fa-check"></i><b>8.3</b> In class challenge 2: How would I extract an email address from an arbitrary text string?</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#groups"><i class="fa fa-check"></i><b>8.3.1</b> Groups</a></li>
+<li class="chapter" data-level="8.3.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#other-comments"><i class="fa fa-check"></i><b>8.3.2</b> Other comments</a></li>
+<li class="chapter" data-level="8.3.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#additional-resources"><i class="fa fa-check"></i><b>8.3.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r"><i class="fa fa-check"></i><b>8.4</b> Dicussion &amp; Reflection: Debugging in R</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#basic-debugging-strategies"><i class="fa fa-check"></i><b>8.4.1</b> 1) Basic debugging strategies</a></li>
+<li class="chapter" data-level="8.4.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#rs-interactive-debugging-tools"><i class="fa fa-check"></i><b>8.4.2</b> 2) R’s interactive debugging tools</a></li>
+<li class="chapter" data-level="8.4.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#some-common-causes-of-bugs"><i class="fa fa-check"></i><b>8.4.3</b> 3) Some common causes of bugs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors"><i class="fa fa-check"></i><b>8.4.4</b> 4) Tips for avoiding bugs and catching errors</a></li>
+<li class="chapter" data-level="8.4.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#how-to-get-help-online"><i class="fa fa-check"></i><b>8.4.5</b> 5) How to get help online</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version"><i class="fa fa-check"></i><b>8.5</b> Lab — Regular expressions and cleaning OBA data (Student Version)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lesson-overview-3"><i class="fa fa-check"></i><b>8.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="8.5.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Lab question 1: Oregon bee atlas data exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution"><i class="fa fa-check"></i><b>8.5.3</b> Lab question 2: Making a column for plant resolution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-project-1.html"><a href="final-project-1.html"><i class="fa fa-check"></i><b>9</b> Final project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="final-project-1.html"><a href="final-project-1.html#final-project-objective"><i class="fa fa-check"></i><b>9.1</b> Final project objective</a></li>
+<li class="chapter" data-level="9.2" data-path="final-project-1.html"><a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment"><i class="fa fa-check"></i><b>9.2</b> Final project topic selection (first final project assignment)</a></li>
+<li class="chapter" data-level="9.3" data-path="final-project-1.html"><a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment"><i class="fa fa-check"></i><b>9.3</b> Final project office hours discussion (second final project assignment)</a></li>
+<li class="chapter" data-level="9.4" data-path="final-project-1.html"><a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment"><i class="fa fa-check"></i><b>9.4</b> Final project annotated bibliography (third final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="final-project-1.html"><a href="final-project-1.html#overview"><i class="fa fa-check"></i><b>9.4.1</b> Overview</a></li>
+<li class="chapter" data-level="9.4.2" data-path="final-project-1.html"><a href="final-project-1.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.4.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.4.3" data-path="final-project-1.html"><a href="final-project-1.html#requirements"><i class="fa fa-check"></i><b>9.4.3</b> Requirements</a></li>
+<li class="chapter" data-level="9.4.4" data-path="final-project-1.html"><a href="final-project-1.html#how-to-search-effectively-google-scholar-tips"><i class="fa fa-check"></i><b>9.4.4</b> How to search effectively (Google Scholar tips)</a></li>
+<li class="chapter" data-level="9.4.5" data-path="final-project-1.html"><a href="final-project-1.html#recommended-workflow"><i class="fa fa-check"></i><b>9.4.5</b> Recommended workflow</a></li>
+<li class="chapter" data-level="9.4.6" data-path="final-project-1.html"><a href="final-project-1.html#what-each-entry-should-include"><i class="fa fa-check"></i><b>9.4.6</b> What each entry should include</a></li>
+<li class="chapter" data-level="9.4.7" data-path="final-project-1.html"><a href="final-project-1.html#template-copy-for-each-source"><i class="fa fa-check"></i><b>9.4.7</b> Template (copy for each source)</a></li>
+<li class="chapter" data-level="9.4.8" data-path="final-project-1.html"><a href="final-project-1.html#author-surname-et-al.-year.-title."><i class="fa fa-check"></i><b>9.4.8</b> Author Surname et al. (Year). <em>Title</em>.</a></li>
+<li class="chapter" data-level="9.4.9" data-path="final-project-1.html"><a href="final-project-1.html#example-of-intext-citation-references"><i class="fa fa-check"></i><b>9.4.9</b> Example of in‑text citation &amp; references</a></li>
+<li class="chapter" data-level="9.4.10" data-path="final-project-1.html"><a href="final-project-1.html#rubric"><i class="fa fa-check"></i><b>9.4.10</b> Rubric</a></li>
+<li class="chapter" data-level="9.4.11" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist"><i class="fa fa-check"></i><b>9.4.11</b> Submission checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment"><i class="fa fa-check"></i><b>9.5</b> Literature review and workflow plan (fourth final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project"><i class="fa fa-check"></i><b>9.5.1</b> Literature review (i.e., the introduction section of your final project)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="final-project-1.html"><a href="final-project-1.html#dataset-identification"><i class="fa fa-check"></i><b>9.5.2</b> Dataset identification</a></li>
+<li class="chapter" data-level="9.5.3" data-path="final-project-1.html"><a href="final-project-1.html#workflow-plan"><i class="fa fa-check"></i><b>9.5.3</b> Workflow plan</a></li>
+<li class="chapter" data-level="9.5.4" data-path="final-project-1.html"><a href="final-project-1.html#rubric-1"><i class="fa fa-check"></i><b>9.5.4</b> Rubric</a></li>
+<li class="chapter" data-level="9.5.5" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist-1"><i class="fa fa-check"></i><b>9.5.5</b> Submission Checklist</a></li>
+<li class="chapter" data-level="9.5.6" data-path="final-project-1.html"><a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc"><i class="fa fa-check"></i><b>9.5.6</b> Optional scaffold (copy into your working doc)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="final-project-1.html"><a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit"><i class="fa fa-check"></i><b>9.6</b> Final Project Rubric (10 pts total + 1 pt extra credit)</a></li>
+<li class="chapter" data-level="9.7" data-path="final-project-1.html"><a href="final-project-1.html#poster-presentation-rubric-10-pts-total"><i class="fa fa-check"></i><b>9.7</b> Poster Presentation Rubric (10 pts total)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="key-programming-concepts" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Key Programming Concepts<a href="key-programming-concepts.html#key-programming-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lecture-summary" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Lecture summary<a href="key-programming-concepts.html#lecture-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter builds a foundation for writing clear, reliable R code you can reuse across labs and projects. In lab we will practice these skills and discuss the weekly reading, Alston et al. 2020. A Beginner’s Guide to Conducting Reproducible Research.</p>
+<div id="learning-objectives" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Learning objectives<a href="key-programming-concepts.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Distinguish <strong>objects</strong>, <strong>functions</strong>, and <strong>expressions</strong> in R, and use assignment idioms confidently.</li>
+<li>Work with core <strong>data structures</strong> (vectors, matrices/arrays, lists, and data frames) and explain when to use each.</li>
+<li>Use <strong>control flow</strong> (<code>if</code>, <code>for</code>) and the <strong>apply</strong> family to write clear, vectorized code.</li>
+<li>Write and call <strong>functions</strong> with arguments and return values; document intent with informative names.</li>
+<li>Perform basic <strong>Boolean logic</strong> and use logical indexing for subsetting.</li>
+<li>Read R help, search effectively, and follow reproducible coding practices you’ll build on all term.</li>
+</ul>
+</div>
+<div id="why-programming-concepts-matter" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Why programming concepts matter<a href="key-programming-concepts.html#why-programming-concepts-matter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Across languages, programming is built from a small set of ideas that you will reuse constantly. Greg Wilson (Software Carpentry) popularized a helpful list of seven:</p>
+<ol style="list-style-type: decimal">
+<li>Individual things (the number 2, the character ‘hello’)</li>
+<li>Commands that operate on things (the + symbol, the <code>length</code> function)</li>
+<li>Groups of things (R vectors, matrices, lists, dataframes, and arrays)</li>
+<li>Ways to repeat yourself (for and while loops, apply functions)</li>
+<li>Ways to make choices (if and try statements)</li>
+<li>Ways to create chunks (functions, objects/classes, and packages)</li>
+<li>Ways to combine chunks (piping)</li>
+</ol>
+<p>In this course we focus on doing these in <strong>R</strong> for ecological and conservation data.</p>
+</div>
+<div id="objects-and-basic-types" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Objects and basic types<a href="key-programming-concepts.html#objects-and-basic-types" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In R, everything you create is an <strong>object</strong> that lives in your Global Environment. Objects have <strong>classes</strong> (e.g., numeric, integer, character), and functions behave differently depending on the class. Numbers come in two common flavors: <code>integer</code> and <code>numeric</code>. Numerics have very high—but finite—precision (about 15–16 decimal places). Text is stored as <strong>character</strong> strings, e.g., <code>"hello world"</code>.</p>
+</div>
+<div id="assignments-vs.-expressions" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Assignments vs. expressions<a href="key-programming-concepts.html#assignments-vs.-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An <strong>expression</strong> <em>is</em> a thing; a <strong>statement</strong> <em>does</em> a thing. In R, you bind a name to a value with the assignment arrow: <code>hours_per_wk &lt;- 168</code>. Read that as “make <code>hours_per_wk</code> refer to 168,” not as a math equation.</p>
+</div>
+<div id="functions-and-operators" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Functions and operators<a href="key-programming-concepts.html#functions-and-operators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>function</strong> is a reusable action you call by name, like <code>max(15, 27)</code>. Functions take <strong>arguments</strong> and often <strong>return</strong> a value. Many mathematical symbols are just functions in disguise (operators), e.g., <code>x + y</code> calls the <code>+</code> function. You can and should write your own functions to package work you do often.</p>
+</div>
+<div id="core-data-structures" class="section level3 hasAnchor" number="3.1.6">
+<h3><span class="header-section-number">3.1.6</span> Core data structures<a href="key-programming-concepts.html#core-data-structures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You will manipulate collections of values constantly:</p>
+<ul>
+<li><strong>Vector</strong>: a one-dimensional sequence where every element has the same class. Arithmetic is <em>vectorized</em>—it applies element-by-element.</li>
+<li><strong>Matrix</strong>: a 2-D array (rows × columns) of a single class.</li>
+<li><strong>Array</strong>: the N-D generalization of a matrix.</li>
+<li><strong>Data frame</strong>: a table whose columns can be different classes but must all be the same length. Each row is an observation; each column is a variable.</li>
+<li><strong>List</strong>: an ordered bag of components that can be different sizes and classes. A data frame is a special kind of list where all components are equal length.</li>
+</ul>
+</div>
+<div id="comparisons-and-boolean-logic" class="section level3 hasAnchor" number="3.1.7">
+<h3><span class="header-section-number">3.1.7</span> Comparisons and boolean logic<a href="key-programming-concepts.html#comparisons-and-boolean-logic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Comparisons produce <strong>logical</strong> values: <code>TRUE</code> or <code>FALSE</code>. Operators include <code>&gt;</code>, <code>&gt;=</code>, <code>==</code> (equal), and <code>!=</code> (not equal); combine them with <code>&amp;</code> (and) or <code>|</code> (or). Logical vectors are powerful: <code>sum(c(TRUE, FALSE, TRUE))</code> returns 2 because <code>TRUE</code> is 1 and <code>FALSE</code> is 0.</p>
+</div>
+<div id="control-flow-if-and-for" class="section level3 hasAnchor" number="3.1.8">
+<h3><span class="header-section-number">3.1.8</span> Control flow: <code>if</code> and <code>for</code><a href="key-programming-concepts.html#control-flow-if-and-for" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Control statements direct the path of your code. Use <code>if (...) { ... } else { ... }</code> to make choices, and <code>for (name in collection) { ... }</code> to repeat work for each element. Indentation isn’t required by R, but using it makes your intent clear.</p>
+</div>
+<div id="the-apply-family-vectorized-repetition" class="section level3 hasAnchor" number="3.1.9">
+<h3><span class="header-section-number">3.1.9</span> The <em>apply</em> family (vectorized repetition)<a href="key-programming-concepts.html#the-apply-family-vectorized-repetition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Many tasks that could be written with <code>for</code> loops are more concise and often faster with the <em>apply</em> family: <code>apply()</code> (arrays/matrices), <code>lapply()</code> (returns a list), <code>sapply()</code> (simplifies when possible), <code>mapply()</code> (multiple inputs), and <code>mclapply()</code> (parallel). Each takes a <code>FUN</code> argument—the function to apply to each element.</p>
+</div>
+<div id="writing-your-own-functions" class="section level3 hasAnchor" number="3.1.10">
+<h3><span class="header-section-number">3.1.10</span> Writing your own functions<a href="key-programming-concepts.html#writing-your-own-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Encapsulate a task by defining a function:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="key-programming-concepts.html#cb1-1" tabindex="-1"></a>spread <span class="ot">&lt;-</span> <span class="cf">function</span>(values) {</span>
+<span id="cb1-2"><a href="key-programming-concepts.html#cb1-2" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">max</span>(values) <span class="sc">-</span> <span class="fu">min</span>(values)</span>
+<span id="cb1-3"><a href="key-programming-concepts.html#cb1-3" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb1-4"><a href="key-programming-concepts.html#cb1-4" tabindex="-1"></a>}</span></code></pre></div>
+<p>Well-named functions make analysis pipelines clearer, easier to test, and reusable.</p>
+</div>
+<div id="combining-steps-with-pipes" class="section level3 hasAnchor" number="3.1.11">
+<h3><span class="header-section-number">3.1.11</span> Combining steps with pipes<a href="key-programming-concepts.html#combining-steps-with-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pipes let you express “do X, then Y, then Z” by chaining operations. We will pipe <code>%&gt;%</code> from the tidyverse. You’ll see more next week when we start building data-wrangling workflows.</p>
+</div>
+<div id="r-vs.-python-a-quick-orientation" class="section level3 hasAnchor" number="3.1.12">
+<h3><span class="header-section-number">3.1.12</span> R vs. Python: a quick orientation<a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R emerged from statistics; Python from computer science. Both are open-source and widely used in data work. We’ll use R throughout this course, but the concepts above transfer between languages.</p>
+<p>An annoying difference Python users will struggle with at first: in R, the syntax for calling a <strong>function</strong> and a <strong>method</strong> looks the same (because most things are functions), whereas Python distinguishes <code>data.plot</code> from <code>plot(data)</code>.</p>
+</div>
+</div>
+<div id="demo-exponential-population-growth" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Demo: Exponential Population Growth<a href="key-programming-concepts.html#demo-exponential-population-growth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p><strong>Learning goals (today)</strong><br />
+• Simulate <strong>deterministic exponential growth</strong>.<br />
+• Explore how <strong>initial size</strong> <span class="math inline">\(N_0\)</span> and <strong>growth rate</strong> <span class="math inline">\(r\)</span> shape trajectories.<br />
+• Compute <strong>doubling time</strong> <span class="math inline">\(T_d = \ln 2 / r\)</span> and <strong>time to reach a threshold</strong>.</p>
+</blockquote>
+<div id="exponential-population-growth-model" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Exponential population growth model<a href="key-programming-concepts.html#exponential-population-growth-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Exponential growth assumes the population changes proportionally to its current size:
+<span class="math display">\[
+N_t \;=\; N_0 \, e^{r t},
+\]</span>
+where <span class="math inline">\(N_0\)</span> is the initial size and <span class="math inline">\(r\)</span> is the <strong>per‑time growth rate</strong>.</p>
+<ul>
+<li><strong>Doubling time:</strong> <span class="math inline">\(T_d = \dfrac{\ln 2}{r}\)</span> (time until <span class="math inline">\(N_t\)</span> doubles).<br />
+</li>
+<li><strong>Time to threshold <span class="math inline">\(N^\*\)</span>:</strong> <span class="math inline">\(t^\* = \dfrac{\ln(N^\*/N_0)}{r}\)</span>.</li>
+</ul>
+<hr />
+</div>
+<div id="simulate-plot-a-single-scenario" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Simulate &amp; plot a single scenario<a href="key-programming-concepts.html#simulate-plot-a-single-scenario" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First we will write a function to compute the population size and time step t.</p>
+<p>Set parameters (tweak live to show effects of <strong>N0</strong> and <strong>r</strong>):</p>
+<pre><code>##   t        N
+## 1 0 50.00000
+## 2 1 54.16435
+## 3 2 58.67554
+## 4 3 63.56246
+## 5 4 68.85639</code></pre>
+<p>Plot the trajectory:</p>
+<p><img src="02-key-programming-concepts_files/figure-html/plot-deterministic-1.png" width="576" /></p>
+<p>Compute <strong>doubling time</strong> directly from <code>r</code>:</p>
+<pre><code>## [1] 8.66434</code></pre>
+<p>Compute <strong>time to threshold</strong> <span class="math inline">\(N^\* = 10{,}000\)</span> (can change this number to explore different dynamics):</p>
+<pre><code>## [1] 66.22897</code></pre>
+<hr />
+</div>
+<div id="compare-two-growth-rates" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Compare two growth rates<a href="key-programming-concepts.html#compare-two-growth-rates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Side‑by‑side curves make the influence of <span class="math inline">\(r\)</span> obvious.</p>
+<p><img src="02-key-programming-concepts_files/figure-html/compare-two-1.png" width="576" /></p>
+<p><strong>Observation.</strong> Small changes in <span class="math inline">\(r\)</span> cause large differences later in time.</p>
+<hr />
+</div>
+<div id="in-class-challenge" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> In class challenge<a href="key-programming-concepts.html#in-class-challenge" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Change <code>r</code> to from a number &lt; <span class="math inline">\(-1\)</span> to a number <span class="math inline">\(&gt;\)</span> 1, trying 10 different numbers. HINT: use a for loop. Describe what the different <code>r</code> do to the population dynamics.</li>
+<li>Another type of “population” can grow exponentially is the population of infected individuals. We have a separate model for their growth known as SIR models (susceptible-infected-recovered), but when a infectious disease is first introduced to a population, it grows exponentially because no one is immune (i.e., via getting sick and recovering or getting vaccinated) <code>r</code>. Explore the population trajectory of measles if no one in Eugene were vaccinated, and one infected person was introduced (N0=1). How long would it take for the entire population of 178,786 to be sick?</li>
+</ol>
+<div class="float">
+<img src="demos/figures/r0.png" style="width:60.0%" alt="R₀ illustration" />
+<div class="figcaption">R₀ illustration</div>
+</div>
+</div>
+</div>
+<div id="discussion-reflection-reproducible-research-alston-rick-2020" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)<a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Reading:</strong> Alston, J.M. &amp; Rick, J.A. (2020). <em>A Beginner’s Guide to Conducting Reproducible Research</em>. <strong>Bulletin of the Ecological Society of America</strong>, 102(2): e01801. <a href="https://doi.org/10.1002/bes2.1801" class="uri">https://doi.org/10.1002/bes2.1801</a></p>
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Alston2020.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+<hr />
+<div id="preclass-reflection-please-submit-short-answers-via-canvas" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Pre‑class reflection (please submit short answers via canvas)<a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>In your own words, what does <strong>computational reproducibility</strong> mean? Give one concrete example from your work or coursework where results would <em>not</em> be reproducible without extra effort.</li>
+<li>List <strong>two benefits to you</strong> (the analyst) and <strong>two benefits to the community</strong> of making your work reproducible.</li>
+<li>Which barrier feels most real for you right now: <strong>complexity</strong>, <strong>technological change</strong>, <strong>human error</strong>, or <strong>intellectual property</strong>? Explain with a 2–3 sentence example.</li>
+<li>Commit to <strong>one specific step</strong> you will implement in your current/future research (student thesis, etc.) (e.g., a file‑naming scheme, a README template, version control, dynamic documents). Why this step?</li>
+</ol>
+<hr />
+</div>
+<div id="inclass-smallgroup-prompts" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> In‑class small‑group prompts<a href="key-programming-concepts.html#inclass-smallgroup-prompts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>Before analysis:</em> data storage &amp; organization:</p>
+<ul>
+<li>Sketch a <strong>project folder layout</strong> for the current/next lab (e.g., <code>data-raw/</code>, <code>data/</code>, <code>R/</code>, <code>figs/</code>, <code>doc/</code>).<br />
+</li>
+<li>Decide what belongs in <strong>raw</strong> vs <strong>clean</strong> data; outline a <strong>metadata</strong> plan (variables, units, data provenance).<br />
+</li>
+<li>Propose a <strong>backup strategy</strong> (locations, frequency) and a <strong>file‑naming convention</strong> that encodes version/date.</li>
+</ul>
+<p><strong>Human error scenarios</strong>
+Consider: a collaborator overwrites a cleaned dataset; a figure is updated but not the manuscript numbers; code runs only on one laptop.</p>
+<ul>
+<li>For <strong>each</strong>, describe how a reproducible workflow would <strong>prevent or catch</strong> the issue.</li>
+</ul>
+<p><strong>Reproducibility checklist</strong></p>
+<ul>
+<li>Draft a <strong>reproducibility checklist</strong> (6–10 items) tailored to the current lab or for this class’s final project.</li>
+</ul>
+<p><strong>Final thoughts</strong></p>
+<ul>
+<li>One <strong>question</strong> you still have.</li>
+</ul>
+</div>
+</div>
+<div id="lab-programming-key-concepts" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Lab: Programming Key Concepts<a href="key-programming-concepts.html#lab-programming-key-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lesson-overview" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Lesson Overview<a href="key-programming-concepts.html#lesson-overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The goals of this modules is to refine your knowledge of the basic, core concepts of programming that transcend languages, how they fit together, and how you can use them to become a better scientist. We will practice these concepts by modeling the logistic growth of a population.</p>
+<p><strong>Conservation/ecology Topics</strong></p>
+<ul>
+<li>Simulate population dynamics under logistic growth, and how a catastrophes alter those dynamics.</li>
+</ul>
+<p><strong>Computational Topics</strong></p>
+<p>By the end of this R lesson, you will be able to:</p>
+<ul>
+<li>Gain familiarity with the 6 of the 7 core elements shared by all
+programming languages.</li>
+<li>Use R to write simple functions that use these core elements.</li>
+<li>Make and save simple plots using basic plots.</li>
+</ul>
+<p>We encourage you to make liberal use of your fellow students, GE, and professor as we proceed through these modules. We will work in pairs.</p>
+</div>
+<div id="review-the-seven-core-concepts" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Review: The Seven Core Concepts<a href="key-programming-concepts.html#review-the-seven-core-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As noted by Greg Wilson (the founder of Software Carpentry), every
+programming language shares seven core elements:</p>
+<ol style="list-style-type: decimal">
+<li>Individual things (the number 2, the character ‘hello’)</li>
+<li>Commands that operate on things (the + symbol, the <code>length</code> function)</li>
+<li>Groups of things (R vectors, matrices, lists, dataframes, and arrays)</li>
+<li>Ways to repeat yourself (for and while loops, apply functions)</li>
+<li>Ways to make choices (if and try statements)</li>
+<li>Ways to create chunks (functions, objects/classes, and packages)</li>
+<li>Ways to combine chunks (piping) (for next week)</li>
+</ol>
+</div>
+<div id="starting-with-rstudio" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Starting with RStudio<a href="key-programming-concepts.html#starting-with-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To open RStudio, click on the RStudio icon in the Applications (if you
+are on a Mac) or in your Programs if you are on Windows.</p>
+<p>There are four windows in RStudio that we will refer to throughout the
+workshop</p>
+<ol style="list-style-type: decimal">
+<li><em>The R Script</em>: Typically the upper left hand corner of RSutdio.
+This is where you write R code that you can save and reuse later.</li>
+<li><em>The R Console</em>: Typically in the lower left hand corner. This is
+where you execute R code.</li>
+<li><em>The R Environment</em>: Typically in the upper right hand corner. This
+is where you can see defined variables.</li>
+<li><em>R “Information”</em>: Typically in the lower right hand corner. This
+is where you see plots, help and other R information.</li>
+</ol>
+<p>For all the work in this class we will be typing code in the R
+script and then executing it in the R console. For simple commands
+(e.g. <code>2 + 2</code>) this may seem stupid, but writing in a script will help
+all of your work be reproducible! Think of the script as your lab
+notebook.</p>
+<p><strong>TIP</strong>: Some helpful R studio shortcuts
+1. Run the current line of selection
+- Windows: <code>Ctrl-Enter</code>
+- Mac: <code>Command-Enter</code>
+2. Source the entire script
+- Windows: <code>Ctrl-Shift-Enter</code>
+- Mac: <code>Command-Shift-Enter</code></p>
+</div>
+<div id="individual-things" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Individual things<a href="key-programming-concepts.html#individual-things" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The most basic component of any programming language are “things”,
+also called variables or objects.</p>
+<p>The most common basic “things” in R are numerics, characters,
+logicals, and some special objects of various types (e.g. lists,
+dataframes, etc.). We’ll meet many of these as we go through the
+lesson.</p>
+<pre><code>[1] 2</code></pre>
+<pre><code>[1] &quot;hello&quot;</code></pre>
+</div>
+<div id="assignment-statements" class="section level3 hasAnchor" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> Assignment statements<a href="key-programming-concepts.html#assignment-statements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Things can be stored as variables using <code>&lt;-</code>. <code>=</code> also works, but R
+programmers are picky about <code>&lt;-</code> sometimes called “carrot”.</p>
+<pre><code>[1] 2</code></pre>
+<pre><code>[1] &quot;hello&quot;</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<p>We can figure out the type of these things using the <code>class</code> function</p>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre><code>[1] &quot;logical&quot;</code></pre>
+</div>
+<div id="question-1-population-dynamics" class="section level3 hasAnchor" number="3.4.6">
+<h3><span class="header-section-number">3.4.6</span> Question 1: Population dynamics<a href="key-programming-concepts.html#question-1-population-dynamics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Logistic growth of a population: Throughout this lesson, we will successively build towards calculating the logistic growth of a population of bees in a meadow (or some less exciting vertebrate, if you prefer).</p>
+<p>A commonly used discrete time equation for logistic population growth is</p>
+<p><span class="math display">\[n(t + 1) = n(t) + r*n(t) [1 - n(t) / K]\]</span></p>
+<p>where n(t) is the population size at time t, r is the net per capita growth rate, and K is the carrying capacity of the habitat.</p>
+<p>To get started, write R expressions that do the following:</p>
+<ul>
+<li>1a. Create variables for <code>r</code>, <code>K</code>, and <code>n0</code>, setting these equal to 0.6, 100, and 10, respectively.</li>
+</ul>
+</div>
+<div id="commands-that-operate-on-things" class="section level3 hasAnchor" number="3.4.7">
+<h3><span class="header-section-number">3.4.7</span> Commands that operate on things<a href="key-programming-concepts.html#commands-that-operate-on-things" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Just storing data in variables isn’t much use to us. Right away, we’d like to start performing operations and manipulations on data and variables.</p>
+<p>There are three very common means of performing an operation on a
+thing.</p>
+<p>**Use an operator</p>
+<p>All of the basic math operators work like you think they should for
+numbers. They can also do some useful operations on other things, like characters.</p>
+<pre><code>[1] 5</code></pre>
+<pre><code>[1] 6</code></pre>
+<pre><code>[1] 8</code></pre>
+<pre><code>[1] 0.6666667</code></pre>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>**Use a function</p>
+<p>A function is a block of code with a specific input(s) and output. There are thousands of functions that operate on things.</p>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre><code>[1] 3</code></pre>
+<pre><code>[1] &quot;3.3 rounded is 3&quot;</code></pre>
+<p>To find out what a function does, type the <code>?</code> before the function
+name.</p>
+<pre><code>[1] 4.6</code></pre>
+<blockquote>
+<p><strong>Tip</strong>: Sometimes the R help can be pretty unhelpful. The best
+option then (or maybe before you even use the R help, is to Google
+it!). Here are a list of sites that we find very helpful:</p>
+</blockquote>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li><a href="http://stackoverflow.com/">Stack Overflow</a></li>
+<li><a href="http://r4ds.had.co.nz/">R for Data Science</a></li>
+</ol>
+</blockquote>
+<p>Many useful functions are in external packages and you need to install
+them and load them into the R environment. For example, what if we
+wanted to figure out how to do a negative binomial regression in R?</p>
+<pre><code>Loading required package: Matrix</code></pre>
+<p>Hmmm, that probably didn’t work for you because the function lives in an external package called <code>lme4</code>. We need to install package and then load the package.</p>
+<p>There are thousands of R packages with many useful functions and
+datasets! That is one of the huge advantages of R, everyone can
+contribute.</p>
+</div>
+<div id="question-2-using-operators-and-functions" class="section level3 hasAnchor" number="3.4.8">
+<h3><span class="header-section-number">3.4.8</span> Question 2: Using operators and functions<a href="key-programming-concepts.html#question-2-using-operators-and-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>2a. Create the variable <code>n1</code> (n at t=1) and calculate it’s value using the logistic growth equation Do the same for <code>n2</code> and <code>n3</code>.</li>
+</ul>
+<p>n(t + 1) = n(t) + r*n(t) [1 - n(t) / K]</p>
+<ul>
+<li><p>2b. Check the type of <code>n2</code> - what is it?</p></li>
+<li><p>2c. Modify your calculations for <code>n1</code>, <code>n2</code> and <code>n3</code> so that these values are rounded to the nearest integer (so no decimal places). If you have forgotten the name of the function that rounds numbers, try googling it (or look back at the lecture demo above). If you are unsure of the arguments to the function, check the help file using ?</p></li>
+</ul>
+</div>
+<div id="groups-of-things" class="section level3 hasAnchor" number="3.4.9">
+<h3><span class="header-section-number">3.4.9</span> Groups of things<a href="key-programming-concepts.html#groups-of-things" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Vectors 1D</strong>
+We can create groups of things with functions. A simple group is a vector, similar to a column of data.</p>
+<pre><code>[1] &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Friday&quot;   </code></pre>
+<pre><code>[1]  99.9 100.0  98.7  20.0</code></pre>
+<p><strong>Matrices 2D</strong></p>
+<p>All elements must be the same class. Matrices are great for storing the results of simulations (like what we will be doing today).</p>
+<pre><code>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,]    0    0    0    1    1    1    0    1    1     0
+ [2,]    1    0    0    1    1    0    1    1    1     0
+ [3,]    0    0    0    0    0    1    1    0    0     1
+ [4,]    0    0    0    1    1    1    1    0    0     1
+ [5,]    1    0    0    0    1    0    1    0    0     0
+ [6,]    0    1    0    0    1    0    1    1    1     0
+ [7,]    0    1    1    1    1    1    1    1    0     0
+ [8,]    0    1    0    0    1    1    0    0    1     1
+ [9,]    1    1    0    1    0    1    1    0    0     1
+[10,]    1    0    1    1    0    0    1    1    1     0</code></pre>
+<p><strong>Dataframes 2D</strong></p>
+<p>Dataframes can have columns of different classes. We will not be using dataframes today, but most data is stored in dataframes because data for a project is not either all numeric or characters.</p>
+<pre><code>[1] &quot;yes&quot; &quot;no&quot; </code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre><code>[1] 3.1 2.1</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<p><strong>Lists, N-dimensional</strong></p>
+<p>Lists can have components of different dimensions and classes. Dataframes are special lists where all the components are vectors with the same length. We will not be using these today but they may be relevant for your final projects because they are so flexible.</p>
+<pre><code>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,]    0    0    0    1    1    1    0    1    1     0
+ [2,]    1    0    0    1    1    0    1    1    1     0
+ [3,]    0    0    0    0    0    1    1    0    0     1
+ [4,]    0    0    0    1    1    1    1    0    0     1
+ [5,]    1    0    0    0    1    0    1    0    0     0
+ [6,]    0    1    0    0    1    0    1    1    1     0
+ [7,]    0    1    1    1    1    1    1    1    0     0
+ [8,]    0    1    0    0    1    1    0    0    1     1
+ [9,]    1    1    0    1    0    1    1    0    0     1
+[10,]    1    0    1    1    0    0    1    1    1     0</code></pre>
+<p>You can create an empty vector with <code>vector()</code>. (By default the mode
+is <code>logical</code>, but that can be changed to any class of thing you need).</p>
+<pre><code> [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</code></pre>
+<p>You can add elements to vectors as well using <code>c()</code></p>
+<pre><code>[1] 0 2</code></pre>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre><code> [1]  0  2  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>You can then look at specific things in the vector by specifying the <em>index</em></p>
+<pre><code>[1] 0</code></pre>
+<pre><code>[1] 2 1 2 3</code></pre>
+<pre><code>[1] 9</code></pre>
+<p>You can also make vectors of number sequences</p>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre><code> [1]  0.0000000  0.4166667  0.8333333  1.2500000  1.6666667  2.0833333
+ [7]  2.5000000  2.9166667  3.3333333  3.7500000  4.1666667  4.5833333
+[13]  5.0000000  5.4166667  5.8333333  6.2500000  6.6666667  7.0833333
+[19]  7.5000000  7.9166667  8.3333333  8.7500000  9.1666667  9.5833333
+[25] 10.0000000</code></pre>
+</div>
+<div id="question-3-storing-and-indexing-data" class="section level3 hasAnchor" number="3.4.10">
+<h3><span class="header-section-number">3.4.10</span> Question 3: Storing and indexing data<a href="key-programming-concepts.html#question-3-storing-and-indexing-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>3a. Create a vector where <code>n0</code>, <code>n1</code>, <code>n2</code> and <code>n3</code> are stored, instead of as separate individual variables by creating an empty vector using the syntax <code>n &lt;- vector("numeric", 4)</code>, and then assigning each index. You could get the same result using <code>c()</code>, but practice using <code>vector()</code> and indexing instead.</p></li>
+<li><p>3b. Get the first and last values in the vector, calculate their ratio, and print out “Grew by a factor of” followed by the result.</p></li>
+<li><p>3c. Extract the last value of your n vector in two different ways: first, by using the index for the last item in the vector, and second, with out “hard coding” the index and instead using a function to work out the index for the last element. HINT: the <code>length()</code> function may be useful.</p></li>
+</ul>
+</div>
+<div id="comparisons-and-booleans" class="section level3 hasAnchor" number="3.4.11">
+<h3><span class="header-section-number">3.4.11</span> Comparisons and Booleans<a href="key-programming-concepts.html#comparisons-and-booleans" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Comparison operators</strong>
+Comparison (also called logical) operators compare two things. This amounts to asking R a question</p>
+<ol style="list-style-type: decimal">
+<li><code>x &gt; y</code>: R, is x greater than y?</li>
+<li><code>x == y</code>: R, is x the same as y?</li>
+<li><code>x &lt;= y</code>: R, is x less than or equal to y?</li>
+<li><code>x &amp; y</code>: R, are both x and y <code>TRUE</code>?</li>
+<li><code>x | y</code>: R, is either x or y <code>TRUE</code>?</li>
+</ol>
+<p>R will either answer <code>TRUE</code> or <code>FALSE</code></p>
+<pre><code>[1] FALSE</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<pre><code>[1] &quot;logical&quot;</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<p>You can also use comparisons to subset vectors or matrices. This is called logical indexing. For example, let’s get an vector that only contains values greater than 2</p>
+<pre><code>[1] 1 2 3 4</code></pre>
+<pre><code>[1] 3 4</code></pre>
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8   10</code></pre>
+<pre><code>[1]  3  4  5  6  7  8  9 10</code></pre>
+<p><strong>Aggregating comparisons</strong></p>
+<pre><code> [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
+<pre><code>[1] 5</code></pre>
+</div>
+<div id="question-4-storing-data-and-logical-indexing" class="section level3 hasAnchor" number="3.4.12">
+<h3><span class="header-section-number">3.4.12</span> Question 4: Storing data and logical indexing<a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>4a. Pre-allocate an vector called n containing 100 blank space (i.e. 0s) as if we were going to fill in 100 time steps.</p></li>
+<li><p>4b. Imagine that each discrete time step actually represents 1 day. Create an vector <code>t</code> storing 100 time step from 2 to 100. For example, <code>t[1]</code> should be 2 <code>t[2]</code> should be 3, etc.</p></li>
+<li><p>4c. Use the logistic growth equation to fill in the first 5 elements of n by hand. Assume the initial population size at t=1 is 10.</p></li>
+</ul>
+<p>Logistic growth equation:
+n(t + 1) = n(t) + r*n(t)[1 - n(t) / K]</p>
+<p>Rather painful! Hard to imagine we could fill in the rest without making a mistake with our indexing. In the next Question of the lab we will learn how to repeat ourselves without copy-pasting like in the above.</p>
+<ul>
+<li>4d. Use logical indexing to extract the value of <code>n</code> corresponding to a <code>t</code> of 3.</li>
+</ul>
+</div>
+<div id="control-statements---for-repeating-yourself" class="section level3 hasAnchor" number="3.4.13">
+<h3><span class="header-section-number">3.4.13</span> Control statements - for (repeating yourself)<a href="key-programming-concepts.html#control-statements---for-repeating-yourself" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this section and the next, we really start to take advantage of the power of programming languages to do things for us automatically.</p>
+<p>We start here with ways to repeat yourself. For loops in R are useful when you want to cycle over all of the items in a collection (such as all of the elements of a vector).</p>
+<pre><code>[1] &quot;o *&quot;
+[1] &quot;x *&quot;
+[1] &quot;y *&quot;
+[1] &quot;g *&quot;
+[1] &quot;e *&quot;
+[1] &quot;n *&quot;</code></pre>
+<p>What is the value of char?</p>
+<pre><code>[1] &quot;n&quot;</code></pre>
+<p>You can sum a collection of numbers with a loop (though this could be more quickly done using a <code>sum()</code>, but just for example purposes.</p>
+<pre><code>[1] 85</code></pre>
+<p>We often want to loop over indexes of collections</p>
+<pre><code>[1] 1 2 3</code></pre>
+<pre><code>[1] &quot;hi&quot;
+[1] &quot;hello&quot;
+[1] &quot;bye&quot;</code></pre>
+<p>Once we start looping through large numbers of values it is often better to plot the data. We will cover this in much more detail next week, but here is a quick example.</p>
+<p><img src="02-key-programming-concepts_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+</div>
+<div id="question-5-using-loops-to-repeat-calculations" class="section level3 hasAnchor" number="3.4.14">
+<h3><span class="header-section-number">3.4.14</span> Question 5: Using loops to repeat calculations<a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Exciting next step, let’s get smart about our calculations of <code>nt</code>. Building on what you did in Question 5, do the following:</p>
+<ul>
+<li><p>5a. Write a for loop to fill in the values of <code>nt</code> for 100 time steps. Loop over the values of the t, and use each step vector to index the vector <code>n</code>. (Why does the t vector start at 2 and not at 1?)</p></li>
+<li><p>5b. Plot the vector <code>n</code>. HINT: You will want t to start at 1 for the plot so it can include n(1) which we set above but did not include in the for loop because you need to start with an initial population before growing logistically.</p></li>
+<li><p>5c. Play around with the values of <code>r</code> and <code>K</code> and see how it changes the plot. What happens if you set <code>r</code> to 1.9?</p></li>
+<li><p>5d. What happens if you set <code>r</code> to 3?</p></li>
+</ul>
+</div>
+<div id="control-statements---if-making-choices" class="section level3 hasAnchor" number="3.4.15">
+<h3><span class="header-section-number">3.4.15</span> Control statements - if (making choices)<a href="key-programming-concepts.html#control-statements---if-making-choices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Often we want to check if a condition is <code>TRUE</code> and take one action if it is, and another action if the condition is <code>FALSE</code>. We can achieve this in R with an if statement.</p>
+<p>You can use any expression that returns a boolean value (<code>TRUE</code> or <code>FALSE</code>) in an if statement.</p>
+<p><strong>if and else</strong></p>
+<pre><code>[1] &quot;not greater&quot;</code></pre>
+<pre><code>[1] &quot;done&quot;</code></pre>
+<p>Conditional statements don’t have to include an else. If there isn’t one, R simply does nothing if the test is FALSE.</p>
+<pre><code>[1] &quot;before conditional...&quot;</code></pre>
+<pre><code>[1] &quot;107  is greater than 100&quot;</code></pre>
+<pre><code>[1] &quot;...after conditional&quot;</code></pre>
+<p>We can also chain several tests together using else if{}
+The following R code uses else if to print the sign of a number.</p>
+<pre><code>[1] &quot;42 is positive&quot;</code></pre>
+<pre><code>[1] &quot;all done&quot;</code></pre>
+<p>We can also combine tests using and and (&amp;) or (|). and is only true if both Questions are TRUE:</p>
+<pre><code>[1] &quot;at least one Question is false&quot;</code></pre>
+<p>Or TRUE if one or the other Question is TRUE:</p>
+<pre><code>[1] &quot;at least one test is true&quot;</code></pre>
+</div>
+<div id="question-6-making-the-model-stochastic-with-an-if-statement" class="section level3 hasAnchor" number="3.4.16">
+<h3><span class="header-section-number">3.4.16</span> Question 6: Making the model stochastic with an if statement<a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s introduce some element of randomness into our logistic growth model to better represent nature. We’ll model a simple “catastrophe” process, in which a catastrophe happens in 10% of the time steps that reduces the population back down to the size at n0. For example, the bees in our meadow have some probability of being sprayed by herbicide that drifts from nearby timber plantations which would kill individuals directly and through starvation (no flowers left). Build on your code from Question 4 into the box below, and do the following:</p>
+<ul>
+<li><p>6a. Create a variable called <code>cata</code>, for catastrophe, that will be <code>TRUE</code> if a catastrophe has occurred, and <code>FALSE</code> if it hasn’t. A simple way to do this is to generate a random number using <code>runif(1)</code> (draw from a uniform 0,1 distribution once, see ?runif), which will give you a random number between 0 and 1. Check whether this number is less than 0.1 - this check will be <code>TRUE</code> 10% of the time.</p></li>
+<li><p>6b. Using your logical variable <code>cata</code>, add an if statement to your for loop that checks whether <code>cata</code> is true in each time step. If it is true, set the population back to the size at n[0]. Otherwise, perform the usual logistic growth calculation.
+HINT: <code>cata</code> will need to be within the for loop so it change values each iteration.</p></li>
+<li><p>6c. Plot your results. Run the code again to see a different growth trajectory.</p></li>
+</ul>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Now that you have the vector <code>n</code>, count the number of time steps in which the population was above 50. Although you can do this with a for loop (loop through each value of <code>nt</code>, check if it is &gt; 50, and if so increment a counter), you can do this in one line with a simple logical operation. HINT: If you take the sum of a logical vector (using <code>sum()</code>), it will give you the number of <code>TRUE</code> values (since a <code>TRUE</code> is considered to be a 1, and False is a 0).</li>
+</ol>
+</div>
+<div id="creating-chunks" class="section level3 hasAnchor" number="3.4.17">
+<h3><span class="header-section-number">3.4.17</span> Creating chunks<a href="key-programming-concepts.html#creating-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Writing functions</strong>
+One way to write a program is to simply string together commands, like the ones described above, in a long file, and then to run that file to generate your results. This may work, but it can be cognitively difficult to follow the logic of programs written in this style. Also, it does not allow you to reuse your code easily - for example, what if we wanted to run our logistic growth model for several different choices of initial parameters?</p>
+<p>The most important ways to “chunk” code into more manageable pieces is to create functions and then to gather these functions into modules, and eventually packages The R packages that you download from CRAN essentially contain collections of functions, though they also contain datasets and high level chunks called objects. Below we will discuss how to create functions in R. Functions are good for making code more <strong>reusable</strong>, <strong>readable</strong>, and <strong>maintainable</strong>.</p>
+<p>We can create a function to do whatever we like. We need to give it a same, define its inputs (arguments) and its outputs (return expression).</p>
+<pre><code>[1] 99</code></pre>
+<p>Another example:</p>
+<p>A function has a few crucial Questions</p>
+<ol style="list-style-type: decimal">
+<li>A name (<code>fahr_to_celsius</code>)</li>
+<li>Arguments (<code>temp</code>)</li>
+<li>A return value (<code>celsius</code>). One feature unique to R is that the return statement is not required. R automatically returns whichever variable is on the last line of the body of the function. But, is it makes it much easier to understand a function if a return statement is defined explicitly so its best practice to include one.</li>
+</ol>
+<p>Next, we get to use the function. You pass in <em>arguments</em> to the function.</p>
+<pre><code>[1] 0</code></pre>
+<pre><code>[1] 100</code></pre>
+<p>You <strong>always</strong> want to document your function to describe what it does. You can do that with comments. Use full sentences and describe the inputs and outputs.</p>
+<p>Functions can also have default parameters, which don’t need to be passed as arguments when the function is called. Beginning with a function with no defaults:</p>
+<pre><code>[1] &quot;Good afternoon friends&quot;</code></pre>
+<p>What happens when you try this</p>
+<p>You must pass in two arguments because that is how you defined the function! If we were writing a function many people might use, we would want to check the inputs were correct (known as “defensive programming”) instead of letting R throw an error.
+Let’s now give <code>people</code> a default value. In the example below, people will now have the value of <code>world</code> unless we explicitly specify otherwise.</p>
+<pre><code>[1] &quot;Good afternoon world&quot;</code></pre>
+<pre><code>[1] &quot;Good afternoon students&quot;</code></pre>
+</div>
+<div id="question-7-creating-a-logistic-growth-function" class="section level3 hasAnchor" number="3.4.18">
+<h3><span class="header-section-number">3.4.18</span> Question 7: Creating a logistic growth function<a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>7a. Finally, let’s turn our logistic growth model into a function that we can use over and over again. Let’s start with writing a function to calculate n(t+1). It should take n(t), r, and K as agrguments and return n(t+1).</li>
+</ul>
+<p>Reminder of the logistic growth equation:
+n(t + 1) = n(t) + r*n(t) [1 - n(t) / K]</p>
+<ul>
+<li><p>7b. Create function called <code>logistic_growth</code> that takes four arguments: <code>r</code>, <code>K</code>, <code>n0</code>, <code>p</code> (the probability of a catastrophe), and nsteps (the length of the t vector). Make <code>p</code> a default argument with a default value of 0.1. Have your function recreate your answer for question 7b above (simulate a catastrophe, grow the population if no catastrope occurs). Have your function return the <code>n</code> and <code>t</code> matrix.</p></li>
+<li><p>7c. Write a nice comment describing what your function does. In addition, use comments with full sentences to describe the intention of each section of code.</p></li>
+<li><p>7d. Call your function with different values of the parameters to make sure it works.</p></li>
+</ul>
+<p>Store the returned results and make a plot from it.</p>
+<ul>
+<li>7e. Explore different values of p and see how it changes the trajectory. Describe what happens.
+ANSWER: ….</li>
+</ul>
+</div>
+<div id="question-8-extra-credit-or-graduate-students" class="section level3 hasAnchor" number="3.4.19">
+<h3><span class="header-section-number">3.4.19</span> Question 8 (Extra credit or graduate students)<a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>** Analyze and simulate a discrete-time predator–prey system.
+1) simulate dynamics for two parameter sets,
+2) visualize trajectories in time</p>
+<p>We use logistic prey growth, a linear functional response, and linear predator mortality:
+<span class="math display">\[
+\begin{aligned}
+N_{t+1} &amp;= N_t + r\,N_t\left(1-\frac{N_t}{K}\right) - a\,N_t P_t,\\
+P_{t+1} &amp;= P_t + e\,a\,N_t P_t - m\,P_t,
+\end{aligned}
+\]</span>
+where <span class="math inline">\(N_t\)</span> = prey abundance, <span class="math inline">\(P_t\)</span> = predator abundance, and parameters <span class="math inline">\(r,K,a,e,m&gt;0\)</span>.</p>
+</div>
+<div id="simulate-visualize-baseline" class="section level3 hasAnchor" number="3.4.20">
+<h3><span class="header-section-number">3.4.20</span> Simulate &amp; visualize (baseline)<a href="key-programming-concepts.html#simulate-visualize-baseline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>8a: Use the parameter set below and initial conditions <span class="math inline">\(N_0=100,\;P_0=20\)</span>. Simulate for <span class="math inline">\(T=200\)</span> steps. Make a time-series plot of <span class="math inline">\(N_t\)</span> and <span class="math inline">\(P_t\)</span></p></li>
+<li><p>8b: Repeat the simulation with <strong>higher predator mortality</strong> <span class="math inline">\(m=0.28\)</span> (others unchanged). Compare the dynamics to part (a) including the visualization.</p></li>
+<li><p>8c: What phenomenon of predator-prey dynamics does this illustrate?</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="syllabus.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

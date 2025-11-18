@@ -1,0 +1,34 @@
+## Demo: Calculating network metrics and using null models
+
+```{r}
+data(Safariland)
+net <- Safariland
+
+# Selected metrics
+networklevel(net, index=c("connectance","H2","nestedness","modularity"))
+
+# Species roles
+specieslevel(net, index=c("degree","d"))
+
+# Null-model standardized nestedness
+
+oecosimu(net, function(x) nestedtemp(x,"NODF")$statistic,
+         method="quasiswap", nsimul=999)
+```
+
+Interpretation tips: high \(H_2'\) means **specialized** interactions; high NODF indicates **nested** structure; high \(Q\) implies **modules** (compartments).
+
+Now to standardize using null models.
+
+```{r}
+# NODF standardized with constrained nulls
+obs <- networklevel(net, index="nestedness")
+
+set.seed(1)
+# vegan's oecosimu framework with quasiswap (fixed row & column sums)
+null_fun <- function(x) vegan::nestedtemp(x, "NODF")$statistic
+oecosimu(net>0, null_fun,
+         method = "quasiswap", nsimul = 1000)  # Miklós & Podani 2004
+```
+
+

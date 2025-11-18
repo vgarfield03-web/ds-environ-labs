@@ -1,0 +1,107 @@
+# Key Programming Concepts
+
+## Lecture summary
+
+This chapter builds a foundation for writing clear, reliable R code you can reuse across labs and projects. In lab we will practice these skills and discuss the weekly reading, Alston et al. 2020. A Beginner's Guide to Conducting Reproducible Research.
+
+###  Learning objectives
+
+By the end of this chapter, you will be able to:
+
+- Distinguish **objects**, **functions**, and **expressions** in R, and use assignment idioms confidently.
+- Work with core **data structures** (vectors, matrices/arrays, lists, and data frames) and explain when to use each.
+- Use **control flow** (`if`, `for`) and the **apply** family to write clear, vectorized code.
+- Write and call **functions** with arguments and return values; document intent with informative names.
+- Perform basic **Boolean logic** and use logical indexing for subsetting.
+- Read R help, search effectively, and follow reproducible coding practices you’ll build on all term.
+
+###  Why programming concepts matter
+
+Across languages, programming is built from a small set of ideas that you will reuse constantly. Greg Wilson (Software Carpentry) popularized a helpful list of seven: 
+
+1.  Individual things (the number 2, the character 'hello')
+2.  Commands that operate on things (the + symbol, the `length` function)
+3.  Groups of things (R vectors, matrices, lists, dataframes, and arrays)
+4.  Ways to repeat yourself (for and while loops, apply functions)
+5.  Ways to make choices (if and try statements)
+6.  Ways to create chunks (functions, objects/classes, and packages)
+7.  Ways to combine chunks (piping) 
+
+In this course we focus on doing these in **R** for ecological and conservation data.
+
+###  Objects and basic types
+
+In R, everything you create is an **object** that lives in your Global Environment. Objects have **classes** (e.g., numeric, integer, character), and functions behave differently depending on the class. Numbers come in two common flavors: `integer` and `numeric`. Numerics have very high—but finite—precision (about 15–16 decimal places). Text is stored as **character** strings, e.g., `"hello world"`.
+
+
+###  Assignments vs. expressions
+
+An **expression** *is* a thing; a **statement** *does* a thing. In R, you bind a name to a value with the assignment arrow: `hours_per_wk <- 168`. Read that as “make `hours_per_wk` refer to 168,” not as a math equation.
+
+
+###  Functions and operators
+
+A **function** is a reusable action you call by name, like `max(15, 27)`. Functions take **arguments** and often **return** a value. Many mathematical symbols are just functions in disguise (operators), e.g., `x + y` calls the `+` function. You can and should write your own functions to package work you do often.
+
+
+###  Core data structures
+
+You will manipulate collections of values constantly:
+
+- **Vector**: a one-dimensional sequence where every element has the same class. Arithmetic is *vectorized*—it applies element-by-element.
+- **Matrix**: a 2-D array (rows × columns) of a single class.
+- **Array**: the N-D generalization of a matrix.
+- **Data frame**: a table whose columns can be different classes but must all be the same length. Each row is an observation; each column is a variable.
+- **List**: an ordered bag of components that can be different sizes and classes. A data frame is a special kind of list where all components are equal length.
+
+###  Comparisons and boolean logic
+
+Comparisons produce **logical** values: `TRUE` or `FALSE`. Operators include `>`, `>=`, `==` (equal), and `!=` (not equal); combine them with `&` (and) or `|` (or). Logical vectors are powerful: `sum(c(TRUE, FALSE, TRUE))` returns 2 because `TRUE` is 1 and `FALSE` is 0. 
+
+
+###  Control flow: `if` and `for`
+
+Control statements direct the path of your code. Use `if (...) { ... } else { ... }` to make choices, and `for (name in collection) { ... }` to repeat work for each element. Indentation isn’t required by R, but using it makes your intent clear. 
+
+
+###  The *apply* family (vectorized repetition)
+
+Many tasks that could be written with `for` loops are more concise and often faster with the *apply* family: `apply()` (arrays/matrices), `lapply()` (returns a list), `sapply()` (simplifies when possible), `mapply()` (multiple inputs), and `mclapply()` (parallel). Each takes a `FUN` argument—the function to apply to each element. 
+
+
+###  Writing your own functions
+
+Encapsulate a task by defining a function:
+
+```r
+spread <- function(values) {
+  out <- max(values) - min(values)
+  return(out)
+}
+```
+
+Well-named functions make analysis pipelines clearer, easier to test, and reusable. 
+
+
+###  Combining steps with pipes
+
+Pipes let you express “do X, then Y, then Z” by chaining operations. We will pipe `%>%` from the tidyverse. You’ll see more next week when we start building data-wrangling workflows. 
+
+
+###  R vs. Python: a quick orientation
+
+R emerged from statistics; Python from computer science. Both are open-source and widely used in data work. We’ll use R throughout this course, but the concepts above transfer between languages. 
+
+An annoying difference Python users will struggle with at first: in R, the syntax for calling a **function** and a **method** looks the same (because most things are functions), whereas Python distinguishes `data.plot` from `plot(data)`. 
+
+```{r child="demos/01-demo-fundamentals.Rmd", echo=FALSE, error=TRUE}
+```
+
+```{r child="demos/02-demo-exponential-growth.Rmd", echo=FALSE, error=TRUE}
+```
+
+```{r child="readings/02-reading.Rmd", echo=FALSE, error=TRUE}
+```
+
+```{r child="labs/02-lab_populations_student.Rmd", echo=FALSE, error=TRUE}
+```

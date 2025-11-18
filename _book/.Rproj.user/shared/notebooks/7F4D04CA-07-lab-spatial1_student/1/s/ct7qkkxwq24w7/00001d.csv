@@ -1,0 +1,5 @@
+"0","holiday_sum <- freq(holiday_rast)"
+"0","beachie_sum <- freq(beachie_rast)"
+"0","terwilliger_sum <- freq(terwilliger_rast)"
+"0",""
+"0","holiday_sum"

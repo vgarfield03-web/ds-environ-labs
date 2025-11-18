@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Using “The Tidyverse” for data manipulation and visualization | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="4 Using “The Tidyverse” for data manipulation and visualization | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Using “The Tidyverse” for data manipulation and visualization | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Using “The Tidyverse” for data manipulation and visualization | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="key-programming-concepts.html"/>
+<link rel="next" href="simulation-based-hypothesis-testing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth"><i class="fa fa-check"></i><b>3.2</b> Demo: Exponential Population Growth</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.2.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.2.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.2.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.2.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.3</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.3.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.4</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.4.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.4.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.4.3</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.4.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.4.4</b> Individual things</a></li>
+<li class="chapter" data-level="3.4.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.4.5</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.4.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.4.6</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.4.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.4.7</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.4.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.4.8</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.4.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.4.9</b> Groups of things</a></li>
+<li class="chapter" data-level="3.4.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.4.10</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.4.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.4.11</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.4.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.4.12</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.4.13" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.4.13</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.4.14" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.4.14</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.4.15" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.4.15</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.4.16" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.4.16</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.4.17" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.4.17</b> Creating chunks</a></li>
+<li class="chapter" data-level="3.4.18" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.4.18</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.4.19" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.4.19</b> Question 8 (Extra credit or graduate students)</a></li>
+<li class="chapter" data-level="3.4.20" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-visualize-baseline"><i class="fa fa-check"></i><b>3.4.20</b> Simulate &amp; visualize (baseline)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="03-tidyverse-intro.html"><a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="03-tidyverse-intro.html"><a href="#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="03-tidyverse-intro.html"><a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.7</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.3.2</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.3.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.3.3</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.3.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-joining-data"><i class="fa fa-check"></i><b>5.3.4</b> Question 2: Joining data</a></li>
+<li class="chapter" data-level="5.3.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-3-1"><i class="fa fa-check"></i><b>5.3.5</b> Question 3</a></li>
+<li class="chapter" data-level="5.3.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.3.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.3.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.3.7</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.3.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-5"><i class="fa fa-check"></i><b>5.3.8</b> Lab Question 5</a></li>
+<li class="chapter" data-level="5.3.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.3.9</b> Question 6</a></li>
+<li class="chapter" data-level="5.3.10" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.3.10</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.3.11" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-7"><i class="fa fa-check"></i><b>5.3.11</b> Question 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#reading-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> Reading — Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-questions-week-2"><i class="fa fa-check"></i><b>6.2.2</b> Discussion Questions (Week 2)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-5-question-1"><i class="fa fa-check"></i><b>6.3</b> Lab 5 Question 1</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2a-partners"><i class="fa fa-check"></i><b>6.3.1</b> Question 2a (partners)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2b-solo-project"><i class="fa fa-check"></i><b>6.3.2</b> Question 2b (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.2</b> Linear‑algebra essentials for ecological networks</a></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.3</b> From data to networks</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#empirical-construction"><i class="fa fa-check"></i><b>7.3.1</b> Empirical construction</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ecological-networks.html"><a href="ecological-networks.html#common-network-types"><i class="fa fa-check"></i><b>7.3.2</b> Common network types</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-building-networks"><i class="fa fa-check"></i><b>7.4</b> Demo: Building networks</a></li>
+<li class="chapter" data-level="7.5" data-path="ecological-networks.html"><a href="ecological-networks.html#networks-from-dynamic-systems-models"><i class="fa fa-check"></i><b>7.5</b> Networks from dynamic systems models</a></li>
+<li class="chapter" data-level="7.6" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.6</b> Core network properties (formulas, intuition, tools)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="ecological-networks.html"><a href="ecological-networks.html#nestedness-nodf"><i class="fa fa-check"></i><b>7.6.1</b> Nestedness (NODF)</a></li>
+<li class="chapter" data-level="7.6.2" data-path="ecological-networks.html"><a href="ecological-networks.html#modularity-q"><i class="fa fa-check"></i><b>7.6.2</b> Modularity <span class="math inline">\(Q\)</span></a></li>
+<li class="chapter" data-level="7.6.3" data-path="ecological-networks.html"><a href="ecological-networks.html#specialization-h_2-network-and-d-species"><i class="fa fa-check"></i><b>7.6.3</b> Specialization <span class="math inline">\(H_2&#39;\)</span> (network) and <span class="math inline">\(d&#39;\)</span> (species)</a></li>
+<li class="chapter" data-level="7.6.4" data-path="ecological-networks.html"><a href="ecological-networks.html#connectance"><i class="fa fa-check"></i><b>7.6.4</b> Connectance</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="ecological-networks.html"><a href="ecological-networks.html#species-roles"><i class="fa fa-check"></i><b>7.7</b> Species roles</a></li>
+<li class="chapter" data-level="7.8" data-path="ecological-networks.html"><a href="ecological-networks.html#null-models-for-fair-comparisons"><i class="fa fa-check"></i><b>7.8</b> Null models for fair comparisons</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="ecological-networks.html"><a href="ecological-networks.html#families-of-null-models"><i class="fa fa-check"></i><b>7.8.1</b> Families of null models</a></li>
+<li class="chapter" data-level="7.8.2" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-null-models"><i class="fa fa-check"></i><b>7.8.2</b> Demo: Null models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-pollination"><i class="fa fa-check"></i><b>7.9</b> Demo: Calculating network metrics (pollination)</a></li>
+<li class="chapter" data-level="7.10" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-network-basics-in-r"><i class="fa fa-check"></i><b>7.10</b> Demo — Network Basics in R</a></li>
+<li class="chapter" data-level="7.11" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.11</b> Demo: Create a graph from OBA data, visualize it</a></li>
+<li class="chapter" data-level="7.12" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.12</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.13" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.13</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.14" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.14</b> Further reading &amp; software</a></li>
+<li class="chapter" data-level="7.15" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.15</b> References</a></li>
+<li class="chapter" data-level="7.16" data-path="ecological-networks.html"><a href="ecological-networks.html#yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.16</b> Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.16.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.16.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.16.2" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-questions"><i class="fa fa-check"></i><b>7.16.2</b> Discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.17" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.17</b> Lab — Food Webs &amp; Network Measures (Student Version)</a></li>
+<li class="chapter" data-level="7.18" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.18</b> Lesson Overview</a>
+<ul>
+<li class="chapter" data-level="7.18.1" data-path="ecological-networks.html"><a href="ecological-networks.html#computational-topics"><i class="fa fa-check"></i><b>7.18.1</b> Computational Topics</a></li>
+<li class="chapter" data-level="7.18.2" data-path="ecological-networks.html"><a href="ecological-networks.html#conservation-topics"><i class="fa fa-check"></i><b>7.18.2</b> Conservation topics</a></li>
+</ul></li>
+<li class="chapter" data-level="7.19" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.19</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.20" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.20</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.21" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.21</b> Lab question 3: Visualize the networks</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="using-the-tidyverse-for-data-manipulation-and-visualization" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Using “The Tidyverse” for data manipulation and visualization<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#using-the-tidyverse-for-data-manipulation-and-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lecture-summary-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Lecture summary<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter introduces the Tidyverse as a coherent grammar for data—wrangling with dplyr (<code>filter()</code>, <code>select()</code>, <code>mutate()</code>, <code>summarise()</code>, <code>group_by()</code>), reshaping with tidyr (<code>pivot_longer()</code>, <code>pivot_wider()</code>), joining relational tables, and visualizing with <code>ggplot2</code>. We build readable pipelines with the pipe, emphasize tidy data principles, and handle factors, dates, and missing values thoughtfully. In lab, we apply these tools to climate indicators (Mauna Loa CO₂, global temperature, sea ice extent, Antarctic mass), cleaning and merging heterogeneous files, pivoting wide↔︎long, computing windowed averages, and producing plots that separate trend, seasonality, and noise. We will read Trisos et al., 2021 Decoloniality and anti-oppressive practices for a more ethical ecology, considering how equitable research practices inform our data workflows and collaboration.</p>
+<div id="learning-objectives-1" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Learning Objectives<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Describe the key components of the Tidyverse and how they integrate for data analysis.</li>
+<li>Apply <code>dplyr</code> verbs for wrangling: <code>filter()</code>, <code>select()</code>, <code>mutate()</code>, <code>summarise()</code>, and <code>group_by()</code>.</li>
+<li>Reshape data between wide and long formats using <code>tidyr</code> (<code>pivot_longer()</code>, <code>pivot_wider()</code>).</li>
+<li>Create and customize visualizations with <code>ggplot2</code> (geoms, aesthetics, faceting, scales, themes).</li>
+<li>Combine datasets using joins in <code>dplyr</code> and choose appropriate join types for analysis goals.</li>
+<li>Interpret tidy summaries and plots to inform exploratory data analysis.</li>
+</ul>
+<blockquote>
+<p>If chunks don’t run, install the meta-package: <code>install.packages("tidyverse")</code></p>
+</blockquote>
+</div>
+</div>
+<div id="demo-introduction-to-the-tidyverse" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Demo: Introduction to the Tidyverse<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>tidyverse</strong> is a family of packages for modern data science in R. Loading the meta‑package attaches the most common tools (ggplot2, dplyr, tidyr, readr, tibble, stringr, forcats, purrr).</p>
+<div id="data-wrangling" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Data wrangling<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Core verbs from <strong>dplyr</strong> operate on tibbles and return new tibbles.
+<em>What we’re doing.</em> Below we practice core dplyr verbs on the <strong>CO₂</strong> monthly series:</p>
+<ul>
+<li><code>select()</code>/<strong><code>rename()</code></strong> to keep/rename a minimal set of columns, rename some</li>
+<li><code>filter()</code>/<code>arrange()</code> to restrict to years post‑2000 months and find the highest 5 values</li>
+<li><code>mutate()</code> to add derived features we’ll use later.</li>
+</ul>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb74-1" tabindex="-1"></a><span class="co"># Select columns we are interested in and rename average for clarity </span></span>
+<span id="cb74-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb74-2" tabindex="-1"></a>co2_sub <span class="ot">&lt;-</span> co2_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb74-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb74-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(date, year, month, average) <span class="sc">%&gt;%</span></span>
+<span id="cb74-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb74-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">avg_ppm =</span> average)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb75-1" tabindex="-1"></a><span class="co"># Filter to 200+ with valid values; list the 5 highest months</span></span>
+<span id="cb75-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb75-2" tabindex="-1"></a>co2_top <span class="ot">&lt;-</span> co2_sub <span class="sc">%&gt;%</span></span>
+<span id="cb75-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb75-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2000</span>, <span class="sc">!</span><span class="fu">is.na</span>(avg_ppm)) <span class="sc">%&gt;%</span></span>
+<span id="cb75-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb75-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(avg_ppm)) <span class="sc">%&gt;%</span></span>
+<span id="cb75-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb75-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb75-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb75-6" tabindex="-1"></a>co2_top</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 4
+##   date        year month avg_ppm
+##   &lt;date&gt;     &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 2025-05-01  2025     5    431.
+## 2 2025-04-01  2025     4    430.
+## 3 2025-06-01  2025     6    430.
+## 4 2025-03-01  2025     3    428.
+## 5 2025-07-01  2025     7    428.</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-1" tabindex="-1"></a><span class="co"># Add derived columns: month name, monthly change, and decade</span></span>
+<span id="cb77-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-2" tabindex="-1"></a><span class="co"># R has a built in constant month.abb vector of the abbreviated month names.</span></span>
+<span id="cb77-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-3" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-4" tabindex="-1"></a>co2_enriched <span class="ot">&lt;-</span> co2_sub <span class="sc">%&gt;%</span></span>
+<span id="cb77-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb77-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-6" tabindex="-1"></a>    <span class="at">month_name =</span> month.abb[month],</span>
+<span id="cb77-7"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-7" tabindex="-1"></a>    <span class="at">delta =</span> avg_ppm <span class="sc">-</span> dplyr<span class="sc">::</span><span class="fu">lag</span>(avg_ppm),</span>
+<span id="cb77-8"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-8" tabindex="-1"></a>    <span class="at">decade =</span> <span class="fu">paste0</span>(<span class="fu">floor</span>(year<span class="sc">/</span><span class="dv">10</span>)<span class="sc">*</span><span class="dv">10</span>, <span class="st">&quot;s&quot;</span>)</span>
+<span id="cb77-9"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb77-10"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-10" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">relocate</span>(decade, <span class="at">.before =</span> year)</span>
+<span id="cb77-11"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-11" tabindex="-1"></a></span>
+<span id="cb77-12"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb77-12" tabindex="-1"></a><span class="fu">head</span>(co2_enriched)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   date       decade  year month avg_ppm month_name   delta
+##   &lt;date&gt;     &lt;chr&gt;  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1 1958-03-01 1950s   1958     3    316. Mar        NA     
+## 2 1958-04-01 1950s   1958     4    317. Apr         1.74  
+## 3 1958-05-01 1950s   1958     5    318. May         0.0600
+## 4 1958-06-01 1950s   1958     6    317. Jun        -0.240 
+## 5 1958-07-01 1950s   1958     7    316. Jul        -1.40  
+## 6 1958-08-01 1950s   1958     8    315. Aug        -0.940</code></pre>
+<div id="reshaping-data-with-tidyr-from-wide-to-long-and-back" class="section level4 hasAnchor" number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> Reshaping Data with tidyr — From Wide to Long and Back<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reshaping-data-with-tidyr-from-wide-to-long-and-back" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Go from wide → long to make a tidy “series” column
+Why: Most plotting and grouped summaries are easier when all measurements live in a single value column with a label telling you which measurement it is.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-1" tabindex="-1"></a>co2_long <span class="ot">&lt;-</span> co2_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-2" tabindex="-1"></a>  <span class="fu">select</span>(date, year, month, average, interpolated, trend) <span class="sc">%&gt;%</span></span>
+<span id="cb79-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb79-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-4" tabindex="-1"></a>    <span class="fu">c</span>(average, interpolated, trend),</span>
+<span id="cb79-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-5" tabindex="-1"></a>    <span class="at">names_to  =</span> <span class="st">&quot;series&quot;</span>,</span>
+<span id="cb79-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;ppmv&quot;</span></span>
+<span id="cb79-7"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-7" tabindex="-1"></a>  )</span>
+<span id="cb79-8"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-8" tabindex="-1"></a></span>
+<span id="cb79-9"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb79-9" tabindex="-1"></a><span class="fu">head</span>(co2_long)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##   date        year month series        ppmv
+##   &lt;date&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1 1958-03-01  1958     3 average       316.
+## 2 1958-03-01  1958     3 interpolated  314.
+## 3 1958-03-01  1958     3 trend          -1 
+## 4 1958-04-01  1958     4 average       317.
+## 5 1958-04-01  1958     4 interpolated  315.
+## 6 1958-04-01  1958     4 trend          -1</code></pre>
+<p>What this did: Stacked average, interpolated, and trend into one column ppmv, with a companion label series telling you which it was on each row.</p>
+<p>Next, summarize by year, then long → wide for easy comparison
+Why: Sometimes you want one column per series so you can compare or compute differences directly (e.g., average - trend).</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-1" tabindex="-1"></a>co2_yearly_wide <span class="ot">&lt;-</span> co2_long <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ppmv)) <span class="sc">%&gt;%</span></span>
+<span id="cb81-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-3" tabindex="-1"></a>  <span class="fu">group_by</span>(year, series) <span class="sc">%&gt;%</span></span>
+<span id="cb81-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ppm =</span> <span class="fu">mean</span>(ppmv), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb81-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-5" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb81-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-6" tabindex="-1"></a>    <span class="at">names_from  =</span> series,      <span class="co"># columns: average, interpolated, trend</span></span>
+<span id="cb81-7"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-7" tabindex="-1"></a>    <span class="at">values_from =</span> mean_ppm</span>
+<span id="cb81-8"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-8" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb81-9"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-9" tabindex="-1"></a>  <span class="fu">arrange</span>(year)</span>
+<span id="cb81-10"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-10" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb81-11" tabindex="-1"></a><span class="fu">head</span>(co2_yearly_wide)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##    year average interpolated trend
+##   &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;
+## 1  1958    315.         315.    -1
+## 2  1959    316.         316.    -1
+## 3  1960    317.         317.    -1
+## 4  1961    318.         318.    -1
+## 5  1962    318.         318.    -1
+## 6  1963    319.         319.    -1</code></pre>
+<p>What this did: Calculated annual means for each series, then spread them into separate columns so each row is a year with average, interpolated, and trend side-by-side.</p>
+<p>Build compact keys with unite(), then recover fields with separate()
+Why: It’s common to create an ID like “YYYY-MM” for joins or labeling, then later split it back into usable numeric pieces.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb83-1" tabindex="-1"></a><span class="co"># Make a compact &quot;year-month&quot; key</span></span>
+<span id="cb83-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb83-2" tabindex="-1"></a>co2_ym <span class="ot">&lt;-</span> co2_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb83-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb83-3" tabindex="-1"></a>  <span class="fu">transmute</span>(year, month, <span class="at">avg_ppm =</span> average) <span class="sc">%&gt;%</span></span>
+<span id="cb83-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb83-4" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">&quot;ym&quot;</span>, year, month, <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb83-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb83-5" tabindex="-1"></a></span>
+<span id="cb83-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb83-6" tabindex="-1"></a><span class="fu">head</span>(co2_ym)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   ym      year month avg_ppm
+##   &lt;chr&gt;  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 1958-3  1958     3    316.
+## 2 1958-4  1958     4    317.
+## 3 1958-5  1958     5    318.
+## 4 1958-6  1958     6    317.
+## 5 1958-7  1958     7    316.
+## 6 1958-8  1958     8    315.</code></pre>
+<p>What this did: Created a ym key like “1988-07” while keeping year/month (because remove = FALSE).</p>
+<p>Split the key back out:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb85-1" tabindex="-1"></a><span class="co"># convert=TRUE turns strings into numbers</span></span>
+<span id="cb85-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb85-2" tabindex="-1"></a>co2_ym_split <span class="ot">&lt;-</span> co2_ym <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb85-3" tabindex="-1"></a>  <span class="fu">separate</span>(ym, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;year2&quot;</span>, <span class="st">&quot;month2&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb85-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb85-4" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb85-5" tabindex="-1"></a><span class="fu">head</span>(co2_ym_split)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##   year2 month2  year month avg_ppm
+##   &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1  1958      3  1958     3    316.
+## 2  1958      4  1958     4    317.
+## 3  1958      5  1958     5    318.
+## 4  1958      6  1958     6    317.
+## 5  1958      7  1958     7    316.
+## 6  1958      8  1958     8    315.</code></pre>
+<p>What this did: Recovered year2 / month2 as numeric columns (handy if the key came from somewhere else and you need the parts back).</p>
+</div>
+</div>
+<div id="data-visualization" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Data visualization<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>What we’re doing.</em> We’ll visualize the CO₂ series in two ways:
+- a <strong>line plot</strong> of monthly CO₂ over time, and
+- a <strong>histogram of monthly change</strong> (<code>delta</code>) faceted by decade to compare distributions.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb87-1" tabindex="-1"></a><span class="co"># Line: monthly CO₂ concentration</span></span>
+<span id="cb87-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb87-2" tabindex="-1"></a>co2_enriched <span class="sc">%&gt;%</span></span>
+<span id="cb87-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb87-3" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(date, avg_ppm)) <span class="sc">+</span></span>
+<span id="cb87-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb87-4" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb87-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb87-5" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Date&quot;</span>, <span class="at">y =</span> <span class="st">&quot;CO2 (ppm)&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Monthly CO2 at Mauna Loa&quot;</span>) <span class="sc">+</span></span>
+<span id="cb87-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb87-6" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-1" tabindex="-1"></a><span class="co"># Histogram: month-to-month change, by decade</span></span>
+<span id="cb88-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-2" tabindex="-1"></a>co2_enriched <span class="sc">%&gt;%</span></span>
+<span id="cb88-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(delta)) <span class="sc">%&gt;%</span></span>
+<span id="cb88-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-4" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(ggplot2<span class="sc">::</span><span class="fu">aes</span>(delta)) <span class="sc">+</span></span>
+<span id="cb88-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-5" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb88-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-6" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">facet_wrap</span>(<span class="sc">~</span> decade) <span class="sc">+</span></span>
+<span id="cb88-7"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-7" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Δ ppm (current − previous month)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Months&quot;</span>,</span>
+<span id="cb88-8"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-8" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">&quot;Distribution of monthly CO2 changes by decade&quot;</span>) <span class="sc">+</span></span>
+<span id="cb88-9"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb88-9" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb89-1" tabindex="-1"></a><span class="co"># The x-axes get cut off, which is annoying, but as an exploratory analysis we can leave it. </span></span></code></pre></div>
+<p>What is your interpretation of these historgrams?</p>
+</div>
+<div id="common-types-of-visualizations" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Common types of visualizations<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Trends: <code>geom_line()</code>, <code>geom_smooth()</code></li>
+<li>Distribution: <code>geom_histogram()</code>, <code>geom_density()</code>, <code>geom_boxplot()</code>, <code>geom_violin()</code></li>
+<li>Relationship: <code>geom_point()</code> (+ <code>geom_smooth()</code>)</li>
+<li>Composition: stacked/filled bars (<code>geom_bar(position = "fill")</code>), area charts</li>
+<li>Uncertainty: <code>geom_errorbar()</code>, <code>geom_ribbon()</code></li>
+</ul>
+</div>
+<div id="fun-graph-references" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Fun graph references:<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://github.com/cxli233/FriendsDontLetFriends?tab=readme-ov-file">Friends don’t let friends make bad graphs</a></p>
+<p><a href="https://r-graph-gallery.com/">R graph gallary</a></p>
+<p><a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf">R colors</a></p>
+<hr />
+</div>
+</div>
+<div id="discussion-reflection-coding-best-practices" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Discussion &amp; Reflection — Coding Best Practices<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There is no article for this week, just the below summary.</p>
+<p>Good coding practices make your work easier to understand, more reproducible, and more collaborative. The principles generalize across all types of programming.</p>
+<div id="why-these-practices" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Why these practices<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Readers first:</strong> Your future self and collaborators should understand decisions and reproduce results without guessing.</li>
+<li><strong>Science first:</strong> Transparent workflows reduce errors and make findings more trustworthy.</li>
+</ul>
+<hr />
+</div>
+<div id="readability-and-clarity" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Readability and Clarity<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Use <strong>descriptive names</strong> for objects and functions (<code>bee_abundance</code>, not <code>ba1</code>).</li>
+<li>Chose a style for objects vs. functions, for example <code>bee_abundance</code> for an object and <code>calcBeeAbundance</code> for a function.</li>
+<li>Function names should be verbs.</li>
+<li>Keep lines and functions <strong>short</strong>; prefer many small steps over one cryptic line.</li>
+<li>Write <strong>comments</strong> that explain the <em>why</em>, not only the <em>what</em>.</li>
+<li>Follow a consistent <strong>style</strong> (indentation, spacing, brace placement). In R, consider <code>styler</code> and the tidyverse style guide.</li>
+<li>Prefer <strong>explicit</strong> over clever: clarity beats concision.</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code># Good
+daily_mean &lt;- dplyr::summarise(weather,
+                               mean_temp = mean(temp_c, na.rm = TRUE))
+
+# Avoid
+dm &lt;- summarise(w, m = mean(t, TRUE))</code></pre>
+<hr />
+</div>
+<div id="reproducibility" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Reproducibility<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Use <strong>relative paths</strong> (e.g., <code>data/flowers.csv</code>) and project roots (e.g., <code>here::here("data", "flowers.csv")</code>).</li>
+<li>Record package versions when publishing (<code>sessionInfo()</code>, <code>renv</code>, or <code>pak</code>).</li>
+<li>Set seeds for stochastic steps: <code>set.seed(2025)</code>.</li>
+<li>Save outputs <strong>via code</strong> (figures, tables) so they can be re-generated. This is in contrast to exporting a figure from Rstudio by hand. Use <code>ggsave</code> to export the plot to a file within your script. Similarly, you can export a table as a csv (<code>write.csv</code>) or to latex format if you use latex.</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb91-1" tabindex="-1"></a><span class="co"># Reproducible file paths</span></span>
+<span id="cb91-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb91-2" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb91-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb91-3" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;flowers.csv&quot;</span>))</span>
+<span id="cb91-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb91-4" tabindex="-1"></a><span class="fu">write.csv</span>(raw, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;outputs&quot;</span>, <span class="st">&quot;flowers_clean.csv&quot;</span>), <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<hr />
+</div>
+<div id="modularity-and-reuse" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Modularity and Reuse<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Break large scripts into <strong>functions</strong> and small files with clear responsibilities.</li>
+<li>Keep <strong>raw data immutable</strong>; write code that creates derived data.</li>
+<li>Structure projects predictably (e.g., RStudio Project + folders: <code>data-raw/</code>, <code>data/</code>, <code>scripts/</code>, <code>figs/</code>, <code>doc/</code>, <code>outputs/</code>).</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb92-1" tabindex="-1"></a><span class="co"># R/clean_flower_data.R</span></span>
+<span id="cb92-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb92-2" tabindex="-1"></a>clean_flower_data <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb92-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb92-3" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb92-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb92-4" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(species)) <span class="sc">|&gt;</span></span>
+<span id="cb92-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb92-5" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date))</span>
+<span id="cb92-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb92-6" tabindex="-1"></a>}</span></code></pre></div>
+<hr />
+</div>
+<div id="documentation" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Documentation<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Provide a <strong>README</strong> with purpose, data sources, how to run, and expected outputs.</li>
+<li>Add <strong>data dictionaries</strong> (variable names, units, provenance, licenses).</li>
+<li>Document functions with <strong>roxygen2</strong> (inputs, outputs, side effects, examples).</li>
+<li>Prefer <strong>literate programming</strong> (R Markdown / Quarto) for analyses that combine text, code, and results.</li>
+</ul>
+<p><strong>Checklist for README</strong></p>
+<ul>
+<li>Project goal, authors, contact</li>
+<li>Folder map and what belongs where</li>
+<li>Data sources &amp; licenses</li>
+<li>Reproduction steps (scripts/targets)</li>
+<li>Software versions / environment</li>
+</ul>
+<hr />
+</div>
+<div id="testing-and-validation" class="section level3 hasAnchor" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Testing and Validation<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Test critical functions with <strong>unit tests</strong> (<code>testthat</code>), and edge cases (NA, empty, extreme values).</li>
+<li>Run analyses in a <strong>clean session</strong> to catch hidden dependencies.</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb93-1" tabindex="-1"></a><span class="co"># tests/test-clean_flower_data.R</span></span>
+<span id="cb93-2"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb93-2" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">&quot;dates are parsed&quot;</span>, {</span>
+<span id="cb93-3"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb93-3" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">species =</span> <span class="st">&quot;a&quot;</span>, <span class="at">date =</span> <span class="st">&quot;2024-01-01&quot;</span>)</span>
+<span id="cb93-4"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb93-4" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">clean_flower_data</span>(df)</span>
+<span id="cb93-5"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb93-5" tabindex="-1"></a>  <span class="fu">expect_true</span>(<span class="fu">inherits</span>(out<span class="sc">$</span>date, <span class="st">&quot;Date&quot;</span>))</span>
+<span id="cb93-6"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#cb93-6" tabindex="-1"></a>})</span></code></pre></div>
+<hr />
+</div>
+<div id="efficiency-after-correctness-and-clarity" class="section level3 hasAnchor" number="4.3.7">
+<h3><span class="header-section-number">4.3.7</span> Efficiency (after correctness and clarity)<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Optimize for <strong>clarity first</strong>; profile later if needed to increase efficiency if running something that takes a while (<code>profvis</code>, <code>bench</code>).</li>
+<li>Prefer <strong>vectorized</strong> operations and database-backed workflows for large data.</li>
+<li>Cache expensive steps (e.g., using <code>targets</code> or <code>drake</code>) or output .Rdata files to avoid unnecessary recomputation.</li>
+</ul>
+<hr />
+</div>
+<div id="quick-checklist" class="section level3 hasAnchor" number="4.3.8">
+<h3><span class="header-section-number">4.3.8</span> Quick Checklist<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Clear names &amp; consistent style<br />
+</label></li>
+<li><label><input type="checkbox" />Small, focused functions<br />
+</label></li>
+<li><label><input type="checkbox" />Immutable <em>raw</em> data; scripted transformations<br />
+</label></li>
+<li><label><input type="checkbox" />Relative paths &amp; project root (<code>here</code>)<br />
+</label></li>
+<li><label><input type="checkbox" />Random seeds set; session info recorded<br />
+</label></li>
+<li><label><input type="checkbox" />README + data dictionary present<br />
+</label></li>
+<li><label><input type="checkbox" />Version control with meaningful commits<br />
+</label></li>
+<li><label><input type="checkbox" />Unit tests for critical functions<br />
+</label></li>
+<li><label><input type="checkbox" />Plots/tables generated by code (not hand-edited)</label></li>
+</ul>
+<hr />
+<div id="preclass-reflection-please-submit-short-answers-via-canvas-1" class="section level4 hasAnchor" number="4.3.8.1">
+<h4><span class="header-section-number">4.3.8.1</span> Pre‑class reflection (please submit short answers via canvas)<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#preclass-reflection-please-submit-short-answers-via-canvas-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Clarity first. Find one code chunk from your own recent work (e.g., last week or this week’s lab, other work) that is hard to read. Rewrite it with clearer names and comments. In 2–3 sentences, explain what you changed and why.</p></li>
+<li><p>Reproducibility gaps. List three things that would prevent a stranger from fully reproducing your latest analysis. For each, write a one-line fix.</p></li>
+<li><p>Data hygiene. Describe how you differentiate raw vs. derived data in your final project or other research project you are working on. If you don’t yet, sketch the folder structure and file-naming convention you will adopt.</p></li>
+<li><p>Testing mindset. Pick one function or code block you rely on. Write two quick tests or checks you could implement (edge case + typical case).</p></li>
+<li><p>Figures to outputs. Choose a figure you made recently. Write the code you would use to export it to a pdf, including the exact relative paths. Paste the code below (it does need to run)</p></li>
+</ul>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"></code></pre></div>
+</div>
+<div id="inclass-smallgroup-prompts-1" class="section level4 hasAnchor" number="4.3.8.2">
+<h4><span class="header-section-number">4.3.8.2</span> In‑class small‑group prompts<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#inclass-smallgroup-prompts-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>1. Style &amp; standards</strong> Draft a one-page team style guide:</p>
+<ul>
+<li>Object/column naming rules</li>
+<li>Commenting conventions (where and why)</li>
+<li>File/figure naming (encode date/seed/version?)</li>
+<li>How to handle random seeds and session info</li>
+</ul>
+<p>** 2. What of the above guidelines would people like to dicuss more? Are there guidelines that are confusing or unclear?</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="lab-data-manipulation-and-visualization-using-the-tidyverse-student-version" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Lab: Data manipulation and visualization using the Tidyverse (Student Version)<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Data files</strong>
+The lab expects a folder named <strong>data/</strong> next to this Rmd. Files included:</p>
+<pre><code>data/499_GRN_ANT_mass_changes.csv
+data/647_Global_Temperature_Data_File.txt
+data/N_seaice_extent_daily_v3.0.csv
+data/antarctica_mass_200204_202310.txt
+data/co2_mm_mlo.txt</code></pre>
+<div id="lesson-overview-1" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Lesson Overview<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This lesson was written by Dr. Carl Boettiger, UC Berkeley. Part of his commitment to open science is to share his teaching materials (Thanks Carl!). Check out his <a href="https://www.carlboettiger.info/">research group</a></p>
+<p>Part of this lesson is a bit of a scavenger hunt for trying to understand the publicly available data on climate monitoring. Some information on these datasets will be difficult to find, and hopefully inspire detailed meta-data documentation but everyone in this class in the future ;) In previous years, we have downloaded this data from online, but I worried that some data would be taken down so the data is included pre-downloaded.</p>
+<p><strong>Conservation/ecology Topics</strong></p>
+<ul>
+<li>Become familiar with the primary data sources and evidence for global warming</li>
+</ul>
+<p><strong>Computational Topics</strong></p>
+<ul>
+<li>Learn to discover and interpret essential metadata about how measurements are made</li>
+<li>Interpret Data provenance, “Raw” and “Derived” data</li>
+<li>Think about measurement uncertainty, resolution, and missing values in context of environmental science data</li>
+<li>Reading in data from the web into the R.</li>
+<li>Become familiar with variations in CSV / tabular data formats and how to handle them</li>
+<li>Encountering missing data</li>
+<li>Working with dates and date-time objects</li>
+<li>Plotting timeseries data</li>
+<li>Subsetting, reshaping data</li>
+<li><code>apply</code> functions</li>
+</ul>
+<p><strong>Statistical Topics</strong></p>
+<ul>
+<li>Interpret data visualizations</li>
+<li>Explore noise vs seasonality vs trends</li>
+<li>Understand the use of windowed averages</li>
+</ul>
+<hr />
+</div>
+<div id="demo-evidence-for-global-climate-change" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Demo: Evidence for Global Climate Change<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this module, we will explore several of the most significant data sources on global climate change. An introduction to these data sources can be found at NASA’s <a href="http://climate.nasa.gov/vital-signs">Climate Vital Signs website</a>.</p>
+<p>We will begin by examining the carbon dioxide record from the Mauna Loa Observatory.</p>
+<p><strong>Why C02?</strong></p>
+<p>Carbon dioxide (CO2) is an important heat-trapping (greenhouse) gas, which is released through human activities such as deforestation and burning fossil fuels, as well as natural processes such as respiration and volcanic eruptions.</p>
+<p><strong>Parsing tabular data</strong></p>
+<p>One of the most common formats we will interact with is tabular data. Tabular data is often presented in <em>plain text</em>, which is not as simple as it sounds, (as we shall see in a moment). NASA points us to a raw data file maintained by <a href="ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt">NOAA on one of it’s FTP servers</a>.</p>
+<p>So, where does this data come from? How does one measure atmospheric CO2 levels anyway?</p>
+<p><strong>Data Provenance</strong></p>
+<p>Knowing where our data come from and how values are measured is essential to proper interpretation of the results. Data scientists usually speak of <em>raw data</em> and <em>derived data</em>, but the intepretation of these terms is always relative. Typically <em>raw</em> simply means “the data I started with” and <em>derived</em> “the data I produced.” Thus our “raw” data is almost always someone else’s “derived” data, and understanding how they got to it can provide important insights to our analysis. One of the first questions we should ask of any data is “where does it come from?”</p>
+<p>In particular, we usually want to make note of three things:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>What is the uncertainty in the data?</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>What is the resolution of the data?</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>What do missing values mean?</li>
+</ol></li>
+</ul>
+<p><strong>1. What is the uncertainty in the data?</strong></p>
+<p>Almost all measurements come with some degree of uncertainty, or measurement error. Often we will not be able to know this precisely. Rather, we seek a a qualtiative understanding of the measurement process to give us some idea of the relative importance of errors in the measurement process influencing the value. We may later be able to infer a more precise description of measurement error from the data itself, but this will always require assumptions about both the data-generating process itself.</p>
+<p><strong>2. What is the resolution of the data?</strong></p>
+<p>Derived data often summarize raw data in some way. For instance, global climate data is frequently reported as monthly or even annual averages, even though the raw data may be collected day by day, or even minute by minute. Data may be averaged over space as well as time, such as weather measurements made in at separate stations. Weighted averages and more complex techniques are often used as well.</p>
+<p><strong>3. What do missing values mean?</strong></p>
+<p>Real world data almost always has missing values. Here, it is important we try to understand <em>why</em> values are missing so we know how to handle them appropriately. If there is a systematic reason behind why data are missing (say, days where snowfall or storms made the weather station inaccessible) they could bias our analysis (underestimating extreme cold days, say). If data are missing for an unrelated reason (the scientist is sick, or the instrument fails) then we may be more justified in simply ommitting the data. Often we cannot know the exact reason certain data are missing and this is just something we must keep in mind as a caveat to our infererence. Frequently our results will be independent of missing data, and sometimes missing data can be accurately inferred from the data that is available.</p>
+<p><strong>Measuring C02 levels</strong></p>
+<p>So how <em>are</em> atmospheric CO2 levels measured?</p>
+<p>Researchers shine an infrared light source of a precise intensity through dry air in a container of precisely controlled volume &amp; pressure, ensuring a consistent number of atoms in the chamber. CO2 absorbs some of this radiation as it passes through the chamber, and then a sensor on the opposite end measures the radiation it receives, allowing researchers to calculate the amount absorbed and infer the CO2 concentration. The data are reported in parts per million (ppm), a count of the number of CO2 molecules per million molecules of dry air. These calculations are calibrated by comparing against chambers that are prepared using known concentrations of CO2. For more information, see <a href="http://www.esrl.noaa.gov/gmd/ccgg/about/co2_measurements.html">NOAA documentation</a>.</p>
+<p><strong>Measurement uncertainty:</strong></p>
+<p>Importantly, the measurement error introduced here is rather small, roughly 0.2 ppm. As we shall see, many other factors, such as local weather and seasonal variation also influence the measurement, but the measurement process itself is reasonably precise. As we move to other sources of data these measurement errors can become much more significant.</p>
+<p><strong>Resolution:</strong></p>
+<p>What is the resolution of the CO2 data? Already we see our data are not the actual “raw” measurements the researchers at Mauna Loa read off their instruments each day, but have been reported as monthly averages.</p>
+<p><strong>Missing values:</strong></p>
+<p>The last column of the data set tells us for how many days that month researchers collected data. We see that they only started keeping track of this information in 1974, but have since been pretty diligent – collecting data almost every day of the month (no breaks for weekends here! What do you think accounts for the gaps? How might you test your hypothesis? Would these introduce bias to the monthly averages? Would that bias influence your conclusion about rising CO2 levels?)</p>
+<p>Spatially our Mauna Loa data has no aggregation – the data is collected at only one location. How might the data differ if it were aggregated from stations all over the globe?</p>
+<p><strong>Importing Data</strong></p>
+<p><strong>Goal.</strong> Load the NOAA Mauna Loa monthly CO₂ file that is bundled with this lab at <code>data/co2_mm_mlo.txt</code>.</p>
+<p><strong>Watch‑outs (why parsing is tricky):</strong>
+- Lines starting with <code>#</code> are <strong>comments</strong> that describe the columns.
+- Some numeric columns use <strong>sentinel codes</strong> like <code>-9.99</code> to mean “missing” — we’ll convert those to real <code>NA</code>.
+- The file includes a <code>decimal_date</code>, but we’ll also construct a proper <strong><code>Date</code></strong> from <code>year</code> + <code>month</code> for plotting.</p>
+<p>We’ll first try a naive import (to see the problems), then a fix that <strong>tells R about comments</strong>, and finally a tidyverse‑style read that
+<strong>assigns column names</strong>, <strong>converts sentinels to <code>NA</code></strong>, and <strong>adds a <code>Date</code> column</strong>.</p>
+<p>Our first task is to read this data into our R environment. To this, we will use the <code>read.csv</code> function. Reading in a data file is called <em>parsing</em>, which sounds much more sophisticated. For good reason too – parsing different data files and formats is a cornerstone of all pratical data science research, and can often be the hardest step.</p>
+<p>So what do we need to know about this file in order to read it into R?</p>
+<pre><code>##   X......................................................................
+## 1                                                  # USE OF NOAA GML DATA
+## 2                                                                      # 
+## 3 # These data are made freely available to the public and the scientific
+## 4    # community in the belief that their wide dissemination will lead to
+## 5 # greater understanding and new scientific insights. To ensure that GML
+## 6  # receives fair credit for their work please include relevant citation</code></pre>
+<p>hmm… what a mess. Let’s try defining the comment symbol:</p>
+<pre><code>##   X1958....3...1958.2027......315.71......314.44......1....9.99....0.99
+## 1  1958    4   1958.2877      317.45      315.16     -1   -9.99   -0.99
+## 2  1958    5   1958.3699      317.51      314.69     -1   -9.99   -0.99
+## 3  1958    6   1958.4548      317.27      315.15     -1   -9.99   -0.99
+## 4  1958    7   1958.5370      315.87      315.20     -1   -9.99   -0.99
+## 5  1958    8   1958.6219      314.93      316.21     -1   -9.99   -0.99
+## 6  1958    9   1958.7068      313.21      316.11     -1   -9.99   -0.99</code></pre>
+<p>Getting there, but not quite done. Our first row is being interpreted as column names. The documentation also notes that certain values are used to indicate missing data, which we would be better off converting to explicitly missing so we don’t get confused.</p>
+<p>Seems like we need a more flexible way to load in the data to avoid further suffering. Let’s try <code>readr::read_table</code> from <code>tidyverse</code></p>
+<pre><code>## # A tibble: 809 × 8
+##     year month decimal_date average interpolated trend stdev_days
+##    &lt;int&gt; &lt;int&gt;        &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
+##  1  1958     3        1958.    316.         314.    NA         NA
+##  2  1958     4        1958.    317.         315.    NA         NA
+##  3  1958     5        1958.    318.         315.    NA         NA
+##  4  1958     6        1958.    317.         315.    NA         NA
+##  5  1958     7        1959.    316.         315.    NA         NA
+##  6  1958     8        1959.    315.         316.    NA         NA
+##  7  1958     9        1959.    313.         316.    NA         NA
+##  8  1958    10        1959.    312.         315.    NA         NA
+##  9  1958    11        1959.    313.         315.    NA         NA
+## 10  1958    12        1959.    315.         315.    NA         NA
+## # ℹ 799 more rows
+## # ℹ 1 more variable: uncertainty_average &lt;dbl&gt;</code></pre>
+<p>Success! We have read in the data. Celebrate!</p>
+</div>
+<div id="plotting-data-with-ggplot" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Plotting Data with <code>ggplot</code><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Effective visualizations are an integral part of data science, poorly organized or poorly labelled figures can be as much a source of peril as understanding. Nevertheless, the ability to generate plots quickly with minimal tinkering is an essential skill. As standards for visualizations have increased, too often visualization is seen as an ends rather than a means of data analysis. See <a href="http://science.sciencemag.org/content/331/6018/705.short">Fox &amp; Hendler (2011)</a> for more discussion of this.</p>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><strong>Alternative: Plotting Data with base R (no packages needed)</strong>
+If you want to plot something quickly without loading any packages.</p>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>But… it isn’t quite as pretty as with ggplot. :/</p>
+<p><strong>Plotting multiple series</strong></p>
+<p>We often would like to plot several data values together for comparison,
+for example the average, interpolated and trend <span class="math inline">\(CO_2\)</span> data. We can do
+this in three steps:</p>
+<ol style="list-style-type: decimal">
+<li>subsetting the dataset to the columns desired for plotting</li>
+</ol>
+<pre><code>## # A tibble: 6 × 4
+##   decimal_date average interpolated trend
+##          &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+## 1        1958.    316.         314.    NA
+## 2        1958.    317.         315.    NA
+## 3        1958.    318.         315.    NA
+## 4        1958.    317.         315.    NA
+## 5        1959.    316.         315.    NA
+## 6        1959.    315.         316.    NA</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>rearranging the data into a “long” data table where the data values
+are stacked together in one column and there is a separate column that
+keeps track of whether the data came from the average,
+interpolated, or trend column. Notice by using the same name,
+we overwrite the original co2_sub</li>
+</ol>
+<pre><code>## # A tibble: 6 × 3
+##   decimal_date series        ppmv
+##          &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1        1958. average       316.
+## 2        1958. interpolated  314.
+## 3        1958. trend          NA 
+## 4        1958. average       317.
+## 5        1958. interpolated  315.
+## 6        1958. trend          NA</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Visualize the data using a line plot</li>
+</ol>
+<pre><code>## Warning: Removed 194 rows containing missing values or values outside the scale range
+## (`geom_line()`).</code></pre>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>Or we can take advantage of dplyr’s nifty pipping abilities and
+accomplish all of these steps in one block of code. Beyond being more
+succinct, this has the added benefit of avoiding creating a new object
+for the subsetted data.</p>
+<pre><code>## Warning: Removed 194 rows containing missing values or values outside the scale range
+## (`geom_line()`).</code></pre>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><strong>What do we see?</strong></p>
+<p>Our “Figure 1” shows three broad patterns:</p>
+<ul>
+<li>A trend of steadily increasing CO2 concentration from 1950 to 2015</li>
+<li>Small, regular seasonal oscillation is visible in the data</li>
+<li>Increase appears to be accelerating (convex curve)</li>
+</ul>
+<p><strong>Understanding moving averages</strong></p>
+<p><strong>Trend, cycle, or noise?</strong></p>
+<blockquote>
+<p>“Climate is what you expect, weather is what you get”</p>
+</blockquote>
+<p>Present-day climate data is often sampled at both finer temporal and spatial scales than we might be interested in when exploring long-term trends. More frequent sampling can reveal higher-frequency trends, such as the seasonal pattern we observe in the CO2 record. It can also reveal somewhat greater variability, picking up more random (stochastic) sources of variation such as weather patterns.</p>
+<p>To reveal long term trends it is frequently valuable to average out this high-frequency variation. We could spend the whole course discussing ways such averaging or smoothing can be done, but instead we’ll focus on the most common methods you will see already present in the climate data we examine. The monthly record data we analyze here already shows some averaging. How was this performed?</p>
+<p><strong>Moving averages</strong></p>
+<pre><code>## # A tibble: 6 × 9
+##    year month decimal_date average interpolated trend stdev_days
+##   &lt;int&gt; &lt;int&gt;        &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
+## 1  1958     3        1958.    316.         314.    NA         NA
+## 2  1958     4        1958.    317.         315.    NA         NA
+## 3  1958     5        1958.    318.         315.    NA         NA
+## 4  1958     6        1958.    317.         315.    NA         NA
+## 5  1958     7        1959.    316.         315.    NA         NA
+## 6  1958     8        1959.    315.         316.    NA         NA
+## # ℹ 2 more variables: uncertainty_average &lt;dbl&gt;, annual &lt;dbl&gt;</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values or values outside the scale range
+## (`geom_line()`).</code></pre>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+<div id="lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change." class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="question-1" class="section level4 hasAnchor" number="4.4.4.1">
+<h4><span class="header-section-number">4.4.4.1</span> Question 1:<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Each of the last years has consecutively set new records on global climate. In this section we will analyze global mean temperature data. <a href="http://climate.nasa.gov/vital-signs/global-temperature">Data from</a></p>
+<p>-1a. Describe the data set. You can do additional searches to learn more about the data given the description on the data page is not detailed.</p>
+<p>– ANSWER: …</p>
+<ul>
+<li>1b. Describe what kind of column each data contains and what units it is measured in.
+ANSWER:</li>
+</ul>
+<p>Then address our three key questions in understanding this data:
+- 1c. How are the measurements made? What is the associated measurement uncertainty?</p>
+<p>ANSWER: …</p>
+<p>-1d. What is the resolution of the data?
+ANSWER: …</p>
+<p>-1e. Are their missing values? How should they be handled?
+ANSWER: …</p>
+</div>
+<div id="question-2" class="section level4 hasAnchor" number="4.4.4.2">
+<h4><span class="header-section-number">4.4.4.2</span> Question 2:<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>2a: Construct the necessary R code to import and prepare for manipulation the <a href="http://climate.nasa.gov/system/internal_resources/details/original/647_Global_Temperature_Data_File.txt">following data set</a> You may wish to re-label the columns to something easier to read/understand.</li>
+</ul>
+<pre><code>## # A tibble: 145 × 3
+##     Year Annual_Mean `5-year_Mean`
+##    &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;
+##  1  1880       -0.17         -0.1 
+##  2  1881       -0.09         -0.13
+##  3  1882       -0.11         -0.17
+##  4  1883       -0.17         -0.2 
+##  5  1884       -0.28         -0.24
+##  6  1885       -0.33         -0.26
+##  7  1886       -0.31         -0.27
+##  8  1887       -0.36         -0.27
+##  9  1888       -0.17         -0.26
+## 10  1889       -0.11         -0.25
+## # ℹ 135 more rows</code></pre>
+</div>
+<div id="question-3" class="section level4 hasAnchor" number="4.4.4.3">
+<h4><span class="header-section-number">4.4.4.3</span> Question 3:<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>3a. Plot the trend in global mean temperatures over time.<br />
+</li>
+<li>3b. Describe what you see in the plot and how you interpret the patterns you observe.</li>
+</ul>
+<p>ANSWER…</p>
+</div>
+<div id="question-4-evaluating-the-evidence-for-a-pause-in-warming" class="section level4 hasAnchor" number="4.4.4.4">
+<h4><span class="header-section-number">4.4.4.4</span> Question 4: Evaluating the evidence for a “Pause” in warming?<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-4-evaluating-the-evidence-for-a-pause-in-warming" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <a href="https://www.ipcc.ch/pdf/assessment-report/ar5/wg1/WG1AR5_SummaryVolume_FINAL.pdf">2013 IPCC Report</a> included a tentative observation of a “much smaller increasing trend” in global mean temperatures since 1998 than was observed previously. This led to much discussion in the media about the existence of a “Pause” or “Hiatus” in global warming rates, as well as much research looking into where the extra heat could have gone. (Examples discussing this question include articles in <a href="http://www.theguardian.com/environment/2015/jun/04/global-warming-hasnt-paused-study-finds">The Guardian</a>, <a href="http://www.bbc.com/news/science-environment-28870988">BBC News</a>, and <a href="https://en.wikipedia.org/wiki/Global_warming_hiatus">Wikipedia</a>).</p>
+<ul>
+<li>4a. By examining the data here, what evidence do you find or not find for such a pause? Present an written/graphical analysis of this data (using the tools &amp; methods we have covered so far) to argue your case.</li>
+</ul>
+<p>ANSWER:…</p>
+<ul>
+<li>4b. What additional analyses or data sources would better help you refine your arguments?</li>
+</ul>
+<p>ANSWER: …</p>
+</div>
+<div id="question-5-rolling-averages" class="section level4 hasAnchor" number="4.4.4.5">
+<h4><span class="header-section-number">4.4.4.5</span> Question 5: Rolling averages<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-5-rolling-averages" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>-5a. What is the meaning of “5 year average” vs “annual average”?
+ANSWER: …</p>
+<p>-5b. Construct 5 year averages from the annual data. Construct 10 &amp; 20-year averages. Plot the different averages and describe what differences you see and why.</p>
+<p>ANSWER: …</p>
+</div>
+<div id="question-6-melting-ice-sheets" class="section level4 hasAnchor" number="4.4.4.6">
+<h4><span class="header-section-number">4.4.4.6</span> Question 6: Melting Ice Sheets?<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-6-melting-ice-sheets" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><a href="http://climate.nasa.gov/vital-signs/land-ice/">Data description</a></p></li>
+<li><p><a href="http://climate.nasa.gov/system/internal_resources/details/original/499_GRN_ANT_mass_changes.csv">Raw data file</a></p></li>
+<li><p>6a. Describe the data set: what are the columns and units? Where do the numbers come from?</p></li>
+</ul>
+<p>ANSWER: …</p>
+<ul>
+<li>6b. What is the uncertainty in measurement? Resolution of the data? Interpretation of missing values?</li>
+</ul>
+<p>ANSWER:
+- Uncertainty: …
+- Resolution: …<br />
+- Missing data: …</p>
+<ul>
+<li><p>6c. Construct the necessary R code to import this data set as a tidy <code>Table</code> object.</p></li>
+<li><p>6d: Plot the data and describe the trends you observe.</p></li>
+</ul>
+<p>ANSWER: …</p>
+<p>Isn’t this fun?!</p>
+</div>
+<div id="question-7-rising-sea-levels" class="section level4 hasAnchor" number="4.4.4.7">
+<h4><span class="header-section-number">4.4.4.7</span> Question 7: Rising Sea Levels?<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-7-rising-sea-levels" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><a href="http://climate.nasa.gov/vital-signs/sea-level/">Data description</a></p></li>
+<li><p><a href="http://climate.nasa.gov/system/internal_resources/details/original/121_Global_Sea_Level_Data_File.txt">Raw data file</a></p></li>
+<li><p>7a. Describe the data set: what are the columns and units?
+ANSWER:</p></li>
+<li><p>7b. Where do these data come from (try googling if the description isn’t satisfactory)?
+ANSWER:</p></li>
+<li><p>7c. What is the uncertainty in measurement? Resolution of the data? Interpretation of missing values?</p></li>
+</ul>
+<p>ANSWER:<br />
+- Uncertainty: …
+- Resolution: …
+-Missing data: …</p>
+</div>
+<div id="question-8" class="section level4 hasAnchor" number="4.4.4.8">
+<h4><span class="header-section-number">4.4.4.8</span> Question 8:<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-8" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>8a. Construct the necessary R code to import this data set as a tidy <code>Table</code> object.</p></li>
+<li><p>8b. Plot the data.</p></li>
+<li><p>8c. Describe the trends you observe.</p></li>
+</ul>
+<p>ANSWER: …</p>
+</div>
+</div>
+<div id="demo-exploring-seasonal-oscillations" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Demo: Exploring Seasonal Oscillations<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Circling back to our CO2 data from Mauna Loa, let’s practice summarizing our data in different ways.</p>
+<ul>
+<li>Demonstrate that the periodic behavior truly is seasonal</li>
+<li>What month is the maximum? What is the minimum?</li>
+<li>What do you think could explain the seasonal cycle observed here?</li>
+</ul>
+<p><img src="03-tidyverse-intro_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+</div>
+<div id="question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice." class="section level3 hasAnchor" number="4.4.6">
+<h3><span class="header-section-number">4.4.6</span> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using any of the datasets from this demo/lab (co2, icesheets, temp etc.) come up with an interesting question to ask that necessitates you to summarize the data in some way, make a visualization, and answer your question.</p>
+<ul>
+<li><p>9a. What dataset are you using? What is your question?</p></li>
+<li><p>9b. Summarize your data to answer your question.</p></li>
+<li><p>9c. Plot your data</p></li>
+<li><p>9d. Interpret you plot. What is the answer to your question?
+ANSWER: …</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="key-programming-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simulation-based-hypothesis-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Version control and collaboration with git and github | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="6 Version control and collaboration with git and github | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Version control and collaboration with git and github | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Version control and collaboration with git and github | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simulation-based-hypothesis-testing.html"/>
+<link rel="next" href="ecological-networks.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth"><i class="fa fa-check"></i><b>3.2</b> Demo: Exponential Population Growth</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.2.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.2.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.2.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.2.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.3</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.3.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.4</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.4.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.4.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.4.3</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.4.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.4.4</b> Individual things</a></li>
+<li class="chapter" data-level="3.4.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.4.5</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.4.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.4.6</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.4.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.4.7</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.4.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.4.8</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.4.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.4.9</b> Groups of things</a></li>
+<li class="chapter" data-level="3.4.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.4.10</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.4.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.4.11</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.4.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.4.12</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.4.13" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.4.13</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.4.14" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.4.14</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.4.15" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.4.15</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.4.16" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.4.16</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.4.17" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.4.17</b> Creating chunks</a></li>
+<li class="chapter" data-level="3.4.18" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.4.18</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.4.19" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.4.19</b> Question 8 (Extra credit or graduate students)</a></li>
+<li class="chapter" data-level="3.4.20" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-visualize-baseline"><i class="fa fa-check"></i><b>3.4.20</b> Simulate &amp; visualize (baseline)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="05-git-github-collab.html"><a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="05-git-github-collab.html"><a href="#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="05-git-github-collab.html"><a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.7</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.4.1</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-joining-data"><i class="fa fa-check"></i><b>5.4.2</b> Demo: Joining data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-1"><i class="fa fa-check"></i><b>5.4.3</b> Question 2</a></li>
+<li class="chapter" data-level="5.4.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-3"><i class="fa fa-check"></i><b>5.4.4</b> Lab Question 3</a></li>
+<li class="chapter" data-level="5.4.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4.5</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.4.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.4.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.4.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-5"><i class="fa fa-check"></i><b>5.4.7</b> Question 5</a></li>
+<li class="chapter" data-level="5.4.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.4.8</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.4.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.4.9</b> Question 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#individual-reflection-short-written-responses"><i class="fa fa-check"></i><b>6.2.2</b> Individual reflection (short written responses)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-git-and-github"><i class="fa fa-check"></i><b>6.3</b> Lab Git and Github</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-1-1"><i class="fa fa-check"></i><b>6.3.1</b> Question 1</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2-2"><i class="fa fa-check"></i><b>6.3.2</b> Question 2</a></li>
+<li class="chapter" data-level="6.3.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-3-v1-partners"><i class="fa fa-check"></i><b>6.3.3</b> Question 3 v1 (partners)</a></li>
+<li class="chapter" data-level="6.3.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-3-v2-solo-project"><i class="fa fa-check"></i><b>6.3.4</b> Question 3 v2 (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lecture-summary-4"><i class="fa fa-check"></i><b>7.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.1.2</b> Linear‑algebra essentials for ecological networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data"><i class="fa fa-check"></i><b>7.2</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.2.1</b> From data to networks</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.2.2</b> Core network properties (formulas, intuition, tools)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-building-networks-and-characterizing-their-structure"><i class="fa fa-check"></i><b>7.2.3</b> Demo: Building networks and characterizing their structure</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ecological-networks.html"><a href="ecological-networks.html#null-models-for-fair-comparisons"><i class="fa fa-check"></i><b>7.2.4</b> Null models for fair comparisons</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-pollination"><i class="fa fa-check"></i><b>7.2.5</b> Demo: Calculating network metrics (pollination)</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.2.6</b> Demo: Create a graph from OBA data, visualize it</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.2.7</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.2.8" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.2.8</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.2.9" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.2.9</b> Further reading &amp; software</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.3</b> Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.3.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-questions"><i class="fa fa-check"></i><b>7.3.2</b> Discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.4</b> Lab — Food Webs &amp; Network Measures (Student Version)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.4.2</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.4.3</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.4.4</b> Lab question 3: Visualize the networks</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.4.5</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html"><i class="fa fa-check"></i><b>8</b> String Processing &amp; Debugging</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lecture-summary-5"><i class="fa fa-check"></i><b>8.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.1.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-in-base-r"><i class="fa fa-check"></i><b>8.1.2</b> String manipulation in base R</a></li>
+<li class="chapter" data-level="8.1.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-using-stringr"><i class="fa fa-check"></i><b>8.1.3</b> String manipulation using <em>stringr</em></a></li>
+<li class="chapter" data-level="8.1.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#regular-expressions-regexregexp"><i class="fa fa-check"></i><b>8.1.4</b> Regular expressions (regex/regexp)</a></li>
+<li class="chapter" data-level="8.1.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#general-principles-for-working-with-regex"><i class="fa fa-check"></i><b>8.1.5</b> General principles for working with regex</a></li>
+<li class="chapter" data-level="8.1.6" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#working-with-patterns"><i class="fa fa-check"></i><b>8.1.6</b> Working with patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match"><i class="fa fa-check"></i><b>8.2</b> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?</a></li>
+<li class="chapter" data-level="8.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string"><i class="fa fa-check"></i><b>8.3</b> In class challenge 2: How would I extract an email address from an arbitrary text string?</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#groups"><i class="fa fa-check"></i><b>8.3.1</b> Groups</a></li>
+<li class="chapter" data-level="8.3.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#other-comments"><i class="fa fa-check"></i><b>8.3.2</b> Other comments</a></li>
+<li class="chapter" data-level="8.3.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#additional-resources"><i class="fa fa-check"></i><b>8.3.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r"><i class="fa fa-check"></i><b>8.4</b> Dicussion &amp; Reflection: Debugging in R</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#basic-debugging-strategies"><i class="fa fa-check"></i><b>8.4.1</b> 1) Basic debugging strategies</a></li>
+<li class="chapter" data-level="8.4.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#rs-interactive-debugging-tools"><i class="fa fa-check"></i><b>8.4.2</b> 2) R’s interactive debugging tools</a></li>
+<li class="chapter" data-level="8.4.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#some-common-causes-of-bugs"><i class="fa fa-check"></i><b>8.4.3</b> 3) Some common causes of bugs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors"><i class="fa fa-check"></i><b>8.4.4</b> 4) Tips for avoiding bugs and catching errors</a></li>
+<li class="chapter" data-level="8.4.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#how-to-get-help-online"><i class="fa fa-check"></i><b>8.4.5</b> 5) How to get help online</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version"><i class="fa fa-check"></i><b>8.5</b> Lab — Regular expressions and cleaning OBA data (Student Version)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lesson-overview-3"><i class="fa fa-check"></i><b>8.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="8.5.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Lab question 1: Oregon bee atlas data exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution"><i class="fa fa-check"></i><b>8.5.3</b> Lab question 2: Making a column for plant resolution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-project-1.html"><a href="final-project-1.html"><i class="fa fa-check"></i><b>9</b> Final project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="final-project-1.html"><a href="final-project-1.html#final-project-objective"><i class="fa fa-check"></i><b>9.1</b> Final project objective</a></li>
+<li class="chapter" data-level="9.2" data-path="final-project-1.html"><a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment"><i class="fa fa-check"></i><b>9.2</b> Final project topic selection (first final project assignment)</a></li>
+<li class="chapter" data-level="9.3" data-path="final-project-1.html"><a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment"><i class="fa fa-check"></i><b>9.3</b> Final project office hours discussion (second final project assignment)</a></li>
+<li class="chapter" data-level="9.4" data-path="final-project-1.html"><a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment"><i class="fa fa-check"></i><b>9.4</b> Final project annotated bibliography (third final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="final-project-1.html"><a href="final-project-1.html#overview"><i class="fa fa-check"></i><b>9.4.1</b> Overview</a></li>
+<li class="chapter" data-level="9.4.2" data-path="final-project-1.html"><a href="final-project-1.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.4.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.4.3" data-path="final-project-1.html"><a href="final-project-1.html#requirements"><i class="fa fa-check"></i><b>9.4.3</b> Requirements</a></li>
+<li class="chapter" data-level="9.4.4" data-path="final-project-1.html"><a href="final-project-1.html#how-to-search-effectively-google-scholar-tips"><i class="fa fa-check"></i><b>9.4.4</b> How to search effectively (Google Scholar tips)</a></li>
+<li class="chapter" data-level="9.4.5" data-path="final-project-1.html"><a href="final-project-1.html#recommended-workflow"><i class="fa fa-check"></i><b>9.4.5</b> Recommended workflow</a></li>
+<li class="chapter" data-level="9.4.6" data-path="final-project-1.html"><a href="final-project-1.html#what-each-entry-should-include"><i class="fa fa-check"></i><b>9.4.6</b> What each entry should include</a></li>
+<li class="chapter" data-level="9.4.7" data-path="final-project-1.html"><a href="final-project-1.html#template-copy-for-each-source"><i class="fa fa-check"></i><b>9.4.7</b> Template (copy for each source)</a></li>
+<li class="chapter" data-level="9.4.8" data-path="final-project-1.html"><a href="final-project-1.html#author-surname-et-al.-year.-title."><i class="fa fa-check"></i><b>9.4.8</b> Author Surname et al. (Year). <em>Title</em>.</a></li>
+<li class="chapter" data-level="9.4.9" data-path="final-project-1.html"><a href="final-project-1.html#example-of-intext-citation-references"><i class="fa fa-check"></i><b>9.4.9</b> Example of in‑text citation &amp; references</a></li>
+<li class="chapter" data-level="9.4.10" data-path="final-project-1.html"><a href="final-project-1.html#rubric"><i class="fa fa-check"></i><b>9.4.10</b> Rubric</a></li>
+<li class="chapter" data-level="9.4.11" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist"><i class="fa fa-check"></i><b>9.4.11</b> Submission checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment"><i class="fa fa-check"></i><b>9.5</b> Literature review and workflow plan (fourth final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project"><i class="fa fa-check"></i><b>9.5.1</b> Literature review (i.e., the introduction section of your final project)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="final-project-1.html"><a href="final-project-1.html#dataset-identification"><i class="fa fa-check"></i><b>9.5.2</b> Dataset identification</a></li>
+<li class="chapter" data-level="9.5.3" data-path="final-project-1.html"><a href="final-project-1.html#workflow-plan"><i class="fa fa-check"></i><b>9.5.3</b> Workflow plan</a></li>
+<li class="chapter" data-level="9.5.4" data-path="final-project-1.html"><a href="final-project-1.html#rubric-1"><i class="fa fa-check"></i><b>9.5.4</b> Rubric</a></li>
+<li class="chapter" data-level="9.5.5" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist-1"><i class="fa fa-check"></i><b>9.5.5</b> Submission Checklist</a></li>
+<li class="chapter" data-level="9.5.6" data-path="final-project-1.html"><a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc"><i class="fa fa-check"></i><b>9.5.6</b> Optional scaffold (copy into your working doc)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="final-project-1.html"><a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit"><i class="fa fa-check"></i><b>9.6</b> Final Project Rubric (10 pts total + 1 pt extra credit)</a></li>
+<li class="chapter" data-level="9.7" data-path="final-project-1.html"><a href="final-project-1.html#poster-presentation-rubric-10-pts-total"><i class="fa fa-check"></i><b>9.7</b> Poster Presentation Rubric (10 pts total)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="version-control-and-collaboration-with-git-and-github" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Version control and collaboration with git and github<a href="version-control-and-collaboration-with-git-and-github.html#version-control-and-collaboration-with-git-and-github" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Before we begin, make sure to install git and create an account on github (free), <a href="https://swcarpentry.github.io/git-novice/">instructions</a></p>
+<p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Setup your ssh key</a></p>
+<p>That step is painful, but you only have to do it once ever. Don’t set your key to expire quickly… or ever? ;)</p>
+<p><a href="https://swcarpentry.github.io/git-novice/02-setup.html">Set up your username</a></p>
+<div id="lecture-summary-3" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Lecture summary<a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this lecture, we will cover a basic workflow using git and github. This chapter is based on a lesson by Software Carpentery. For our dicussion, we will further examine best practices in science, mainly, Trisos et al. 2021 Decoloniality and anti-oppressive practices for a more ethical ecology.</p>
+<div id="learning-objectives-3" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Learning objectives<a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Understand the benefits of an automated version control system.</li>
+<li>Understand the basics of how automated version control systems work using git and github.</li>
+</ul>
+<p>We’ll start by exploring how version control can be used
+to keep track of what one person did and when.
+Even if you aren’t collaborating with other people,
+automated version control is much better than this situation:</p>
+<div class="float">
+<img src="fig/git/phd101212s.png" alt="Comic: a PhD student sends &quot;FINAL.doc&quot; to their supervisor, but after several increasingly intense and frustrating rounds of comments and revisions they end up with a file named &quot;FINAL_rev.22.comments49.corrections.10.#@$%WHYDIDCOMETOGRADSCHOOL????.doc&quot;" />
+<div class="figcaption">“notFinal.doc” by Jorge Cham, <a href="https://www.phdcomics.com" class="uri">https://www.phdcomics.com</a></div>
+</div>
+<p>We’ve all been in this situation before: it seems unnecessary to have
+multiple nearly-identical versions of the same document. Some word
+processors let us deal with this a little better, such as Microsoft
+Word’s
+<a href="https://support.office.com/en-us/article/Track-changes-in-Word-197ba630-0f5f-4a8e-9a77-3712475e806a">Track Changes</a>,
+Google Docs’ <a href="https://support.google.com/docs/answer/190843?hl=en">version history</a>, or
+LibreOffice’s <a href="https://help.libreoffice.org/Common/Recording_and_Displaying_Changes">Recording and Displaying Changes</a>.</p>
+<p>Version control systems start with a base version of the document and
+then record changes you make each step of the way. You can
+think of it as a recording of your progress: you can rewind to start at the base
+document and play back each change you made, eventually arriving at your
+more recent version.</p>
+<p><img src="fig/git/play-changes.svg" alt="Changes Are Saved Sequentially" /></p>
+<p>Once you think of changes as separate from the document itself, you
+can then think about “playing back” different sets of changes on the base document, ultimately
+resulting in different versions of that document. For example, two users can make independent
+sets of changes on the same document.</p>
+<p><img src="fig/git/versions.svg" alt="Different Versions Can be Saved" /></p>
+<p>Unless multiple users make changes to the same section of the document - a
+conflict - you can
+incorporate two sets of changes into the same base document.</p>
+<p><img src="fig/git/merge.svg" alt="Multiple Versions Can be Merged" /></p>
+<p>A version control system is a tool that keeps track of these changes for us, effectively creating different versions of our files. It allows us to decide which changes will be made to the next version (each record of these changes is called a <a href="../learners/reference.md#commit">commit</a>), and keeps useful metadata about them. The complete history of commits for a particular project and their metadata make up a <a href="../learners/reference.md#repository">repository</a>.
+Repositories can be kept in sync across different computers, facilitating
+collaboration among different people.</p>
+</div>
+<div id="hypothetical-paper-writing" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Hypothetical: Paper Writing<a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Imagine you drafted an excellent paragraph for a paper you are writing, but later ruin
+it. How would you retrieve the <em>excellent</em> version of your conclusion? Is it even possible?</p></li>
+<li><p>Imagine you have 5 co-authors. How would you manage the changes and comments
+they make to your paper? If you use LibreOffice Writer or Microsoft Word, what happens if
+you accept changes made using the <code>Track Changes</code> option? Do you have a
+history of those changes?</p></li>
+</ul>
+</div>
+<div id="solution" class="section level3 hasAnchor" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> Solution<a href="version-control-and-collaboration-with-git-and-github.html#solution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Recovering the excellent version is only possible if you created a copy
+of the old version of the paper. The danger of losing good versions
+often leads to the problematic workflow illustrated in the PhD Comics
+cartoon at the top of this page.</p></li>
+<li><p>Collaborative writing with traditional word processors is cumbersome.
+Either every collaborator has to work on a document sequentially
+(slowing down the process of writing), or you have to send out a
+version to all collaborators and manually merge their comments into
+your document. The ‘track changes’ or ‘record changes’ option can
+highlight changes for you and simplifies merging, but as soon as you
+accept changes you will lose their history. You will then no longer
+know who suggested that change, why it was suggested, or when it was
+merged into the rest of the document. Even online word processors like
+Google Docs or Microsoft Office Online do not fully resolve these
+problems.</p></li>
+<li><p>Version control is like an unlimited ‘undo’.</p></li>
+<li><p>Version control also allows many people to work in parallel.</p></li>
+</ul>
+</div>
+<div id="why-use-git-and-github" class="section level3 hasAnchor" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Why Use Git and GitHub?<a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Git</strong> is a version control system — a “time machine” for code and text. It helps you:</p>
+<ul>
+<li>Track who changed what and when.</li>
+<li>Roll back to earlier versions if something breaks.</li>
+<li>Work safely on features/experiments without touching the main project.</li>
+</ul>
+<p><strong>GitHub</strong> is a cloud host for Git repositories. It makes teamwork easier by offering:</p>
+<ul>
+<li>Shared remote repos (backup + collaboration).</li>
+<li>Pull requests &amp; code review.</li>
+<li>Issues, wiki, and automation.</li>
+</ul>
+<hr />
+</div>
+<div id="a-simple-two-person-workflow" class="section level3 hasAnchor" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> A Simple Two-Person Workflow<a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose <strong>Lauren</strong> and <strong>Rebecca</strong> collaborate on the same project.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Setup</strong>
+<ul>
+<li>Lauren creates a repository (on GitHub, or locally for this demo) and pushes an initial commit.</li>
+<li>Rebecca <em>clones</em> it to his computer.</li>
+</ul></li>
+<li><strong>Daily Cycle (repeat)</strong>
+<ul>
+<li><code>git pull</code> to get the latest work.</li>
+<li>Edit files.</li>
+<li><code>git add</code> to stage changes.</li>
+<li><code>git commit -m "message"</code> to record changes locally.</li>
+<li><code>git push</code> to share with collaborators.</li>
+</ul></li>
+</ol>
+<p><strong>Mnemonic:</strong> <em>pull → edit → add → commit → push</em>.</p>
+<hr />
+</div>
+<div id="five-essential-git-commands" class="section level3 hasAnchor" number="6.1.6">
+<h3><span class="header-section-number">6.1.6</span> Five Essential Git Commands<a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="git-status" class="section level3 hasAnchor" number="6.1.7">
+<h3><span class="header-section-number">6.1.7</span> 1) <code>git status</code><a href="version-control-and-collaboration-with-git-and-github.html#git-status" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Shows what changed and whether those changes are staged (ready to commit).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="version-control-and-collaboration-with-git-and-github.html#cb1-1" tabindex="-1"></a><span class="fu">git</span> status</span></code></pre></div>
+<p><strong>Use it:</strong> Frequently — before/after edits, and before committing.</p>
+</div>
+<div id="git-add" class="section level3 hasAnchor" number="6.1.8">
+<h3><span class="header-section-number">6.1.8</span> 2) <code>git add</code><a href="version-control-and-collaboration-with-git-and-github.html#git-add" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Stages file(s) so they’re included in the next commit.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="version-control-and-collaboration-with-git-and-github.html#cb2-1" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb2-2"><a href="version-control-and-collaboration-with-git-and-github.html#cb2-2" tabindex="-1"></a><span class="co"># or stage everything new/modified:</span></span>
+<span id="cb2-3"><a href="version-control-and-collaboration-with-git-and-github.html#cb2-3" tabindex="-1"></a><span class="fu">git</span> add .</span></code></pre></div>
+<p><strong>Use it:</strong> After editing/creating files you want to include in the next commit.</p>
+</div>
+<div id="git-commit--m-message" class="section level3 hasAnchor" number="6.1.9">
+<h3><span class="header-section-number">6.1.9</span> 3) <code>git commit -m "message"</code><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Records a snapshot of the staged changes in the local repo.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="version-control-and-collaboration-with-git-and-github.html#cb3-1" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;feat: Created a new function that cleans the species. names and summarizes the number of times each occurs.&quot;</span></span></code></pre></div>
+<p><strong>Use it:</strong> After staging with <code>git add</code> to save a meaningful unit of work. Use complete sentences and enough detail where you and your partner will understand exactly what you did.</p>
+<p>Good/conventional commit messages: Commit messages should start with a “tag” of what type of commit is it (see below), than a brief (&lt;50 characters) statement about the changes made in the commit. Generally, the message should complete the sentence “If applied, this commit will” <commit message here>.</p>
+<p>If you want to go into more detail, add a blank line between the summary line and your additional notes. Use this additional space to explain why you made changes and/or what their impact will be.</p>
+<p>Feat– feature
+Fix– bug fixes
+Docs– changes to the documentation like README
+Style– style or formatting change
+Perf – improves code performance
+Test– test a feature</p>
+<p>Best practices: <a href="https://gist.github.com/Zekfad/f51cb06ac76e2457f11c80ed705c95a3">Conventional commits</a></p>
+</div>
+<div id="git-push" class="section level3 hasAnchor" number="6.1.10">
+<h3><span class="header-section-number">6.1.10</span> 4) <code>git push</code><a href="version-control-and-collaboration-with-git-and-github.html#git-push" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uploads your local commits to the remote (e.g., GitHub).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="version-control-and-collaboration-with-git-and-github.html#cb4-1" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
+<p><strong>Use it:</strong> After committing, to share your changes with collaborators.</p>
+</div>
+<div id="git-pull" class="section level3 hasAnchor" number="6.1.11">
+<h3><span class="header-section-number">6.1.11</span> 5) <code>git pull</code><a href="version-control-and-collaboration-with-git-and-github.html#git-pull" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Downloads and integrates changes from the remote into your local branch.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="version-control-and-collaboration-with-git-and-github.html#cb5-1" tabindex="-1"></a><span class="fu">git</span> pull</span></code></pre></div>
+<p><strong>Use it:</strong> Before you start work (and also when Git tells you you’re behind).</p>
+<hr />
+</div>
+<div id="git-command-summary" class="section level3 hasAnchor" number="6.1.12">
+<h3><span class="header-section-number">6.1.12</span> git command summary<a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>git status</code> tells you what’s changed and what will be committed.</li>
+<li><code>git add</code> stages the change; <code>git commit -m "…"</code> records it locally.</li>
+<li><code>git push</code> shares your commits to a remote; <code>git pull</code> brings remote changes to you.</li>
+<li>A consistent habit — <strong>pull → edit → add → commit → push</strong> — keeps collaborators in sync.</li>
+</ul>
+</div>
+<div id="i-cannot-push-my-commit" class="section level3 hasAnchor" number="6.1.13">
+<h3><span class="header-section-number">6.1.13</span> I cannot push my commit!?<a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Likely because:</p>
+<ul>
+<li>Multiple people made changes to the same file.</li>
+<li>You forgot to pull before starting to work.</li>
+<li>For this class, though this is not a great practice, save you work somewhere outside of the repo. Re-clone the repo. Continue as before.</li>
+</ul>
+<p><strong>More advanced git</strong></p>
+<ul>
+<li>Create branches for each person to work on, merge the branches with the main branch</li>
+<li>You can go back to previous commits (a important component of git).</li>
+</ul>
+</div>
+</div>
+<div id="discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology<a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>How to use this section:</strong> Read the article below (embedded) and prepare notes for the discussion prompts. Bring your answers to class.</p>
+<div id="article-embedded" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Article (embedded)<a href="version-control-and-collaboration-with-git-and-github.html#article-embedded" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Trisos2021.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+</div>
+<div id="individual-reflection-short-written-responses" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Individual reflection (short written responses)<a href="version-control-and-collaboration-with-git-and-github.html#individual-reflection-short-written-responses" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Positionality: Who are you in relation to your study system/communities? Name one way your training, language(s), or passport access could shape your research questions or interpretations.</p></li>
+<li><p>Language &amp; knowledge systems: Give one concrete step you could take this term to include non-English sources or local knowledge forms (e.g., oral histories, maps, artefacts) in your evidence base. Why that step?</p></li>
+<li><p>Historical context: Identify one colonial or post-colonial process that influenced the landscape/species you study. How might that history affect your hypotheses or sampling frame?</p></li>
+<li><p>Avoiding parachute science: Describe one design change that would move a hypothetical field study from extractive to reciprocal (planning, authorship, outputs, or funding flow).</p></li>
+<li><p>Authorship &amp; credit: Propose an authorship/acknowledgement plan for a collaborative project that fairly credits local experts and knowledge holders. What trade-offs might you face?</p></li>
+<li><p>Ethical risks: Name a foreseeable harm (social, cultural, or ecological) your project could cause and a mitigation you would build in from day one.</p></li>
+</ol>
+<p><strong>In-class discussion (small groups → whole class)</strong></p>
+<p>A. Case study: “Who benefits?”:
+Scenario: You have rapid funding to analyze biodiversity data collected in a Global South region and stored in a Global North repository. Internet bandwidth is limited for local collaborators.</p>
+<p>Discuss:</p>
+<ul>
+<li><p>Minimum co-design steps you must take before analysis begins.</p></li>
+<li><p>How you will handle data access &amp; sovereignty (permissions, embargoes, community review).</p></li>
+<li><p>A fair authorship and outputs plan (local language summary, data dashboards, capacity funding).</p></li>
+</ul>
+<p>B. Choose two of the reflection questions and synthesize you reflections to report back to the group.</p>
+</div>
+</div>
+<div id="lab-git-and-github" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Lab Git and Github<a href="version-control-and-collaboration-with-git-and-github.html#lab-git-and-github" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-1-1" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Question 1<a href="version-control-and-collaboration-with-git-and-github.html#question-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Clone (instead of using the zip as we did in the beginning of class) the class book.</li>
+</ul>
+</div>
+<div id="question-2-2" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Question 2<a href="version-control-and-collaboration-with-git-and-github.html#question-2-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Create a git repo for the problem sets for the rest of the quarter. Call it ds-environ-[your initials] on your computer.</li>
+<li>Connect local to remote repository on github.</li>
+<li>Add the GE as a collaborators to the repos on github.</li>
+</ul>
+</div>
+<div id="question-3-v1-partners" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Question 3 v1 (partners)<a href="version-control-and-collaboration-with-git-and-github.html#question-3-v1-partners" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Create another git repo for your final project (give it a name related to your project -[you and your partner’s initials]) on github. Add your partner as a collaborator.</li>
+<li>Both partners clone the repo to their computers.<br />
+</li>
+<li>One partner creates a readme file and commit their changes. push</li>
+<li>The other pulls.</li>
+<li>The partner that pulled creates a Topic + workflow proposal .Rmd file on their computer, and adds some ideas. add - commit - push</li>
+<li>The other partner pulls, and makes some changes add - commit - push</li>
+<li>Add the GE as a collaborator to the repo on github.</li>
+</ul>
+</div>
+<div id="question-3-v2-solo-project" class="section level3 hasAnchor" number="6.3.4">
+<h3><span class="header-section-number">6.3.4</span> Question 3 v2 (solo project)<a href="version-control-and-collaboration-with-git-and-github.html#question-3-v2-solo-project" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Create another git repo for your final project (give it a name related to your project -[your initials]) on github.</p></li>
+<li><p>Clone the repo the repo to your computer.<br />
+</p></li>
+<li><p>Creates a readme file and commit your changes. push</p></li>
+<li><p>Create a Topic + workflow proposal .Rmd file on your computer, and adds some ideas. add - commit - push</p></li>
+<li><p>Make some changes add - commit - push</p></li>
+<li><p>Add the GE as a collaborator to the repo on github.</p></li>
+<li><p>Congratulations! You are all set up to start version controlling your project :) For the rest of the course, you will turn your your lab problem sets on github (and also upload a pdf to canvas).</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simulation-based-hypothesis-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ecological-networks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

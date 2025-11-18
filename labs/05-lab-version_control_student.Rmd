@@ -1,0 +1,31 @@
+## Lab: Git and Github 
+
+### Question 1
+- Clone (instead of using the zip as we did in the beginning of class) the class book.
+
+### Question 2 
+
+- Create a git repo for the problem sets for the rest of the quarter. Call it ds-environ-[your initials] on your computer. 
+- Connect local to remote repository on github. 
+- Add the GE as a collaborators to the repos on github.
+
+
+### Question 3 v1 (partners)
+- Create another git repo for your final project (give it a name related to your project -[you and your partner's initials]) on github. Add your partner as a collaborator. 
+- Both partners clone the repo to their computers.  
+- One partner creates a readme file and commit their changes. push
+- The other pulls.
+- The partner that pulled creates a Topic + workflow proposal .Rmd file on their computer, and adds some ideas. add - commit - push
+- The other partner pulls, and makes some changes add - commit - push
+- Add the GE as a collaborator to the repo on github.
+
+### Question 3 v2 (solo project)
+- Create another git repo for your final project (give it a name related to your project -[your initials]) on github. 
+- Clone the repo the repo to your computer.  
+- Creates a readme file and commit your changes. push
+- Create a Topic + workflow proposal .Rmd file on your computer, and adds some ideas. add - commit - push
+- Make some changes add - commit - push
+- Add the GE as a collaborator to the repo on github.
+
+
+- Congratulations! You are all set up to start version controlling your project :) For the rest of the course, you will turn your your lab problem sets on github (and also upload a pdf to canvas).

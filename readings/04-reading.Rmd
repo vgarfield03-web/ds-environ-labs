@@ -1,0 +1,20 @@
+## Discussion & Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture 
+
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Ponisio2016.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+
+### Pre‑class reflection (please submit short answers via canvas)
+
+Use short, evidence-based answers linked to the paper. Where asked, reference the figure, method, or statistic that supports your claim. We will cover these same questions during our in class discussion.
+
+
+1. **Core claim in one sentence.** In your own words, summarize the central finding about hedgerows and community heterogeneity (β-diversity). What *measure* of β-diversity did the study use, and why was a null-model correction necessary?
+
+2. **Trait perspective.** Define *trait evenness, dispersion, divergence* and explain what it means that mature hedgerows increased all three relative to controls. 
+
+3. **Ecological filter.** What evidence suggests conventional field margins act as an ecological filter on bee traits (e.g., body size, specialization, nesting)? Give one concrete example reported in the paper. 
+
+4. **Nestedness vs. replacement.** What does it mean that communities were generally *not* nested (NODF), and why does this support species **replacement** as a source of β-diversity? How might a nested pattern have changed the interpretation?
+
+5. **Measurement choice.** The paper uses an **abundance-based dissimilarity** estimator that accounts for unseen species and then computes **multivariate dispersion** (distance to group centroid) as β-diversity. Explain why naïvely comparing average pairwise dissimilarities could be misleading without these controls.

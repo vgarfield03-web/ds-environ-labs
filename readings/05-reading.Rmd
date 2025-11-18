@@ -1,0 +1,40 @@
+## Discussion & Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology
+
+**How to use this section:** Read the article below (embedded) and prepare notes for the discussion prompts. Bring your answers to class.
+
+### Article (embedded)
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Trisos2021.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+
+### Individual reflection (short written responses)
+
+1. Positionality: Who are you in relation to your study system/communities? Name one way your training, language(s), or passport access could shape your research questions or interpretations. 
+
+2. Language & knowledge systems: Give one concrete step you could take this term to include non-English sources or local knowledge forms (e.g., oral histories, maps, artefacts) in your evidence base. Why that step? 
+
+3. Historical context: Identify one colonial or post-colonial process that influenced the landscape/species you study. How might that history affect your hypotheses or sampling frame? 
+
+4. Avoiding parachute science: Describe one design change that would move a hypothetical field study from extractive to reciprocal (planning, authorship, outputs, or funding flow). 
+
+
+5. Authorship & credit: Propose an authorship/acknowledgement plan for a collaborative project that fairly credits local experts and knowledge holders. What trade-offs might you face? 
+
+6. Ethical risks: Name a foreseeable harm (social, cultural, or ecological) your project could cause and a mitigation you would build in from day one. 
+
+**In-class discussion (small groups → whole class)**
+
+A. Case study: “Who benefits?”:
+Scenario: You have rapid funding to analyze biodiversity data collected in a Global South region and stored in a Global North repository. Internet bandwidth is limited for local collaborators.
+
+Discuss:
+
+- Minimum co-design steps you must take before analysis begins.
+
+- How you will handle data access & sovereignty (permissions, embargoes, community review).
+
+- A fair authorship and outputs plan (local language summary, data dashboards, capacity funding). 
+
+
+B. Choose two of the reflection questions and synthesize you reflections to report back to the group. 
+

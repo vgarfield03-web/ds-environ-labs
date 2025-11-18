@@ -1,0 +1,123 @@
+# Syllabus
+
+
+## Course Overview
+
+The course develops hands-on coding skills using spatial, temporal, species occurrence, and interaction data. Topics include:
+
+- Reproducible workflows
+- Hypothesis testing with simulations
+- Networks analyses
+- Regular expressions and data standardization
+- Spatial data manipulation (GIS)
+- Scientific communication and visualization
+
+## The 7 Fundamentals (Wilson)
+
+1. Individual things  
+2. Commands that operate on things  
+3. Groups of things  
+4. Repetition (loops)  
+5. Decision making (conditionals)  
+6. Creating functions  
+7. Combining functions (piping)
+
+## Coding Tools and Practices
+- RMarkdown for reproducibility
+- Tidyverse for data wrangling and plotting
+- Git + GitHub for collaboration
+- Fundamentals of programming in R
+
+Primary outside class materials: This book, *R for Data Science* (Grolemund & Wickham), online DataCamp tutorials.
+
+## Weekly Topics and Readings
+
+```{r echo=FALSE}
+library(knitr)
+kable(data.frame(
+  Week = 1:10,
+  Programming = c(
+    "Intro to R & programming concepts part 1",
+    "Intro to R & programming concepts part 2",
+    "Data wrangling & visualization",
+    "Joins & simulation",
+    "Version control (Git)",
+    "Networks & linear algebra",
+    "Regular expressions",
+    "Spatial data I",
+    "Spatial data II",
+    "Final project + poster session"
+  ),
+  Ecology = c(
+    "Datacamp catch up",
+    "Reproducible science",
+    "NOAA climate data",
+    "Hedgerow biodiversity",
+    "Decolonizing ecology",
+    "Ancient food webs",
+    "Oregon Bee Atlas data",
+    "Species occurrences",
+    "Fire severity maps",
+    "Poster presentations"
+  )
+))
+```
+
+
+## Assignments and Grading
+
+- **Lab assignments**: These programming assignments are designed to develop the skills you learn in class. Assignments will typically include designing and implementing code and interpreting code and figures. Comfort in the R environment comes with regular use, so each week includes an assignment to reinforce the concepts in class. Upload the PDF on Canvas to turn in the assignment, and after the week focusing on learning to use version control (week 5), push your assignment to GitHub. 0.5 points of each 5 point assignment are from lab attendance. (due TH the week after they have been assigned in lab)
+- **Article summaries**: A prompt for a summary or reflection will be posted every other week (or so) to prepare for our discussions on Wednesdays. (due before class W).
+- **Weekly quizzes**: These quizzes will include selecting what code will achieve a certain goal and conceptual topics in the tutorials/readings. Quizzes are done during lab, no time limit, closed book.
+- **Participation**: Regular class attendance and participation.
+- **Data camp tutorials**: Each week there will be interactive tutorials that cover the programming topics we cover in class. The lab assignments are more advanced, so practicing with topics ahead of the lab is key to being able to engage in the labs. Besides in the first week where we will do these tutorials in lab and they are due at 11:45pm, the rest are due before lab starts (2pm Friday).
+- **Final project**: The class's focal experience is working collaboratively on creating the deliverable requested by our project partner, the Oregon Bee Atlas (OBA), or data collected by the students (i.e., capstone or thesis data). Undergrads will work in pairs, and grads will work solo. Final write-up is due during finals week.
+
+## Policies
+- Extensions given for emergency granted by LP (not the GE)
+- Late penalty: 10% per day  
+- AI tools: tutor only (for programming and writing), not for final writing. You must understand all code and be able to explain it to me. If you cannot, I will give the assignment back, and have you re do it with a 10% penalty per day (+ 10% off the top).  
+
+## Final Project
+Work with real Oregon Bee Atlas or capstone data. Deliverables:
+
+- Topic identification
+- Discuss the topic with LP during office hours.
+- Annotated bibliography.
+- Proposed workflow
+- Written report of requested analysis visualizations, including reproducible code deposited on Github.
+- Poster presentation at class symposium.
+
+**Graduate students** (500-level) have additional requirements:
+
+- Challenge questions: Most lab programming assignment will include 1-2 challenge problems for graduate students. Undergraduates can complete these questions for extra credit.
+
+- Final project: graduate students do not work in pairs, so are expected to spend twice the amount of time. In addition:
+a) The introduction of the written project must be at the level that you would send to your committee.
+b) The hypothesis test must include the best available statistical test using simulation, traditional statistics (linear models, generalized linear models, etc.), or machine learning. Please come to office hours if unsure of what analytic approach to take.
+c) The final project must include a programming skill that builds on or is not covered by this class that is relevant to the student’s thesis. For example:
+- Conducting and visualizing a PCoA
+- Creating a shiny ap.
+- Creating interactive plots to explore the data
+- Advanced spatial analysis
+- Downloading climate data from PRISM
+- A bioinformatics pipeline in BASH
+- Creating a Docker container for your project
+
+New programming skill demo: For the above new programming skill, create a RMarkdown demo that introduces the new skill, and then three challenge problems formatted in a similar way to our lab assignments. The demo should be approximately 45 minutes if delivered, and the challenge problems should be sufficiently complex to take 20 minutes each to solve.
+
+
+**Getting help:**
+
+-Ask a friend/lab partner 
+- Google it (so many helpful data scientists out there)
+- Stack overflow
+- Okay to use AI as a tutor
+- Ask on discussion “help” channel 
+- Ask during lab
+- Come to the office hours held by LP and GE
+- UO Libraries Data Services 
+
+The Data Services Help Desk will be open for drop-in statistical and programming support 11:00am – 4:00pm M-F starting in October in their new location by Room 134 in Knight Library, just past the DREAM Lab. The Help Desk offers drop-in services and consultations by [appointment](https://uoregon.libcal.com/appointments/data_services) for statistics, R, Python, GIS software, information design, Git, Excel, Qualtrics, data management, Talapas support, and qualitative data analysis. 
+
+Students looking to connect may enjoy their biweekly Coffee & Code sessions over snacks. Our Data & AI Book Club this term is reading Co-Intelligence: Living and Working with AI by Ethan Mollick.

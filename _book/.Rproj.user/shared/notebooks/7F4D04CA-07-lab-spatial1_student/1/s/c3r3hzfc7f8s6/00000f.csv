@@ -1,0 +1,7 @@
+"0","rast_to_df <- function(r){"
+"0","  as.data.frame(r, xy = TRUE) %>%"
+"0","    rename(severity = names(r)) %>%"
+"0","    mutate(severity = factor(severity,"
+"0","                             levels = c(1,2,3,4),"
+"0","                             labels = c(""Unburned/Very Low"", ""Low"", ""Moderate"", ""High"")))"
+"0","}"

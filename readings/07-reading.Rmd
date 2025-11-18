@@ -1,0 +1,27 @@
+## Discussion & Reflection: Halofsky et al. 2020: Changing wildfire, changing forests: the effects of climate change on fire regimes and vegetation in the Pacific Northwest, USA
+
+> **How to use this section:** Read the article below (embedded) and prepare your answers to the discussion prompts. Bring notes to class.
+
+### Article (embedded)
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Halofsky2020.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+
+1. In the reading, what *specific* evidence do the authors give that fire regimes in the Pacific Northwest are already changing (e.g., years, fire names, or locations)? Pick **two** examples from the reading and explain why each one matters for forest managers rather than just being “a big fire.” (2–4 sentences per example)
+
+2. The paper often says managers “may be unable to affect total area burned” but can still reduce severity or protect high-value resources. Do you find that argument convincing? Identify one paragraph/section that supports it and explain what additional data or example you’d want before making a management decision. (3–5 sentences)
+
+3. Under what conditions (forest type, productivity, time since fire) do reburns become *most* worrisome for regeneration, according to the paper? How does that compare to what you’ve seen/heard in our local post-fire systems?
+
+### In-class discussion prompts
+
+1. How should we talk about the future?
+The paper could be read three different ways:
+
+- “Large, severe fires are mostly climate-driven and will keep happening,”
+- “We can’t stop all fire but we can still shape impacts,” or
+- “Fire will re-organize some forests and we should plan for new states.”
+
+Which of these framings do you think is most useful for managers and communities in the PNW right now, and why? Point to one sentence/idea in the paper that nudged you that way.
+
+2. Many of the places we work (Holiday Farm Fire footprint, HJ Andrews surroundings) have multiple owners and mixed objectives. Imagine two neighboring ownerships make different choices: one invests in fuel breaks to protect infrastructure, the other prioritizes habitat complexity after fire. Based on the paper’s logic, argue whether this patchwork is actually fine (“diversity of strategies is good”) or actually risky (“inconsistent treatment undermines landscape-level goals”). Defend one side.

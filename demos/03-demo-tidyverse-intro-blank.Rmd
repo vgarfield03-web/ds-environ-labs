@@ -1,0 +1,197 @@
+
+```{r co2_shared_setup, include=FALSE}
+library(tidyverse)
+```
+
+> If chunks don't run, install the meta-package: `install.packages("tidyverse")`
+
+## Demo: Introduction to the Tidyverse
+
+The **tidyverse** is a family of packages for modern data science in R. Loading the meta‑package attaches the most common tools (ggplot2, dplyr, tidyr, readr, tibble, stringr, forcats, purrr).
+
+**Importing Data**
+
+**Goal.** Load the NOAA Mauna Loa monthly CO₂ file that is bundled with this lab at `data/co2_mm_mlo.txt`.
+
+**Watch‑outs (why parsing is tricky):**
+- Lines starting with `#` are **comments** that describe the columns.
+- Some numeric columns use **sentinel codes** like `-9.99` to mean “missing” — we’ll convert those to real `NA`.
+- The file includes a `decimal_date`, but we’ll also construct a proper **`Date`** from `year` + `month` for plotting.
+
+We’ll first try a simple import strategy (to see the problems), then a fix that **tells R about comments**, and finally a tidyverse‑style read that
+**assigns column names**, **converts sentinels to `NA`**, and **adds a `Date` column**.
+
+Our first task is to read this data into our R environment.  To this, we will use the `read.csv` function. Reading in a data file is called *parsing*, which sounds much more sophisticated.  For good reason too -- parsing different data files and formats is a cornerstone of all pratical data science research, and can often be the hardest step.
+
+So what do we need to know about this file in order to read it into R?
+
+```{r, render=print}
+### Let's try:
+co2_path <- file.path("data/co2_mm_mlo.txt")
+co2.test1 <- read_csv(co2_path)
+head(co2.test1)
+```
+
+hmm... what a mess.  Let's try defining the comment symbol:
+```{r, render=print}
+co2.test2 <- read_csv(co2_path,
+                 comment = "#")
+head(co2.test2)
+```
+
+Getting there, but not quite done. Our first row is being interpreted as column names.  The documentation also notes that certain values are used to indicate missing data, which we would be better off converting to explicitly missing so we don't get confused.
+
+Seems like we need a more flexible way to load in the data to avoid further suffering. Let's try `readr::read_table` from `tidyverse` 
+
+```{r}
+
+co2 <- read_table(co2_path, comment = "#",
+                  col_names = c("year", "month", "decimal_date", 
+                                "average", "interpolated", "trend",
+                                "stdev_days", "uncertainty_average"),
+                  col_types = c("iidddidd"),
+                  na = c("-1", "-99.99", "-9.99", "-0.99"))
+co2
+```
+
+Success! We have read in the data. Celebrate!
+
+### Plotting Data with `ggplot`
+
+Effective visualizations are an integral part of data science and the ability to generate plots quickly with minimal tinkering is an essential skill. 
+
+```{r}
+
+```
+
+
+### Data wrangling
+
+Core verbs from **dplyr** operate on tibbles and return new tibbles.
+*What we’re doing.* Below we practice core dplyr verbs on the **CO₂** monthly series:
+
+- `select()`/**`rename()`** to keep/rename a minimal set of columns, rename some
+- `filter()`/`arrange()` to restrict to years post‑2000 months and find the highest 5 values
+- `mutate()` to add derived features we’ll use later.
+
+```{r}
+# Select columns we are interested in and rename average for clarity 
+# co2_sub <- co2 %>%
+
+
+# co2_sub
+```
+
+```{r}
+# Filter to 200+ with valid values; list the 5 highest months
+#co2_top <- co2_sub %>%
+
+#co2_top
+```
+
+
+```{r}
+# Add derived columns: month name, monthly change, and decade
+# R has a built in constant month.abb vector of the abbreviated month names.
+# lag() finds the previous value in a vector
+# floor() is like round(), but it takes the floor
+# relocate() moves a column
+
+#co2_enriched <- co2_sub %>%
+
+
+#head(co2_enriched)
+```
+
+### Data visualization
+
+*What we’re doing.* We’ll visualize:
+- a **histogram of monthly change** (`delta`) faceted by decade to compare distributions.
+
+
+```{r}
+# Histogram: month-to-month change, by decade
+# co2_enriched %>%
+
+
+# The x-axes get cut off, which is annoying, but as an exploratory analysis we can leave it. 
+```
+What is your interpretation of these historgrams?
+
+### Common types of visualizations
+
+- Trends: `geom_line()`, `geom_smooth()`
+- Distribution: `geom_histogram()`, `geom_density()`, `geom_boxplot()`, `geom_violin()`
+- Relationship: `geom_point()` (+ `geom_smooth()`)
+- Composition: stacked/filled bars (`geom_bar(position = "fill")`), area charts
+- Uncertainty: `geom_errorbar()`, `geom_ribbon()`
+
+### Fun graph references:
+[Friends don't let friends make bad graphs](https://github.com/cxli233/FriendsDontLetFriends?tab=readme-ov-file)
+
+[R graph gallary](https://r-graph-gallery.com/)
+
+[R colors](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf)
+
+## In class challange: Think up an interesting question to ask with the co2 data that involves summarizing and/or mutating the data in an interesting way. Make a plot that explores that question.
+
+```{r}
+
+```
+
+---
+
+#### Reshaping Data with tidyr — From Wide to Long and Back
+
+Go from wide → long to make a tidy “series” column
+Why: Most plotting and grouped summaries are easier when all measurements live in a single value column with a label telling you which measurement it is.
+```{r}
+co2_long <- co2 %>%
+  select(decimal_date, year, month, average, interpolated, trend) %>%
+  pivot_longer(
+    c(average, interpolated, trend),
+    names_to  = "series",
+    values_to = "ppmv"
+  )
+
+head(co2_long)
+
+```
+What this did: Stacked average, interpolated, and trend into one column ppmv, with a companion label series telling you which it was on each row.
+
+The long table makes it easy to plot the different series as different lines.
+
+```{r}
+
+```
+
+
+Next, summarize by year, then long → wide for easy comparison. Calculate the average ppm across a year.
+Why: Sometimes you want one column per series so you can compare or compute differences directly (e.g., average - trend).
+
+```{r}
+#co2_yearly_wide <- co2_long %>%
+
+#head(co2_yearly_wide)
+
+```
+What this did: Calculated annual means for each series, then spread them into separate columns so each row is a year with average, interpolated, and trend side-by-side.
+
+Build compact keys with unite(), then recover fields with separate()
+Why: It’s common to create an ID like "YYYY-MM" for joins or labeling, then later split it back into usable numeric pieces.
+
+```{r}
+# Make a compact "year-month" key
+
+
+```
+What this did: Created a ym key like "1988-07" while keeping year/month (because remove = FALSE).
+
+Split the key back out: 
+```{r}
+# convert=TRUE turns strings into numbers
+
+
+```
+What this did: Recovered year2 / month2 as numeric columns (handy if the key came from somewhere else and you need the parts back).
+

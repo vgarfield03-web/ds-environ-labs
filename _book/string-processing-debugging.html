@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 String Processing &amp; Debugging | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="8 String Processing &amp; Debugging | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 String Processing &amp; Debugging | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 String Processing &amp; Debugging | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ecological-networks.html"/>
+<link rel="next" href="final-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.9.1/d3.min.js"></script>
+<script src="libs/forceNetwork-binding-0.4.1/forceNetwork.js"></script>
+<script src="libs/sankey-1/sankey.js"></script>
+<script src="libs/sankeyNetwork-binding-0.4.1/sankeyNetwork.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth"><i class="fa fa-check"></i><b>3.2</b> Demo: Exponential Population Growth</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.2.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.2.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.2.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.2.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.3</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.3.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.4</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.4.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.4.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.4.3</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.4.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.4.4</b> Individual things</a></li>
+<li class="chapter" data-level="3.4.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.4.5</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.4.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.4.6</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.4.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.4.7</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.4.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.4.8</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.4.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.4.9</b> Groups of things</a></li>
+<li class="chapter" data-level="3.4.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.4.10</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.4.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.4.11</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.4.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.4.12</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.4.13" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.4.13</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.4.14" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.4.14</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.4.15" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.4.15</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.4.16" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.4.16</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.4.17" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.4.17</b> Creating chunks</a></li>
+<li class="chapter" data-level="3.4.18" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.4.18</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.4.19" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.4.19</b> Question 8 (Extra credit or graduate students)</a></li>
+<li class="chapter" data-level="3.4.20" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-visualize-baseline"><i class="fa fa-check"></i><b>3.4.20</b> Simulate &amp; visualize (baseline)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="07-string-processing-and-debugging.html"><a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="07-string-processing-and-debugging.html"><a href="#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="07-string-processing-and-debugging.html"><a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.7</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.4.1</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-joining-data"><i class="fa fa-check"></i><b>5.4.2</b> Demo: Joining data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-1"><i class="fa fa-check"></i><b>5.4.3</b> Question 2</a></li>
+<li class="chapter" data-level="5.4.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-3"><i class="fa fa-check"></i><b>5.4.4</b> Lab Question 3</a></li>
+<li class="chapter" data-level="5.4.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4.5</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.4.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.4.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.4.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-5"><i class="fa fa-check"></i><b>5.4.7</b> Question 5</a></li>
+<li class="chapter" data-level="5.4.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.4.8</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.4.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.4.9</b> Question 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#individual-reflection-short-written-responses"><i class="fa fa-check"></i><b>6.2.2</b> Individual reflection (short written responses)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-git-and-github"><i class="fa fa-check"></i><b>6.3</b> Lab: Git and Github</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-1-1"><i class="fa fa-check"></i><b>6.3.1</b> Question 1</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2-2"><i class="fa fa-check"></i><b>6.3.2</b> Question 2</a></li>
+<li class="chapter" data-level="6.3.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-3-v1-partners"><i class="fa fa-check"></i><b>6.3.3</b> Question 3 v1 (partners)</a></li>
+<li class="chapter" data-level="6.3.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-3-v2-solo-project"><i class="fa fa-check"></i><b>6.3.4</b> Question 3 v2 (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lecture-summary-4"><i class="fa fa-check"></i><b>7.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.1.2</b> Linear‑algebra essentials for ecological networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data"><i class="fa fa-check"></i><b>7.2</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data-1"><i class="fa fa-check"></i><b>7.2.1</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.2.2</b> From data to networks</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.2.3</b> Core network properties (formulas, intuition, tools)</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-building-networks-and-characterizing-their-structure"><i class="fa fa-check"></i><b>7.2.4</b> Demo: Building networks and characterizing their structure</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ecological-networks.html"><a href="ecological-networks.html#null-models-for-fair-comparisons"><i class="fa fa-check"></i><b>7.2.5</b> Null models for fair comparisons</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-pollination"><i class="fa fa-check"></i><b>7.2.6</b> Demo: Calculating network metrics (pollination)</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.2.7</b> Demo: Create a graph from OBA data, visualize it</a></li>
+<li class="chapter" data-level="7.2.8" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.2.8</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.2.9" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.2.9</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.2.10" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.2.10</b> Further reading &amp; software</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-reflection-yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.3</b> Discussion &amp; Reflection: Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.3.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ecological-networks.html"><a href="ecological-networks.html#reflection-and-in-class-discussion-questions"><i class="fa fa-check"></i><b>7.3.2</b> Reflection and in-class discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.4</b> Lab: Food Webs &amp; Network Measures (Student Version)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.4.2</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.4.3</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.4.4</b> Lab question 3: Visualize the networks</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.4.5</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html"><i class="fa fa-check"></i><b>8</b> String Processing &amp; Debugging</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lecture-summary-5"><i class="fa fa-check"></i><b>8.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.1.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-in-base-r"><i class="fa fa-check"></i><b>8.1.2</b> String manipulation in base R</a></li>
+<li class="chapter" data-level="8.1.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-using-stringr"><i class="fa fa-check"></i><b>8.1.3</b> String manipulation using <em>stringr</em></a></li>
+<li class="chapter" data-level="8.1.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#regular-expressions-regexregexp"><i class="fa fa-check"></i><b>8.1.4</b> Regular expressions (regex/regexp)</a></li>
+<li class="chapter" data-level="8.1.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#general-principles-for-working-with-regex"><i class="fa fa-check"></i><b>8.1.5</b> General principles for working with regex</a></li>
+<li class="chapter" data-level="8.1.6" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#working-with-patterns"><i class="fa fa-check"></i><b>8.1.6</b> Working with patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match"><i class="fa fa-check"></i><b>8.2</b> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?</a></li>
+<li class="chapter" data-level="8.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string"><i class="fa fa-check"></i><b>8.3</b> In class challenge 2: How would I extract an email address from an arbitrary text string?</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#groups"><i class="fa fa-check"></i><b>8.3.1</b> Groups</a></li>
+<li class="chapter" data-level="8.3.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#other-comments"><i class="fa fa-check"></i><b>8.3.2</b> Other comments</a></li>
+<li class="chapter" data-level="8.3.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#additional-resources"><i class="fa fa-check"></i><b>8.3.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r"><i class="fa fa-check"></i><b>8.4</b> Dicussion &amp; Reflection: Debugging in R</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#basic-debugging-strategies"><i class="fa fa-check"></i><b>8.4.1</b> 1) Basic debugging strategies</a></li>
+<li class="chapter" data-level="8.4.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#rs-interactive-debugging-tools"><i class="fa fa-check"></i><b>8.4.2</b> R’s interactive debugging tools</a></li>
+<li class="chapter" data-level="8.4.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#some-common-causes-of-bugs"><i class="fa fa-check"></i><b>8.4.3</b> Some common causes of bugs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors"><i class="fa fa-check"></i><b>8.4.4</b> Tips for avoiding bugs and catching errors</a></li>
+<li class="chapter" data-level="8.4.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#how-to-get-help-online"><i class="fa fa-check"></i><b>8.4.5</b> How to get help online</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version"><i class="fa fa-check"></i><b>8.5</b> Lab: Regular expressions and cleaning OBA data (Student Version)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lesson-overview-3"><i class="fa fa-check"></i><b>8.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="8.5.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Lab question 1: Oregon bee atlas data exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution"><i class="fa fa-check"></i><b>8.5.3</b> Lab question 2: Making a column for plant resolution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-project-1.html"><a href="final-project-1.html"><i class="fa fa-check"></i><b>9</b> Final project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="final-project-1.html"><a href="final-project-1.html#final-project-objective"><i class="fa fa-check"></i><b>9.1</b> Final project objective</a></li>
+<li class="chapter" data-level="9.2" data-path="final-project-1.html"><a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment"><i class="fa fa-check"></i><b>9.2</b> Final project topic selection (first final project assignment)</a></li>
+<li class="chapter" data-level="9.3" data-path="final-project-1.html"><a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment"><i class="fa fa-check"></i><b>9.3</b> Final project office hours discussion (second final project assignment)</a></li>
+<li class="chapter" data-level="9.4" data-path="final-project-1.html"><a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment"><i class="fa fa-check"></i><b>9.4</b> Final project annotated bibliography (third final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="final-project-1.html"><a href="final-project-1.html#overview"><i class="fa fa-check"></i><b>9.4.1</b> Overview</a></li>
+<li class="chapter" data-level="9.4.2" data-path="final-project-1.html"><a href="final-project-1.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.4.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.4.3" data-path="final-project-1.html"><a href="final-project-1.html#requirements"><i class="fa fa-check"></i><b>9.4.3</b> Requirements</a></li>
+<li class="chapter" data-level="9.4.4" data-path="final-project-1.html"><a href="final-project-1.html#how-to-search-effectively-google-scholar-tips"><i class="fa fa-check"></i><b>9.4.4</b> How to search effectively (Google Scholar tips)</a></li>
+<li class="chapter" data-level="9.4.5" data-path="final-project-1.html"><a href="final-project-1.html#recommended-workflow"><i class="fa fa-check"></i><b>9.4.5</b> Recommended workflow</a></li>
+<li class="chapter" data-level="9.4.6" data-path="final-project-1.html"><a href="final-project-1.html#what-each-entry-should-include"><i class="fa fa-check"></i><b>9.4.6</b> What each entry should include</a></li>
+<li class="chapter" data-level="9.4.7" data-path="final-project-1.html"><a href="final-project-1.html#template-copy-for-each-source"><i class="fa fa-check"></i><b>9.4.7</b> Template (copy for each source)</a></li>
+<li class="chapter" data-level="9.4.8" data-path="final-project-1.html"><a href="final-project-1.html#author-surname-et-al.-year.-title."><i class="fa fa-check"></i><b>9.4.8</b> Author Surname et al. (Year). <em>Title</em>.</a></li>
+<li class="chapter" data-level="9.4.9" data-path="final-project-1.html"><a href="final-project-1.html#example-of-intext-citation-references"><i class="fa fa-check"></i><b>9.4.9</b> Example of in‑text citation &amp; references</a></li>
+<li class="chapter" data-level="9.4.10" data-path="final-project-1.html"><a href="final-project-1.html#rubric"><i class="fa fa-check"></i><b>9.4.10</b> Rubric</a></li>
+<li class="chapter" data-level="9.4.11" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist"><i class="fa fa-check"></i><b>9.4.11</b> Submission checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment"><i class="fa fa-check"></i><b>9.5</b> Literature review and workflow plan (fourth final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project"><i class="fa fa-check"></i><b>9.5.1</b> Literature review (i.e., the introduction section of your final project)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="final-project-1.html"><a href="final-project-1.html#dataset-identification"><i class="fa fa-check"></i><b>9.5.2</b> Dataset identification</a></li>
+<li class="chapter" data-level="9.5.3" data-path="final-project-1.html"><a href="final-project-1.html#workflow-plan"><i class="fa fa-check"></i><b>9.5.3</b> Workflow plan</a></li>
+<li class="chapter" data-level="9.5.4" data-path="final-project-1.html"><a href="final-project-1.html#rubric-1"><i class="fa fa-check"></i><b>9.5.4</b> Rubric</a></li>
+<li class="chapter" data-level="9.5.5" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist-1"><i class="fa fa-check"></i><b>9.5.5</b> Submission Checklist</a></li>
+<li class="chapter" data-level="9.5.6" data-path="final-project-1.html"><a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc"><i class="fa fa-check"></i><b>9.5.6</b> Optional scaffold (copy into your working doc)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="final-project-1.html"><a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit"><i class="fa fa-check"></i><b>9.6</b> Final Project Rubric (10 pts total + 1 pt extra credit)</a></li>
+<li class="chapter" data-level="9.7" data-path="final-project-1.html"><a href="final-project-1.html#poster-presentation-rubric-10-pts-total"><i class="fa fa-check"></i><b>9.7</b> Poster Presentation Rubric (10 pts total)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="string-processing-debugging" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> String Processing &amp; Debugging<a href="string-processing-debugging.html#string-processing-debugging" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lecture-summary-5" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Lecture summary<a href="string-processing-debugging.html#lecture-summary-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Practical <strong>string processing</strong> with base R and the tidyverse (<code>stringr</code>) plus core <strong>debugging</strong> strategies. We cover regular expressions (regex), pattern detection and extraction, and robust text-cleaning pipelines. Then we practice reading errors and tracebacks, using interactive debuggers (<code>browser()</code>, <code>debugonce()</code>), and applying a reproducible debugging checklist. The lab applies regex to real-world text and steps through common failure modes.</p>
+<div id="learning-objectives-5" class="section level3 hasAnchor" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Learning objectives<a href="string-processing-debugging.html#learning-objectives-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By the end of this chapter you will be able to:</p>
+<ul>
+<li>Recognize and write common <strong>regex</strong> patterns (IDs, dates, codes) and test them.</li>
+<li>Use <code>stringr</code> verbs (<code>str_detect</code>, <code>str_extract</code>, <code>str_match</code>, <code>str_replace</code>, <code>str_split</code>) fluently in pipelines.</li>
+<li>Build tidy <strong>text-cleaning</strong> workflows that parse, reshape, and standardize messy columns.</li>
+<li>Diagnose and fix errors using <strong>traceback</strong>, <strong>rlang::last_trace()</strong>, and interactive tools.</li>
+<li>Apply a <strong>debugging checklist</strong> to isolate minimal failing examples and document fixes.</li>
+</ul>
+</div>
+<div id="string-manipulation-in-base-r" class="section level3 hasAnchor" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> String manipulation in base R<a href="string-processing-debugging.html#string-manipulation-in-base-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A few of the basic R functions for manipulating strings are <em>paste</em>, <em>strsplit</em>, and <em>substring</em>. <em>paste</em> and <em>strsplit</em> are basically inverses of each other: <em>paste</em> concatenates together an arbitrary set of strings (or a vector, if using the <em>collapse</em>
+argument) with a user-specified separator character, while <em>strsplit</em> splits apart based on a delimiter/separator. <em>substring</em> splits apart the elements of a character vector based on fixed widths. <em>nchar</em> returns the number of characters in a string. Note that all of these operate in a vectorized fashion.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="string-processing-debugging.html#cb1-1" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;My&quot;</span>, <span class="st">&quot;name&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;Lauren&quot;</span>, <span class="st">&quot;.&quot;</span>, <span class="at">sep =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb1-2"><a href="string-processing-debugging.html#cb1-2" tabindex="-1"></a>out</span></code></pre></div>
+<pre><code>## [1] &quot;My name is Lauren .&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="string-processing-debugging.html#cb3-1" tabindex="-1"></a><span class="do">## split the string by spaces</span></span>
+<span id="cb3-2"><a href="string-processing-debugging.html#cb3-2" tabindex="-1"></a><span class="fu">strsplit</span>(out, <span class="at">split =</span> <span class="st">&#39; &#39;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;My&quot;     &quot;name&quot;   &quot;is&quot;     &quot;Lauren&quot; &quot;.&quot;</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="string-processing-debugging.html#cb5-1" tabindex="-1"></a><span class="do">## count the total number of characters in my string</span></span>
+<span id="cb5-2"><a href="string-processing-debugging.html#cb5-2" tabindex="-1"></a><span class="fu">nchar</span>(out)</span></code></pre></div>
+<pre><code>## [1] 19</code></pre>
+<p>Note that <em>strsplit</em> returns a list because it can operate on a character vector (i.e., on multiple strings).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="string-processing-debugging.html#cb7-1" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;04:18:04&quot;</span>, <span class="st">&quot;12:12:53&quot;</span>, <span class="st">&quot;13:47:00&quot;</span>)</span>
+<span id="cb7-2"><a href="string-processing-debugging.html#cb7-2" tabindex="-1"></a>time.pieces <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(times, <span class="st">&quot;:&quot;</span>)</span>
+<span id="cb7-3"><a href="string-processing-debugging.html#cb7-3" tabindex="-1"></a>time.pieces</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;04&quot; &quot;18&quot; &quot;04&quot;
+## 
+## [[2]]
+## [1] &quot;12&quot; &quot;12&quot; &quot;53&quot;
+## 
+## [[3]]
+## [1] &quot;13&quot; &quot;47&quot; &quot;00&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="string-processing-debugging.html#cb9-1" tabindex="-1"></a><span class="fu">sapply</span>(time.pieces, length)</span></code></pre></div>
+<pre><code>## [1] 3 3 3</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="string-processing-debugging.html#cb11-1" tabindex="-1"></a><span class="fu">sapply</span>(time.pieces, <span class="cf">function</span>(x) x[<span class="dv">3</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;04&quot; &quot;53&quot; &quot;00&quot;</code></pre>
+<p><em>substring</em> takes the start and end element number to extract or replace.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="string-processing-debugging.html#cb13-1" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;04:18:04&quot;</span>, <span class="st">&quot;12:12:53&quot;</span>, <span class="st">&quot;13:47:00&quot;</span>)</span>
+<span id="cb13-2"><a href="string-processing-debugging.html#cb13-2" tabindex="-1"></a><span class="fu">substring</span>(times, <span class="dv">7</span>, <span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;04&quot; &quot;53&quot; &quot;00&quot;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="string-processing-debugging.html#cb15-1" tabindex="-1"></a><span class="fu">substring</span>(times[<span class="dv">3</span>], <span class="dv">1</span>, <span class="dv">2</span>) <span class="ot">&lt;-</span> <span class="st">&#39;01&#39;</span>   <span class="do">## replacement</span></span>
+<span id="cb15-2"><a href="string-processing-debugging.html#cb15-2" tabindex="-1"></a>times</span></code></pre></div>
+<pre><code>## [1] &quot;04:18:04&quot; &quot;12:12:53&quot; &quot;01:47:00&quot;</code></pre>
+<p>To identify particular subsequences in strings, there are several related R functions. <em>grep</em> will look for a specified string within an R character vector and report back indices identifying the elements of the vector in which the string was found. Note that using the <code>fixed=TRUE</code> argument ensures that regular expressions are NOT used. <em>grepl</em> will return TRUEs and FALSEs if a pattern is found within a string.</p>
+<p><em>gregexpr</em> will indicate the position in each string that the specified string is found (use <em>regexpr</em> if you only want the first occurrence).</p>
+<p><em>gsub</em> can be used to replace a specified string with a replacement string (use <em>sub</em> if you only want to replace only the first occurrence).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="string-processing-debugging.html#cb17-1" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2016-08-03&quot;</span>, <span class="st">&quot;2007-09-05&quot;</span>, <span class="st">&quot;2016-01-02&quot;</span>)</span>
+<span id="cb17-2"><a href="string-processing-debugging.html#cb17-2" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;2016&quot;</span>, dates)</span></code></pre></div>
+<pre><code>## [1] 1 3</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="string-processing-debugging.html#cb19-1" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;2016&quot;</span>, dates)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="string-processing-debugging.html#cb21-1" tabindex="-1"></a><span class="do">## start/end position of each match</span></span>
+<span id="cb21-2"><a href="string-processing-debugging.html#cb21-2" tabindex="-1"></a><span class="fu">gregexpr</span>(<span class="st">&quot;2016&quot;</span>, dates)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## attr(,&quot;match.length&quot;)
+## [1] 4
+## attr(,&quot;index.type&quot;)
+## [1] &quot;chars&quot;
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE
+## 
+## [[2]]
+## [1] -1
+## attr(,&quot;match.length&quot;)
+## [1] -1
+## attr(,&quot;index.type&quot;)
+## [1] &quot;chars&quot;
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE
+## 
+## [[3]]
+## [1] 1
+## attr(,&quot;match.length&quot;)
+## [1] 4
+## attr(,&quot;index.type&quot;)
+## [1] &quot;chars&quot;
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="string-processing-debugging.html#cb23-1" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;2016&quot;</span>, <span class="st">&quot;16&quot;</span>, dates)</span></code></pre></div>
+<pre><code>## [1] &quot;16-08-03&quot;   &quot;2007-09-05&quot; &quot;16-01-02&quot;</code></pre>
+</div>
+<div id="string-manipulation-using-stringr" class="section level3 hasAnchor" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> String manipulation using <em>stringr</em><a href="string-processing-debugging.html#string-manipulation-using-stringr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <em>stringr</em> package wraps the various core string manipulation functions to provide a common interface. It also removes some of the clunkiness involved in some of the string operations with the base string functions, such as having to to call <em>gregexpr</em> and then <em>regmatches</em> to pull out the matched strings. For anything but very simple takss, I’d suggest using <em>stringr</em> functions in place of R’s base string functions.</p>
+<p>Table 1 provides an overview of the key functions related to working with patterns, which are basically
+wrappers for <em>grep</em>, <em>gsub</em>, <em>gregexpr</em>, etc.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>str_detect</td>
+<td>detects pattern, returning TRUE/FALSE</td>
+</tr>
+<tr class="even">
+<td>str_count</td>
+<td>counts matches</td>
+</tr>
+<tr class="odd">
+<td>str_locate/str_locate_all</td>
+<td>detects pattern, returning positions of matching characters</td>
+</tr>
+<tr class="even">
+<td>str_extract/str_extract_all</td>
+<td>detects pattern, returning matches</td>
+</tr>
+<tr class="odd">
+<td>str_replace/str_replace_all</td>
+<td>detects pattern and replaces matches</td>
+</tr>
+</tbody>
+</table>
+<p>The analog of <em>regexpr</em> vs. <em>gregexpr</em> and <em>sub</em> vs. <em>gsub</em> is that most of the functions have versions that return all the matches, not just the first match, e.g. <em>str_locate_all</em> <em>str_extract_all</em>, etc. Note that the *_all* functions return lists while the non-*_all* functions return vectors.</p>
+<p>To specify options, you can wrap these functions around the pattern argument: <code>fixed(pattern, ignore_case)</code> and <code>regex(pattern, ignore_case)</code>. The default is <em>regex</em>, so you only need to specify that if you also want to specify additional arguments, such as <em>ignore_case</em> or others listed under <code>help(regex)</code> (invoke the help after loading <em>stringr</em>)</p>
+<p>Let’s see <em>stringr</em>’s versions of some of the base string functions mentioned in the previous sections.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="string-processing-debugging.html#cb25-1" tabindex="-1"></a>str <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Apple Computer&quot;</span>, <span class="st">&quot;IBM&quot;</span>, <span class="st">&quot;Apple apps&quot;</span>)</span>
+<span id="cb25-2"><a href="string-processing-debugging.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="string-processing-debugging.html#cb25-3" tabindex="-1"></a><span class="fu">str_locate</span>(str, <span class="fu">fixed</span>(<span class="st">&quot;app&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>##      start end
+## [1,]     1   3
+## [2,]    NA  NA
+## [3,]     1   3</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="string-processing-debugging.html#cb27-1" tabindex="-1"></a><span class="do">## Not just the first</span></span>
+<span id="cb27-2"><a href="string-processing-debugging.html#cb27-2" tabindex="-1"></a><span class="fu">str_locate_all</span>(str, <span class="fu">fixed</span>(<span class="st">&quot;app&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## [[1]]
+##      start end
+## [1,]     1   3
+## 
+## [[2]]
+##      start end
+## 
+## [[3]]
+##      start end
+## [1,]     1   3
+## [2,]     7   9</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="string-processing-debugging.html#cb29-1" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2016-08-03&quot;</span>, <span class="st">&quot;2007-09-05&quot;</span>, <span class="st">&quot;2016-01-02&quot;</span>)</span>
+<span id="cb29-2"><a href="string-processing-debugging.html#cb29-2" tabindex="-1"></a><span class="do">## regular expression: years begin in 2010</span></span>
+<span id="cb29-3"><a href="string-processing-debugging.html#cb29-3" tabindex="-1"></a><span class="fu">str_locate</span>(dates, <span class="st">&quot;20[^0][0-9]&quot;</span>) </span></code></pre></div>
+<pre><code>##      start end
+## [1,]     1   4
+## [2,]    NA  NA
+## [3,]     1   4</code></pre>
+<p>The basic interface to <em>stringr</em> functions is <code>function(strings, pattern, [replacement])</code>.</p>
+</div>
+<div id="regular-expressions-regexregexp" class="section level3 hasAnchor" number="8.1.4">
+<h3><span class="header-section-number">8.1.4</span> Regular expressions (regex/regexp)<a href="string-processing-debugging.html#regular-expressions-regexregexp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Regular expressions are a domain-specific language for finding patterns and are one of the key functionalities in scripting languages such as Perl and Python, as well as the UNIX utilities <em>sed</em>, <em>awk</em> and <em>grep</em>.</p>
+<p>The basic idea of regular expressions is that they allow us to find matches of strings or patterns in strings, as well as do substitution.</p>
+<p>Regular expressions are good for tasks such as:
+- extracting pieces of text - for example finding all the links in an html document;
+- cleaning and transforming text (ex. values in a column) into a uniform format;
+- creating variables from information found in text;
+- mining text by treating documents as data; and
+- scraping the web for data.</p>
+<p>Also, here’s a <a href="https://github.com/rstudio/cheatsheets/blob/main/regex.pdf">cheatsheet on regular expressions</a> and here is a <a href="https://regex101.com">website where you can interactively test regular expressions on example strings</a>.</p>
+<p><strong>Versions of regular expressions</strong></p>
+<p>One thing that can cause headaches is differences in version of regular expression syntax used. As can be seen in <code>help(regex)</code>, In R, <em>stringr</em> provides <em>ICU regular expressions</em>, which are based on Perl regular expressions. More details can be found in the <a href="https://en.wikipedia.org/wiki/Regular_expression">regex Wikipedia page</a>.</p>
+<p><strong>Commonly used regex building blocks</strong>
+Square brackets can be used to define a list or range of characters to be found. So:</p>
+<ul>
+<li><code>[ABC]</code> matches A or B or C.</li>
+<li><code>[A-Z]</code> matches any upper case letter.</li>
+<li><code>[A-Za-z]</code> matches any upper or lower case letter.</li>
+<li><code>[A-Za-z0-9]</code> matches any upper or lower case letter or any digit.</li>
+<li><code>[:digit:]</code> matches any digit</li>
+</ul>
+<p>Then there are:</p>
+<ul>
+<li><p><code>.</code> matches any character.</p></li>
+<li><p><code>\d</code> matches any single digit.</p></li>
+<li><p><code>\w</code> matches any part of word character (equivalent to <code>[A-Za-z0-9]</code>).</p></li>
+<li><p><code>\s</code> matches any space, tab, or newline.</p></li>
+<li><p><code>\</code> used to escape the following character when that character is a special character. So, for example, a regular expression that found <code>.com</code> would be <code>\.com</code> because <code>.</code> is a special character that matches any character.</p></li>
+<li><p><code>^</code> is an “anchor” which asserts the position at the start of the line. So what you put after the caret will only match if they are the first characters of a line.</p></li>
+<li><p><code>$</code> is an “anchor” which asserts the position at the end of the line. So what you put before it will only match if they are the last characters of a line.</p></li>
+<li><p><code>\b</code> asserts that the pattern must match at a word boundary.
+Putting this either side of a word stops the regular expression matching longer variants of words. So:</p>
+<ul>
+<li>the regular expression <code>mark</code> will match not only <code>mark</code> but also find <code>marking</code>, <code>market</code>, <code>unremarkable</code>, and so on.</li>
+<li>the regular expression <code>\bword</code> will match <code>word</code>, <code>wordless</code>, and <code>wordlessly</code>.</li>
+<li>the regular expression <code>comb\b</code> will match <code>comb</code> and <code>honeycomb</code> but not <code>combine</code>.</li>
+<li>the regular expression <code>\brespect\b</code> will match <code>respect</code> but not <code>respectable</code> or <code>disrespectful</code>.</li>
+</ul></li>
+</ul>
+<p>Other useful special characters are:</p>
+<ul>
+<li><code>*</code> matches the preceding element zero or more times. For example, ab*c matches “ac”, “abc”, “abbbc”, etc.</li>
+<li><code>+</code> matches the preceding element one or more times. For example, ab+c matches “abc”, “abbbc” but not “ac”.</li>
+<li><code>?</code> matches when the preceding character appears zero or one time.</li>
+<li><code>{VALUE}</code> matches the preceding character the number of times defined by VALUE; ranges, say, 1-6, can be specified with the syntax <code>{VALUE,VALUE}</code>, e.g. <code>\d{1,9}</code> will match any number between one and nine digits in length.</li>
+<li><code>|</code> means <strong>or</strong>.</li>
+</ul>
+</div>
+<div id="general-principles-for-working-with-regex" class="section level3 hasAnchor" number="8.1.5">
+<h3><span class="header-section-number">8.1.5</span> General principles for working with regex<a href="string-processing-debugging.html#general-principles-for-working-with-regex" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The syntax is very concise, so it’s helpful to break down individual regular expressions into the component parts to understand them. Since regex are their own language, it’s a good idea to build up a regex in pieces as a way of avoiding errors just as we would with any computer code. <em>str_detect</em> in R’s <em>stringr</em> is particularly useful in seeing <em>what</em> was matched to help in understanding and learning regular expression syntax and debugging your regex.</p>
+<p>The <em>grep</em>, <em>gregexpr</em> and <em>gsub</em> functions and their <em>stringr</em> analogs are more powerful when used with regular expressions. In the following examples, we’ll illustrate usage of <em>stringr</em> functions, but with their base R analogs as comments.</p>
+</div>
+<div id="working-with-patterns" class="section level3 hasAnchor" number="8.1.6">
+<h3><span class="header-section-number">8.1.6</span> Working with patterns<a href="string-processing-debugging.html#working-with-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First let’s see the use of character sets and character classes.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="string-processing-debugging.html#cb31-1" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Here&#39;s my number: 919-543-3300.&quot;</span>, <span class="st">&quot;hi John, good to meet you&quot;</span>,</span>
+<span id="cb31-2"><a href="string-processing-debugging.html#cb31-2" tabindex="-1"></a>          <span class="st">&quot;They bought 731 bananas&quot;</span>, <span class="st">&quot;Please call 919.554.3800&quot;</span>)</span>
+<span id="cb31-3"><a href="string-processing-debugging.html#cb31-3" tabindex="-1"></a><span class="fu">str_detect</span>(text, <span class="st">&quot;[[:digit:]]&quot;</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="string-processing-debugging.html#cb33-1" tabindex="-1"></a><span class="do">## grep(&quot;[[:digit:]]&quot;, text, perl = TRUE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="string-processing-debugging.html#cb34-1" tabindex="-1"></a><span class="co"># Match a single character present in the list below [:,\t.]</span></span>
+<span id="cb34-2"><a href="string-processing-debugging.html#cb34-2" tabindex="-1"></a><span class="fu">str_detect</span>(text, <span class="st">&quot;[:,</span><span class="sc">\t</span><span class="st">.]&quot;</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="string-processing-debugging.html#cb36-1" tabindex="-1"></a><span class="do">## grep(&quot;[:,\t.]&quot;, text)</span></span>
+<span id="cb36-2"><a href="string-processing-debugging.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="string-processing-debugging.html#cb36-3" tabindex="-1"></a><span class="fu">str_locate_all</span>(text, <span class="st">&quot;[:,</span><span class="sc">\t</span><span class="st">.]&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+##      start end
+## [1,]    17  17
+## [2,]    31  31
+## 
+## [[2]]
+##      start end
+## [1,]     8   8
+## 
+## [[3]]
+##      start end
+## 
+## [[4]]
+##      start end
+## [1,]    16  16
+## [2,]    20  20</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="string-processing-debugging.html#cb38-1" tabindex="-1"></a><span class="do">## gregexpr(&quot;[:,\t.]&quot;, text)</span></span>
+<span id="cb38-2"><a href="string-processing-debugging.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="string-processing-debugging.html#cb38-3" tabindex="-1"></a><span class="co"># + matches the previous token between one to unlimited times</span></span>
+<span id="cb38-4"><a href="string-processing-debugging.html#cb38-4" tabindex="-1"></a><span class="co"># [:digit:] matches a digit [0-9] (also written as \d)</span></span>
+<span id="cb38-5"><a href="string-processing-debugging.html#cb38-5" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="string-processing-debugging.html#cb38-6" tabindex="-1"></a><span class="fu">str_extract_all</span>(text, <span class="st">&quot;[[:digit:]]+&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;919&quot;  &quot;543&quot;  &quot;3300&quot;
+## 
+## [[2]]
+## character(0)
+## 
+## [[3]]
+## [1] &quot;731&quot;
+## 
+## [[4]]
+## [1] &quot;919&quot;  &quot;554&quot;  &quot;3800&quot;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="string-processing-debugging.html#cb40-1" tabindex="-1"></a><span class="do">## matches &lt;- gregexpr(&quot;[[:digit]]+&quot;, text)</span></span>
+<span id="cb40-2"><a href="string-processing-debugging.html#cb40-2" tabindex="-1"></a><span class="do">## regmatches(text, matches)</span></span>
+<span id="cb40-3"><a href="string-processing-debugging.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="string-processing-debugging.html#cb40-4" tabindex="-1"></a><span class="fu">str_replace_all</span>(text, <span class="st">&quot;[[:digit:]]&quot;</span>, <span class="st">&quot;Z&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Here&#39;s my number: ZZZ-ZZZ-ZZZZ.&quot; &quot;hi John, good to meet you&quot;      
+## [3] &quot;They bought ZZZ bananas&quot;         &quot;Please call ZZZ.ZZZ.ZZZZ&quot;</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="string-processing-debugging.html#cb42-1" tabindex="-1"></a><span class="do">## gsub(&quot;[[:digit:]]&quot;, &quot;Z&quot;, text)</span></span></code></pre></div>
+</div>
+</div>
+<div id="in-class-challenge-what-will-the-regular-expression-oorgani.eb-match" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?<a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now let’s make use of repetitions.</p>
+<p>Let’s search for US/Canadian/Caribbean phone numbers in the example text we’ve been using:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="string-processing-debugging.html#cb43-1" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Here&#39;s my number: 919-543-3300.&quot;</span>, <span class="st">&quot;hi John, good to meet you&quot;</span>,</span>
+<span id="cb43-2"><a href="string-processing-debugging.html#cb43-2" tabindex="-1"></a>          <span class="st">&quot;They bought 731 bananas&quot;</span>, <span class="st">&quot;Please call 919.554.3800&quot;</span>)</span>
+<span id="cb43-3"><a href="string-processing-debugging.html#cb43-3" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="st">&quot;[[:digit:]]{3}[-.][[:digit:]]{3}[-.][[:digit:]]{4}&quot;</span></span>
+<span id="cb43-4"><a href="string-processing-debugging.html#cb43-4" tabindex="-1"></a><span class="fu">str_extract_all</span>(text, pattern)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;919-543-3300&quot;
+## 
+## [[2]]
+## character(0)
+## 
+## [[3]]
+## character(0)
+## 
+## [[4]]
+## [1] &quot;919.554.3800&quot;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="string-processing-debugging.html#cb45-1" tabindex="-1"></a><span class="do">## matches &lt;- gregexpr(pattern, text)</span></span>
+<span id="cb45-2"><a href="string-processing-debugging.html#cb45-2" tabindex="-1"></a><span class="do">## regmatches(text, matches)</span></span></code></pre></div>
+</div>
+<div id="in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> In class challenge 2: How would I extract an email address from an arbitrary text string?<a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="groups" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Groups<a href="string-processing-debugging.html#groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Parentheses () in a regular expression define a capturing group.</p></li>
+<li><p>The backreference \1 refers to the first capturing group in the same regex.</p></li>
+</ul>
+<p>For example, here we’ll find any numbers and add underscores before and after them:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="string-processing-debugging.html#cb46-1" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Here&#39;s my number: 919-543-3300.&quot;</span>, <span class="st">&quot;hi John, good to meet you&quot;</span>,</span>
+<span id="cb46-2"><a href="string-processing-debugging.html#cb46-2" tabindex="-1"></a>          <span class="st">&quot;They bought 731 bananas&quot;</span>, <span class="st">&quot;Please call 919.554.3800&quot;</span>)</span>
+<span id="cb46-3"><a href="string-processing-debugging.html#cb46-3" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="string-processing-debugging.html#cb46-4" tabindex="-1"></a><span class="co"># Match a single character present in the list below [0-9]</span></span>
+<span id="cb46-5"><a href="string-processing-debugging.html#cb46-5" tabindex="-1"></a><span class="co"># + matches the previous token between one to unlimited times</span></span>
+<span id="cb46-6"><a href="string-processing-debugging.html#cb46-6" tabindex="-1"></a><span class="co"># 0-9 matches a single character in the range between 0</span></span>
+<span id="cb46-7"><a href="string-processing-debugging.html#cb46-7" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="string-processing-debugging.html#cb46-8" tabindex="-1"></a><span class="fu">str_replace_all</span>(text, <span class="st">&quot;([0-9]+)&quot;</span>, <span class="st">&quot;_</span><span class="sc">\\</span><span class="st">1_&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Here&#39;s my number: _919_-_543_-_3300_.&quot;
+## [2] &quot;hi John, good to meet you&quot;            
+## [3] &quot;They bought _731_ bananas&quot;            
+## [4] &quot;Please call _919_._554_._3800_&quot;</code></pre>
+<p>In class challenge 3: Suppose a text string has dates in the form “Aug-3”, “May-9”, etc. and I want them in the form “3 Aug”, “9 May”, etc. How would I do this search/replace?</p>
+</div>
+<div id="other-comments" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Other comments<a href="string-processing-debugging.html#other-comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Regular expression can be used in a variety of places. E.g., to split by any number of white space characters</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="string-processing-debugging.html#cb48-1" tabindex="-1"></a>line <span class="ot">&lt;-</span> <span class="st">&quot;a dog</span><span class="sc">\t</span><span class="st">jumped</span><span class="sc">\n</span><span class="st">over </span><span class="sc">\t</span><span class="st">the moon.&quot;</span></span>
+<span id="cb48-2"><a href="string-processing-debugging.html#cb48-2" tabindex="-1"></a><span class="fu">cat</span>(line)</span></code></pre></div>
+<pre><code>## a dog    jumped
+## over     the moon.</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="string-processing-debugging.html#cb50-1" tabindex="-1"></a><span class="fu">str_split</span>(line, <span class="st">&quot;[[:space:]]+&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;a&quot;      &quot;dog&quot;    &quot;jumped&quot; &quot;over&quot;   &quot;the&quot;    &quot;moon.&quot;</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="string-processing-debugging.html#cb52-1" tabindex="-1"></a><span class="fu">str_split</span>(line, <span class="st">&quot;[[:blank:]]+&quot;</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;a&quot;            &quot;dog&quot;          &quot;jumped\nover&quot; &quot;the&quot;          &quot;moon.&quot;</code></pre>
+<p>Using backslashes to ‘escape’ particular characters can be tricky. One rule of thumb is to just keep adding backslashes until you get what you want!</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="string-processing-debugging.html#cb54-1" tabindex="-1"></a><span class="do">## last case here is literally a backslash and then &#39;n&#39;</span></span>
+<span id="cb54-2"><a href="string-processing-debugging.html#cb54-2" tabindex="-1"></a>strings <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;Hello.&quot;</span>, <span class="st">&quot;Hello</span><span class="sc">\n</span><span class="st">there&quot;</span>, <span class="st">&quot;Hello</span><span class="sc">\\</span><span class="st">nthere&quot;</span>)</span>
+<span id="cb54-3"><a href="string-processing-debugging.html#cb54-3" tabindex="-1"></a><span class="fu">cat</span>(strings, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Hello
+## Hello.
+## Hello
+## there
+## Hello\nthere</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="string-processing-debugging.html#cb56-1" tabindex="-1"></a><span class="fu">str_detect</span>(strings, <span class="st">&quot;.&quot;</span>)           <span class="do">## . means any character</span></span></code></pre></div>
+<pre><code>## [1] TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="string-processing-debugging.html#cb58-1" tabindex="-1"></a><span class="do">## str_detect(strings, &quot;\.&quot;)       ## \. looks for the special symbol \.</span></span>
+<span id="cb58-2"><a href="string-processing-debugging.html#cb58-2" tabindex="-1"></a><span class="fu">str_detect</span>(strings, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)         <span class="do">## \\ says treat \ literally, which then escapes the .</span></span></code></pre></div>
+<pre><code>## [1] FALSE  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="string-processing-debugging.html#cb60-1" tabindex="-1"></a><span class="fu">str_detect</span>(strings, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)          <span class="do">## \n looks for the special symbol \n</span></span></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="string-processing-debugging.html#cb62-1" tabindex="-1"></a><span class="do">## str_detect(strings, &quot;\\&quot;)       ## \\ says treat \ literally, but \ is not meaningful regex</span></span>
+<span id="cb62-2"><a href="string-processing-debugging.html#cb62-2" tabindex="-1"></a><span class="fu">str_detect</span>(strings, <span class="st">&quot;</span><span class="sc">\\\\</span><span class="st">&quot;</span>)        <span class="do">## R parser removes two \ to give \\; then in regex \\ treats second \ literally</span></span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+<div id="additional-resources" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Additional resources<a href="string-processing-debugging.html#additional-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Wickham (2019) <em>R for Data Science</em>, Chapters on Strings &amp; Regular Expressions.<br />
+</li>
+<li>RStudio cheatsheets: <strong>Stringr</strong>, <strong>Regex</strong>, <strong>Debugging</strong>.</li>
+</ul>
+</div>
+</div>
+<div id="dicussion-reflection-debugging-in-r" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Dicussion &amp; Reflection: Debugging in R<a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>How to use R’s debugging tools, handle errors, and avoid bugs</p>
+<div id="basic-debugging-strategies" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> 1) Basic debugging strategies<a href="string-processing-debugging.html#basic-debugging-strategies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Read and think about the error message. Sometimes it’s inscrutable, but often it just needs a bit of deciphering. Looking up a given error message on Stack Overflow or simply doing a web search with the exact message in double quotes can be a good strategy.</p></li>
+<li><p>Fix errors from the top down - fix the first error that is reported, because later errors are often caused by the initial error. It’s common to have a string of many errors, which looks daunting, caused by a single initial error.</p></li>
+<li><p>Is the bug reproducible - does it always happen in the same way at at the same point? It can help to restart R and see if the bug persists - this can sometimes help in figuring out if there is a scoping issue and we are using a global variable that we did not mean to.</p></li>
+<li><p>Another basic strategy is to build up code in pieces (or tear it back in pieces to a simpler version). This allows you to isolate where the error is occurring.</p></li>
+<li><p>If you’ve written your code modularly with lots of functions, you can test individual functions. Often the error will be in what gets passed into and out of each function.</p></li>
+<li><p>You can have warnings printed as they occurred, rather than saved, using <code>options(warn = 1)</code>. This can help figure out where in a loop a warning is being generated. You can also have R convert warnings to error using <code>options(warn = 2)</code>.</p></li>
+<li><p>At the beginning of time (the 1970s?), the standard debugging strategy was to insert print statements in one’s code to see the value of a variable and thereby decipher what could be going wrong. We have better tools nowadays, but this approach is still useful, particularly when you are having an issue with control statements (for loops, if/else).</p></li>
+<li><p>R is a scripting language, so you can usually run your code line by line to figure out what is happening. This can be a decent approach, particularly for simple code. However, when you are trying to find errors that occur within a series of many nested function calls or when the errors involve variable scoping (how R looks for variables that are not local to a function), or in other complicated situations, using formal debugging tools can be much more effective. Finally, if the error occurs inside of functions provided by R, rather than ones you write, it can be hard to run the code in those functions line by line.</p></li>
+</ol>
+</div>
+<div id="rs-interactive-debugging-tools" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> R’s interactive debugging tools<a href="string-processing-debugging.html#rs-interactive-debugging-tools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section gives an overview of the various debugging tools.</p>
+<p>Note that RStudio wraps all of functionality of these tools in its graphical interface, so you can use all the tools there, but the tools will be provided with some additional graphical functionality from RStudio.</p>
+<div id="interactive-debugging-via-the-browser" class="section level4 hasAnchor" number="8.4.2.1">
+<h4><span class="header-section-number">8.4.2.1</span> Interactive debugging via the browser<a href="string-processing-debugging.html#interactive-debugging-via-the-browser" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The core strategy for interactive debugging is to use the <em>browser</em> function, which pauses the current execution, and provides an interpreter, allowing you to view the current state of R. You can invoke <em>browser</em> in four ways</p>
+<ul>
+<li><p>by inserting a call to <code>browser()</code> in your code if you suspect where things are going wrong</p></li>
+<li><p>by invoking the browser after every step of a function using <em>debug</em></p></li>
+<li><p>by using <code>options(error = recover)</code> to invoke the browser when an error occurs</p></li>
+<li><p>by temporarily modifying a function to allow browsing using <em>trace</em></p></li>
+</ul>
+<p>Once in the browser, you can execute any R commands you want. In particular, using <em>ls</em> to look at the objects residing in the current function environment, looking at the values of objects, and examining the classes of objects is often helpful.</p>
+<p>Type Q in the Console to exit browser.</p>
+</div>
+<div id="using-debug-to-step-through-code" class="section level4 hasAnchor" number="8.4.2.2">
+<h4><span class="header-section-number">8.4.2.2</span> Using <em>debug</em> to step through code<a href="string-processing-debugging.html#using-debug-to-step-through-code" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To step through a function, use <code>debug(nameOfFunction)</code>. Then run your code. When the function is executed, R will pause execution just before the first line of the function. You are now using the browser and can examine the state of R and execute R statements.</p>
+<p>Once in the browser context, you can use ‘n’ or <return> to step to the next line, ‘f’ to finish executing the entire current function or current loop, ‘c’ to continue to any subsequent browser calls, or ‘Q’ to stop debugging. We’ll see this in the screencast demo.</p>
+<p>To unflag the function so that calling it doesn’t invoke debug, use <code>undebug(nameOfFunction)</code>. In addition to working with functions you write you can use <em>debug</em> with standard R functions and functions from packages. For example you could do <code>debug(glm)</code>.</p>
+<p>If you know you only want to run the function once in debugging mode (to avoid having to use <em>undebug</em>), use <code>debugonce(nameOfFunction)</code>.</p>
+</div>
+<div id="tracing-errors-in-the-call-stack" class="section level4 hasAnchor" number="8.4.2.3">
+<h4><span class="header-section-number">8.4.2.3</span> Tracing errors in the call stack<a href="string-processing-debugging.html#tracing-errors-in-the-call-stack" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><em>traceback</em> and <em>recover</em> allow you to see the call stack at the time of the error - i.e., they will show you all the functions that have been called, in the order called. This helps pinpoint where in a series of function calls the error may be occurring.</p>
+<p>If you’ve run the code and gotten an error, you can invoke <em>traceback</em> after things have gone awry. R will show you the call stack, which can help pinpoint where an error is occurring.</p>
+<p>More helpful is to be able to browse within the call stack. To do this invoke <code>options(error = recover)</code> (potentially in your <em>.Rprofile</em> if you do a lot of programming). Then when an error occurs, <em>recover</em> gets called, usually from the function in which the error occurred. The call to <em>recover</em> allows you to navigate the stack of active function calls at the time of the error and browse within the desired call. You just enter the number of the call you’d like to enter (or 0 to exit). You can then look around in the frame of a given function, entering <return> when you want to return to the list of calls again.</p>
+<p>You can also combine this with <code>options(warn = 2)</code>, which turns warnings into errors to get to the point where a warning was issued.</p>
+</div>
+<div id="using-trace-to-temporarily-insert-code" class="section level4 hasAnchor" number="8.4.2.4">
+<h4><span class="header-section-number">8.4.2.4</span> Using <em>trace</em> to temporarily insert code<a href="string-processing-debugging.html#using-trace-to-temporarily-insert-code" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><em>trace</em> lets you temporarily insert code into a function (including standard R functions and functions in packages!) that can then be easily removed. You can use trace in a variety of ways.</p>
+<p>The most flexible way to use <em>trace</em> is to use the argument <code>edit = TRUE</code> and then insert whatever code you want wherever you want in the function given as the first argument to <em>trace</em>. If I want to ensure I use a particular editor, such as emacs, I can use the argument <code>edit = “emacs”</code>. A standard approach would be to add a line with <code>browser()</code> at some point in the function to be able to step through the code from that point.</p>
+<p>You can also use <em>trace</em> without directly editing the function. Here are a couple examples:</p>
+<ul>
+<li><code>trace(lm, recover)</code> # invoke <em>recover</em> when the function (<em>lm</em> in this case) starts</li>
+<li><code>trace(lm, exit = browser)</code> # invoke <em>browser</em> when the function ends</li>
+</ul>
+<p>You call <em>untrace</em>, e.g., <code>untrace(lm)</code>, to remove the temporarily inserted code; otherwise it’s removed when the session ends.</p>
+<p>To figure out why warnings are being issued, you can do <code>trace(warning, recover)</code> which will insert a call to <em>recover</em> whenever <em>warning</em> is called.</p>
+<p>Of course you can manually change the code in a function without using <em>trace</em>, but it’s very easy to forget to change things back (and a pain to remember exactly what you changed) and hard to do this with functions in packages, so <em>trace</em> is a nice way to do things.</p>
+</div>
+</div>
+<div id="some-common-causes-of-bugs" class="section level3 hasAnchor" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Some common causes of bugs<a href="string-processing-debugging.html#some-common-causes-of-bugs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some of these are R-specific, while others are common to a variety of languages.</p>
+<ul>
+<li><p>Parenthesis mis-matches</p></li>
+<li><p><code>[[...]]</code> vs. <code>[...]</code></p></li>
+<li><p><code>==</code> vs. <code>=</code></p></li>
+<li><p>Comparing real numbers exactly using <code>==</code> is dangerous because numbers on a computer are only represented to limited numerical precision. For example,</p></li>
+<li><p>You expect a single value but execution of the code gives a vector</p></li>
+<li><p>You want to compare an entire vector but your code just compares the first value (e.g., in an if statement) – consider using <em>identical</em> or <em>all.equal</em></p></li>
+<li><p>Silent type conversion when you don’t want it, or lack of coercion where you’re expecting it</p></li>
+<li><p>Using the wrong function or variable name</p></li>
+<li><p>Giving unnamed arguments to a function in the wrong order</p></li>
+<li><p>In an if-else statement, the <code>else</code> cannot be on its own line (unless all the code is enclosed in <code>{}</code>) because R will see the <code>if</code> part of the statement, which is a valid R statement, will execute that, and then will encounter the <code>else</code> and return an error.</p></li>
+<li><p>Forgetting to define a variable in the environment of a function and having R, via lexical scoping, get that variable as a global variable from one of the enclosing environments. At best the types are not compatible and you get an error; at worst, you use a garbage value and the bug is hard to trace. In some cases your code may work fine when you develop the code (if the variable exists in the enclosing environment), but then may not work when you restart R if the variable no longer exists or is different.</p></li>
+<li><p>R (usually helpfully) drops matrix and array dimensions that are extraneous. This can sometimes confuse later code that expects an object of a certain dimension.</p></li>
+</ul>
+</div>
+<div id="tips-for-avoiding-bugs-and-catching-errors" class="section level3 hasAnchor" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Tips for avoiding bugs and catching errors<a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="practice-defensive-programming" class="section level4 hasAnchor" number="8.4.4.1">
+<h4><span class="header-section-number">8.4.4.1</span> Practice defensive programming<a href="string-processing-debugging.html#practice-defensive-programming" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When writing functions, and software more generally, you’ll want to warn the user or stop execution when there is an error and exit gracefully, giving the user some idea of what happened. Here are some things to consider:</p>
+<ul>
+<li>check function inputs and warn users if the code will do something they might not expect or makes particular choices;</li>
+<li>check inputs to <code>if</code> and the ranges in <code>for</code> loops;</li>
+<li>provide reasonable default arguments;</li>
+<li>document the range of valid inputs;</li>
+<li>check that the output produced is valid; and</li>
+<li>stop execution based on checks and give an informative error message.</li>
+</ul>
+<p>The <em>warning</em> and <em>stop</em> functions allow you to do stop execution and issue warnings or errors in the same way that base R code does; in general they would be called based on an <code>if</code> statement. More succinctly, to stop code if a condition is not satisfied, you can use <em>stopifnot</em>. This allow you to catch errors that can be anticipated. I also recommend using some of R’s packages for doing such checks, such as <em>assertthat</em>, <em>assertr</em>, and <em>checkmate</em>.</p>
+<p>Here’s an example of building a robust square root function using <em>stop</em> and <em>warning</em>. Note you could use <code>stopifnot(is.numeric(x))</code> or <code>assert_that(is.numeric(x))</code> in place of one of the checks here.</p>
+</div>
+<div id="catch-run-time-errors-with-try-statements" class="section level4 hasAnchor" number="8.4.4.2">
+<h4><span class="header-section-number">8.4.4.2</span> Catch run-time errors with <code>try</code> statements<a href="string-processing-debugging.html#catch-run-time-errors-with-try-statements" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Also, sometimes a function you call will fail, but you want to continue execution. For example, suppose you are doing a stratified analysis in which you take subsets of your data based on some categorical variable and fit a statistical model for each value of the categorical variable. If some of the subsets have no or very few observations, the statistical model fitting might fail. To do this, you might be using a for loop or <em>lapply</em>. You want your code to continue and fit the model for the rest of the cases even if one (or more) of the cases cannot be fit. You can wrap the function call that may fail within the <code>try</code> function (or <code>tryCatch</code>) and then your code won’t stop, even when an error occurs. Here’s a toy example.</p>
+<pre><code>## Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) : 
+##   0 (non-NA) cases</code></pre>
+<p>The seventh stratum had no observations, so that call to <em>lm</em> failed, but the loop continued because we ‘caught’ the error with <em>try</em>. In this example, we could have checked the sample size for the subset before doing the regression, but in other contexts, we may not have an easy way to check in advance whether the function call will fail.</p>
+<p>You can also use <code>browser</code> with <code>try</code> to inspect what is breaking your code.</p>
+</div>
+<div id="find-and-avoid-global-variables" class="section level4 hasAnchor" number="8.4.4.3">
+<h4><span class="header-section-number">8.4.4.3</span> Find and avoid global variables<a href="string-processing-debugging.html#find-and-avoid-global-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In general, using global variables (variables that are not created or passed into a function) results in code that is not robust. Results will change if you or a user modifies that global variable, usually without realizing/remembering that a function depends on it.</p>
+<p>Start every script by removing any lingering objects.</p>
+<p>This can also be accomplished with the “bloom” in the environment panel in R studio.</p>
+<p>To be systematic, the <em>codetools</em> library has some useful tools for checking code, including a function, <em>findGlobals</em>, that let’s you look for the use of global variables</p>
+</div>
+<div id="miscellaneous-tips" class="section level4 hasAnchor" number="8.4.4.4">
+<h4><span class="header-section-number">8.4.4.4</span> Miscellaneous tips<a href="string-processing-debugging.html#miscellaneous-tips" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Use core R functionality and algorithms already coded. Figure out if a functionality already exists in (or can be adapted from) an R package (or potentially in a C/Fortran library/package): code that is part of standard mathematical/numerical packages will probably be more efficient and bug-free than anything you would write.</li>
+<li>Code in a modular fashion, making good use of functions, so that you don’t need to debug the same code multiple times. Smaller functions are easier to debug, easier to understand, and can be combined in a modular fashion (like the UNIX utilities).</li>
+<li>Write code for clarity and accuracy first; then worry about efficiency. Write an initial version of the code in the simplest way, without trying to be efficient (e.g., you might use for loops even if you’re coding in R); then make a second version that employs efficiency tricks and check that both produce the same output.</li>
+<li>Plan out your code in advance, including all special cases/possibilities.</li>
+<li>Write tests for your code early in the process.</li>
+<li>Build up code in pieces, testing along the way. Make big changes in small steps, sequentially checking to see if the code has broken on test case(s).</li>
+<li>Be careful that the conditions of <code>if</code> statements and the sequences of <code>for</code> loops are robust when they involve evaluating R code.</li>
+<li>Don’t hard code numbers - use variables (e.g., number of iterations, parameter values in simulations), even if you don’t expect to change the value, as this makes the code more readable and reduces bugs when you use the same number multiple times; e.g. <code>speedOfLight &lt;- 3e8</code> or <code>nIts &lt;- 1000</code>.</li>
+</ul>
+</div>
+</div>
+<div id="how-to-get-help-online" class="section level3 hasAnchor" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> How to get help online<a href="string-processing-debugging.html#how-to-get-help-online" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="mailing-lists-and-online-forums" class="section level4 hasAnchor" number="8.4.5.1">
+<h4><span class="header-section-number">8.4.5.1</span> Mailing lists and online forums<a href="string-processing-debugging.html#mailing-lists-and-online-forums" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>There are several mailing lists that have lots of useful postings. In general if you have an error, others have already posted about it.</p>
+<ul>
+<li><a href="http://stackoverflow.com">Stack overflow</a>: R stuff will be tagged with ‘R’: <a href="http://stackoverflow.com/questions/tagged/r">http://stackoverflow.com/questions/tagged/r</a></li>
+<li>R help special interest groups (SIG) such as r-sig-hpc (high performance computing), r-sig-mac (R on Macs), etc. Unfortunately these are not easily searchable, but can often be found by simple web searchs, potentially including the name of the SIG in the search.</li>
+<li>Simple web searches: You may want to include “in R”, with the quotes in the search. To search a SIG you might include the name of the SIG in the search string</li>
+</ul>
+</div>
+<div id="asking-questions-online" class="section level4 hasAnchor" number="8.4.5.2">
+<h4><span class="header-section-number">8.4.5.2</span> Asking questions online<a href="string-processing-debugging.html#asking-questions-online" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If you’ve searched the archive and haven’t found an answer to your problem, you can often get help by posting to the R-help mailing list or one of the other lists mentioned above. A few guidelines (generally relevant when posting to mailing lists beyond just the R lists):</p>
+<p>Search the archives and look through relevant R books or manuals first.</p>
+<p>Boil your problem down to the essence of the problem, giving an example, including the output and error message</p>
+<p>Say what version of R, what operating system and what operating system version you’re using. Both <em>sessionInfo</em> and <em>Sys.info</em> can be helpful for getting this information.</p>
+<p>Read the <a href="https://www.r-project.org/posting-guide.html">R mailing list posting guide</a>.</p>
+<p>The R mailing lists are a way to get free advice from the experts, who include some of the world’s most knowledgeable R experts - seriously - members of the R core development team contribute frequently. The cost is that you should do your homework and that sometimes the responses you get may be blunt, along the lines of “read the manual”. I think it’s a pretty good tradeoff - where else do you get the foremost experts in a domain actually helping you?</p>
+<div id="preclass-reflection-please-submit-short-answers-via-canvas-3" class="section level5 hasAnchor" number="8.4.5.2.1">
+<h5><span class="header-section-number">8.4.5.2.1</span> Pre‑class reflection (please submit short answers via canvas)<a href="string-processing-debugging.html#preclass-reflection-please-submit-short-answers-via-canvas-3" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ol style="list-style-type: decimal">
+<li><strong>Your debugging workflow.</strong> Describe the steps you currently take when code fails. Which step from the reading would most improve your process, and why?</li>
+</ol>
+</div>
+<div id="inclass-smallgroup-prompts-2" class="section level5 hasAnchor" number="8.4.5.2.2">
+<h5><span class="header-section-number">8.4.5.2.2</span> In‑class small‑group prompts<a href="string-processing-debugging.html#inclass-smallgroup-prompts-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ol style="list-style-type: decimal">
+<li>Step through with browser() (10–12 min)</li>
+</ol>
+<p>Goal: Practice pausing and inspecting local state.</p>
+<p>Add a breakpoint and re-run:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="string-processing-debugging.html#cb65-1" tabindex="-1"></a>good <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb65-2"><a href="string-processing-debugging.html#cb65-2" tabindex="-1"></a>  <span class="fu">browser</span>()               <span class="co"># step in: n (next), c (continue)</span></span>
+<span id="cb65-3"><a href="string-processing-debugging.html#cb65-3" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb65-4"><a href="string-processing-debugging.html#cb65-4" tabindex="-1"></a>  <span class="fu">mean</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb65-5"><a href="string-processing-debugging.html#cb65-5" tabindex="-1"></a>}</span>
+<span id="cb65-6"><a href="string-processing-debugging.html#cb65-6" tabindex="-1"></a><span class="fu">debugonce</span>(good)</span>
+<span id="cb65-7"><a href="string-processing-debugging.html#cb65-7" tabindex="-1"></a><span class="fu">good</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>))</span></code></pre></div>
+<p>While paused:</p>
+<ul>
+<li>Inspect objects (ls(), str(x), class(x)), then step and re-inspect.</li>
+<li>Change x in place and continue — what happens?</li>
+<li>Remove the breakpoint and create a quick unit-style check that would have caught the bug earlier.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="lab-regular-expressions-and-cleaning-oba-data-student-version" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Lab: Regular expressions and cleaning OBA data (Student Version)<a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lesson-overview-3" class="section level3 hasAnchor" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Lesson Overview<a href="string-processing-debugging.html#lesson-overview-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Conservation/ecology Topics</strong></p>
+<ul>
+<li>Species distributions</li>
+</ul>
+<p><strong>Computational Topics</strong>
+- Use regular expressions to clean and categorize data</p>
+<hr />
+</div>
+<div id="lab-question-1-oregon-bee-atlas-data-exploration" class="section level3 hasAnchor" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Lab question 1: Oregon bee atlas data exploration<a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Import the OBA data using your favorite parsing function, name the data oba.</p>
+<p>-1a.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="string-processing-debugging.html#cb66-1" tabindex="-1"></a><span class="do">## your code here</span></span></code></pre></div>
+<p>-1b. Examine the unique entries of ‘Associated.plant’ using any function you find useful. What are at least 10 patterns in the associated taxa string what should be removed if we want consistent plant names? (Make a list together as a class). Only print the first 10 here to avoid having a giant output.</p>
+<ol style="list-style-type: decimal">
+<li>…</li>
+</ol>
+<p>In week in lecture last I used a brute force pattern to remove some of these issues so we could plot them as a network. Now that we are familiar with regular expressions we can do better.</p>
+<p>-1c. Work together as a class to resolve the issues you listed with the associated taxa column using any function combination that uses regular expressions. You can reassign the contents of the column Associated.plant or create a new column. Return the sorted, unique values, ex: sort(unique(oba$Associated.plant)). Leave the plants resolved only to genus of family for later.</p>
+<p>I have removed a really strange issue with special characters (R converted an apostrophe into a special character) to start things off.</p>
+<p>Hint: You must  any special characters. For example to use (matches any space, tab, or newline) you must use \s in your pattern.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="string-processing-debugging.html#cb67-1" tabindex="-1"></a><span class="do">###  # Remove the special character</span></span>
+<span id="cb67-2"><a href="string-processing-debugging.html#cb67-2" tabindex="-1"></a>oba<span class="sc">$</span>Associated.plant <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(oba<span class="sc">$</span>Associated.plant, <span class="st">&quot;</span><span class="sc">\x92</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb67-3"><a href="string-processing-debugging.html#cb67-3" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="string-processing-debugging.html#cb67-4" tabindex="-1"></a><span class="do">###  # To check that it worked</span></span>
+<span id="cb67-5"><a href="string-processing-debugging.html#cb67-5" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(oba<span class="sc">$</span>Associated.plant))[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb67-6"><a href="string-processing-debugging.html#cb67-6" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="string-processing-debugging.html#cb67-7" tabindex="-1"></a><span class="do">###   Removing common names in ()</span></span>
+<span id="cb67-8"><a href="string-processing-debugging.html#cb67-8" tabindex="-1"></a>oba<span class="sc">$</span>Associated.plant <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s*</span><span class="sc">\\</span><span class="st">(.*?</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;&quot;</span>, oba<span class="sc">$</span>Associated.plant)</span>
+<span id="cb67-9"><a href="string-processing-debugging.html#cb67-9" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="string-processing-debugging.html#cb67-10" tabindex="-1"></a><span class="do">###   3. Removing lists</span></span>
+<span id="cb67-11"><a href="string-processing-debugging.html#cb67-11" tabindex="-1"></a>oba <span class="ot">&lt;-</span> oba[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">&quot;,&quot;</span>, oba<span class="sc">$</span>Associated.plant),]</span>
+<span id="cb67-12"><a href="string-processing-debugging.html#cb67-12" tabindex="-1"></a><span class="co">#5</span></span>
+<span id="cb67-13"><a href="string-processing-debugging.html#cb67-13" tabindex="-1"></a>oba<span class="sc">$</span>Associated.plant <span class="ot">=</span> <span class="fu">str_replace_all</span>(oba<span class="sc">$</span>Associated.plant, <span class="st">&quot;net&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb67-14"><a href="string-processing-debugging.html#cb67-14" tabindex="-1"></a><span class="co">#6</span></span>
+<span id="cb67-15"><a href="string-processing-debugging.html#cb67-15" tabindex="-1"></a>oba<span class="sc">$</span>Associated.plant <span class="ot">=</span> <span class="fu">str_replace_all</span>(oba<span class="sc">$</span>Associated.plant, <span class="st">&quot;[A-Za-z]+[.]&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb67-16"><a href="string-processing-debugging.html#cb67-16" tabindex="-1"></a><span class="do">###   4. Removing blanks</span></span>
+<span id="cb67-17"><a href="string-processing-debugging.html#cb67-17" tabindex="-1"></a>oba <span class="ot">&lt;-</span> oba[oba<span class="sc">$</span>Associated.plant <span class="sc">!=</span> <span class="st">&quot;&quot;</span>,]</span>
+<span id="cb67-18"><a href="string-processing-debugging.html#cb67-18" tabindex="-1"></a><span class="do">###   7.</span></span>
+<span id="cb67-19"><a href="string-processing-debugging.html#cb67-19" tabindex="-1"></a>oba<span class="sc">$</span>Associated.plant <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(oba<span class="sc">$</span>Associated.plant, <span class="st">&quot;[A-Za-z]++[Xx]&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb67-20"><a href="string-processing-debugging.html#cb67-20" tabindex="-1"></a></span>
+<span id="cb67-21"><a href="string-processing-debugging.html#cb67-21" tabindex="-1"></a><span class="do">###   Determining plant resolution</span></span>
+<span id="cb67-22"><a href="string-processing-debugging.html#cb67-22" tabindex="-1"></a>oba<span class="sc">$</span>Plant.resolution <span class="ot">&lt;-</span> <span class="fu">sapply</span>(oba<span class="sc">$</span>Associated.plant, <span class="cf">function</span>(x) {</span>
+<span id="cb67-23"><a href="string-processing-debugging.html#cb67-23" tabindex="-1"></a>  words <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(x, <span class="st">&quot; &quot;</span>))</span>
+<span id="cb67-24"><a href="string-processing-debugging.html#cb67-24" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">1</span>){</span>
+<span id="cb67-25"><a href="string-processing-debugging.html#cb67-25" tabindex="-1"></a>    <span class="st">&quot;Family/Genus/Common Name&quot;</span></span>
+<span id="cb67-26"><a href="string-processing-debugging.html#cb67-26" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;&amp;</span> <span class="fu">grepl</span>(<span class="st">&quot;//.&quot;</span>, x)) {</span>
+<span id="cb67-27"><a href="string-processing-debugging.html#cb67-27" tabindex="-1"></a>    <span class="st">&quot;Genus&quot;</span></span>
+<span id="cb67-28"><a href="string-processing-debugging.html#cb67-28" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">length</span>(words) <span class="sc">==</span> <span class="dv">2</span>) {</span>
+<span id="cb67-29"><a href="string-processing-debugging.html#cb67-29" tabindex="-1"></a>    <span class="st">&quot;GenusSpecies&quot;</span></span>
+<span id="cb67-30"><a href="string-processing-debugging.html#cb67-30" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb67-31"><a href="string-processing-debugging.html#cb67-31" tabindex="-1"></a>      <span class="st">&quot;Missing/Complex&quot;</span></span>
+<span id="cb67-32"><a href="string-processing-debugging.html#cb67-32" tabindex="-1"></a>  }</span>
+<span id="cb67-33"><a href="string-processing-debugging.html#cb67-33" tabindex="-1"></a>})</span></code></pre></div>
+</div>
+<div id="lab-question-2-making-a-column-for-plant-resolution" class="section level3 hasAnchor" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> Lab question 2: Making a column for plant resolution<a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>-2a. Some plant species are resolved to species/subspecies, others to genus and others to family. If there are two or three words, we can assume the plant is resolved to species and subspecies, respectively, except if the string ends in “sp.” If there is only one word, this could be a genus or a family name. Family names always end in “aceae”, for example Lamiaceae (mints), Asteraceae (daisies).</p>
+<p>We want to make a new column called plantResolution and assign it to “Family”, “Genus” or “Species” depending on the level of resolution associated taxa is resolved to. We will do this in two steps.</p>
+<p>First use regular expressions to count up the number of words in each element of associated taxa. Assign the count to a new column called plantTaxaWordCount. Print the first 50 elements.</p>
+<p>Hint: <code>str_count</code> may be useful.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="string-processing-debugging.html#cb68-1" tabindex="-1"></a><span class="do">## your code here</span></span></code></pre></div>
+<p>-2b. Write a for loop to assigned each entry of the column plantResolution to be “family”, “genus” or “species”. <code>table()</code> the final result.
+Hint: Don’t forget to initialize the new column. Starting with all NAs may be useful.
+Hint hint: The function <code>ifelse</code> returns one value if a TRUE and another if FALSE. It could be useful depending on your approach.
+Hint hint hint: <code>grepl</code> will return or TRUE or FALSE depending on whether it finds the pattern. Be careful with periods in patterns because alone they are a wild card character.</p>
+<p>-2c. For those that are identified to genus but are lacking an sp., add that now so that they will not be treated as separate plant species (i.e., Rosa vs Rosa sp.). You can do this with a regular expression and using ‘gsub’ or ‘string_replace_all’ or by counting up the number of words in Associated.plant.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="string-processing-debugging.html#cb69-1" tabindex="-1"></a><span class="do">## your code here</span></span>
+<span id="cb69-2"><a href="string-processing-debugging.html#cb69-2" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="string-processing-debugging.html#cb69-3" tabindex="-1"></a><span class="do">## To check that it worked, uncomment the below</span></span>
+<span id="cb69-4"><a href="string-processing-debugging.html#cb69-4" tabindex="-1"></a><span class="co">#unique(oba$Associated.plant[oba$plantResolution == &quot;genus&quot;])</span></span></code></pre></div>
+<p>-2d. Create a new column called plantGenus that is the genus if the associated taxa was resolved to species or genus, and NA if it was resolved to family.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="string-processing-debugging.html#cb70-1" tabindex="-1"></a><span class="do">## To check finish with</span></span>
+<span id="cb70-2"><a href="string-processing-debugging.html#cb70-2" tabindex="-1"></a><span class="co"># table(oba$plantGenus)</span></span></code></pre></div>
+<p>Now you have nice clean plant data to make networks out of, or more easily count up the number of plant species in an area.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ecological-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

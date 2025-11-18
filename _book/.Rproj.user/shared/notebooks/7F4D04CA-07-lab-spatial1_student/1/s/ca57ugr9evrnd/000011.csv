@@ -1,0 +1,6 @@
+"0","holiday_rast <- rast(""~/Downloads/ds-environ-main/labs/data/soil-burn-severity/2020_holidayfarm_sbs/HolidayFarm_SBS_final.tif"")"
+"0",""
+"0","beachie_rast <- rast(""~/Downloads/ds-environ-main/labs/data/soil-burn-severity/2020_beachiecreek_sbs/BeachieCreek_SBS_final.tif"")"
+"0",""
+"0","terwilliger_rast <- rast(""/Users/vgarfield03/Downloads/ds-environ-main/labs/data/soil-burn-severity/2018_terwilliger_sbs/SoilSeverity.tif"")"
+"0",""

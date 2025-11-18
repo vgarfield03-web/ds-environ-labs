@@ -1,0 +1,70 @@
+## Demo: Calculating network metrics and using null models
+
+```{r, message = FALSE}
+library(bipartite)
+
+```
+
+```{r}
+## Fake data
+set.seed(123)  # for reproducibility
+
+# create vectors of species names
+bee_species   <- paste0("Bee_", 1:10)
+plant_species <- paste0("Plant_", 1:10)
+sites         <- c("SiteA", "SiteB")
+
+# create a dataframe of random interactions
+bee_plant_df <- data.frame(
+  BeeSpecies   = sample(bee_species, 50, replace = TRUE),
+  PlantSpecies = sample(plant_species, 50, replace = TRUE),
+  Site         = sample(sites, 50, replace = TRUE)
+)
+
+head(bee_plant_df, 10)
+
+```
+
+```{r}
+network <- frame2webs(bee_plant_df, varnames = c("PlantSpecies", "BeeSpecies", "Site"))
+```
+
+
+```{r}
+interaction_df <- bee_plant_df %>%
+  count(Site, BeeSpecies, PlantSpecies, name = "Frequency")
+
+network2 <- frame2webs(interaction_df, varnames = c("PlantSpecies", "BeeSpecies","Site", "Frequency"))
+```
+Back to Safariland
+
+```{r}
+# Basic size and connectance
+
+
+# A few descriptors 
+
+```
+
+
+```{r}
+## Some species level metrics
+
+
+```
+
+
+Interpretation tips: high \(H_2'\) means **specialized** interactions; high NODF indicates **nested** structure; high \(Q\) implies **modules** (compartments).
+
+Now to standardize using null models.
+
+```{r}
+# NODF standardized with constrained nulls
+
+
+set.seed(1)
+# vegan's oecosimu framework with quasiswap (fixed row & column sums)
+  # Miklós & Podani 2004
+```
+
+

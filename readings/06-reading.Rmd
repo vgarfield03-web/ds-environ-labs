@@ -1,0 +1,16 @@
+## Discussion & Reflection: Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt
+
+> **How to use this section:** Read the article below (embedded) and prepare your answers to the discussion prompts. Bring notes to class.
+
+### Article (embedded)
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Yeakel2014.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+
+### Reflection and in-class discussion Questions 
+
+1. Climate and Political Change
+The paper links pulses of aridification to social and political upheaval (collapse of Old Kingdom, First Intermediate Period, fall of the New Kingdom). Do you think ecological collapse drove political instability, or was it the other way around? Defend your view by drawing connections between ecology and human history.
+
+2. Modern Parallels
+Identify one modern ecosystem facing similar pressures (climate change, habitat loss, overexploitation). Compare it with Ancient Egypt: what lessons can be drawn about stability, redundancy, and persistence? What might the Yeakel framework suggest about its trajectory?

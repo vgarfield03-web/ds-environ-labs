@@ -1,0 +1,211 @@
+# Using "The Tidyverse" for data manipulation and visualization
+
+## Lecture summary
+
+This chapter introduces the Tidyverse as a coherent grammar for data—wrangling with dplyr (`filter()`, `select()`, `mutate()`, `summarise()`, `group_by()`), reshaping with tidyr (`pivot_longer()`, `pivot_wider()`), joining relational tables, and visualizing with `ggplot2`. We build readable pipelines with the pipe, emphasize tidy data principles, and handle factors, dates, and missing values thoughtfully. In lab, we apply these tools to climate indicators (Mauna Loa CO₂, global temperature, sea ice extent, Antarctic mass), cleaning and merging heterogeneous files, pivoting wide↔long, computing windowed averages, and producing plots that separate trend, seasonality, and noise. We will read a best practice manual for writing code you and other people can read easily. 
+
+### Learning Objectives
+
+By the end of this chapter, you will be able to:
+
+- Describe the key components of the Tidyverse and how they integrate for data analysis.
+- Apply `dplyr` verbs for wrangling: `filter()`, `select()`, `mutate()`, `summarise()`, and `group_by()`.
+- Reshape data between wide and long formats using `tidyr` (`pivot_longer()`, `pivot_wider()`).
+- Create and customize visualizations with `ggplot2` (geoms, aesthetics, faceting, scales, themes).
+- Combine datasets using joins in `dplyr` and choose appropriate join types for analysis goals.
+- Interpret tidy summaries and plots to inform exploratory data analysis.
+
+
+```{r co2_shared_setup, include=FALSE}
+# Shared CO2 data for demos (uses the same file and parsing as the lab)
+if (!exists("data_dir")) data_dir <- "data"
+if (!exists("path_data")) path_data <- function(...) file.path(data_dir, ...)
+
+co2_path <- path_data("co2_mm_mlo.txt")
+has_co2 <- file.exists(co2_path)
+
+if (has_co2) {
+  # Read like the lab does (comment header + sentinel -9.99 -> NA)
+  co2_raw <- read.table(co2_path, header = FALSE, comment.char = "#")
+  names(co2_raw) <- c("year", "month", "decimal_date", "average", "interpolated",
+                      "trend", "stdev_days", "uncertainty_average")
+  co2_raw$average[co2_raw$average < 0] <- NA
+  co2_raw$interpolated[co2_raw$interpolated < 0] <- NA
+  co2_raw$date <- as.Date(sprintf("%d-%02d-01", co2_raw$year, co2_raw$month))
+  if (requireNamespace("tibble", quietly = TRUE)) {
+    co2_tbl <- tibble::as_tibble(co2_raw)
+  } else {
+    co2_tbl <- co2_raw
+  }
+} else {
+  message("Demo 1 note: ", co2_path, " is missing. Place lab data in a 'data/' folder next to this Rmd.")
+}
+
+has_tidyverse <- requireNamespace("tidyverse", quietly = TRUE)
+if (has_tidyverse) library(tidyverse)
+knitr::opts_chunk$set(eval = has_tidyverse)
+```
+
+> If chunks don't run, install the meta-package: `install.packages("tidyverse")`
+
+## Demo: Introduction to the Tidyverse
+
+The **tidyverse** is a family of packages for modern data science in R. Loading the meta‑package attaches the most common tools (ggplot2, dplyr, tidyr, readr, tibble, stringr, forcats, purrr).
+
+### Data wrangling
+
+Core verbs from **dplyr** operate on tibbles and return new tibbles.
+*What we’re doing.* Below we practice core dplyr verbs on the **CO₂** monthly series:
+
+- `select()`/**`rename()`** to keep/rename a minimal set of columns, rename some
+- `filter()`/`arrange()` to restrict to years post‑2000 months and find the highest 5 values
+- `mutate()` to add derived features we’ll use later.
+
+```{r}
+# Select columns we are interested in and rename average for clarity 
+co2_sub <- co2_tbl %>%
+  dplyr::select(date, year, month, average) %>%
+  dplyr::rename(avg_ppm = average)
+```
+
+```{r}
+# Filter to 200+ with valid values; list the 5 highest months
+co2_top <- co2_sub %>%
+  dplyr::filter(year >= 2000, !is.na(avg_ppm)) %>%
+  dplyr::arrange(dplyr::desc(avg_ppm)) %>%
+  dplyr::slice_head(n = 5)
+co2_top
+```
+
+
+```{r}
+# Add derived columns: month name, monthly change, and decade
+# R has a built in constant month.abb vector of the abbreviated month names.
+
+co2_enriched <- co2_sub %>%
+  dplyr::mutate(
+    month_name = month.abb[month],
+    delta = avg_ppm - dplyr::lag(avg_ppm),
+    decade = paste0(floor(year/10)*10, "s")
+  ) %>%
+  dplyr::relocate(decade, .before = year)
+
+head(co2_enriched)
+```
+
+#### Reshaping Data with tidyr — From Wide to Long and Back
+
+Go from wide → long to make a tidy “series” column
+Why: Most plotting and grouped summaries are easier when all measurements live in a single value column with a label telling you which measurement it is.
+```{r}
+co2_long <- co2_tbl %>%
+  select(date, year, month, average, interpolated, trend) %>%
+  pivot_longer(
+    c(average, interpolated, trend),
+    names_to  = "series",
+    values_to = "ppmv"
+  )
+
+head(co2_long)
+
+```
+What this did: Stacked average, interpolated, and trend into one column ppmv, with a companion label series telling you which it was on each row.
+
+Next, summarize by year, then long → wide for easy comparison
+Why: Sometimes you want one column per series so you can compare or compute differences directly (e.g., average - trend).
+
+```{r}
+co2_yearly_wide <- co2_long %>%
+  filter(!is.na(ppmv)) %>%
+  group_by(year, series) %>%
+  summarize(mean_ppm = mean(ppmv), .groups = "drop") %>%
+  pivot_wider(
+    names_from  = series,      # columns: average, interpolated, trend
+    values_from = mean_ppm
+  ) %>%
+  arrange(year)
+
+head(co2_yearly_wide)
+
+```
+What this did: Calculated annual means for each series, then spread them into separate columns so each row is a year with average, interpolated, and trend side-by-side.
+
+Build compact keys with unite(), then recover fields with separate()
+Why: It’s common to create an ID like "YYYY-MM" for joins or labeling, then later split it back into usable numeric pieces.
+
+```{r}
+# Make a compact "year-month" key
+co2_ym <- co2_tbl %>%
+  transmute(year, month, avg_ppm = average) %>%
+  unite("ym", year, month, sep = "-", remove = FALSE)
+
+head(co2_ym)
+
+```
+What this did: Created a ym key like "1988-07" while keeping year/month (because remove = FALSE).
+
+Split the key back out: 
+```{r}
+# convert=TRUE turns strings into numbers
+co2_ym_split <- co2_ym %>%
+  separate(ym, into = c("year2", "month2"), sep = "-", convert = TRUE)
+
+head(co2_ym_split)
+
+```
+What this did: Recovered year2 / month2 as numeric columns (handy if the key came from somewhere else and you need the parts back).
+
+### Data visualization
+
+*What we’re doing.* We’ll visualize the CO₂ series in two ways:
+- a **line plot** of monthly CO₂ over time, and
+- a **histogram of monthly change** (`delta`) faceted by decade to compare distributions.
+
+```{r}
+# Line: monthly CO₂ concentration
+co2_enriched %>%
+  ggplot2::ggplot(ggplot2::aes(date, avg_ppm)) +
+  ggplot2::geom_line() +
+  ggplot2::labs(x = "Date", y = "CO2 (ppm)", title = "Monthly CO2 at Mauna Loa") +
+  ggplot2::theme_minimal()
+```
+
+```{r}
+# Histogram: month-to-month change, by decade
+co2_enriched %>%
+  dplyr::filter(!is.na(delta)) %>%
+  ggplot2::ggplot(ggplot2::aes(delta)) +
+  ggplot2::geom_histogram(bins = 10) +
+  ggplot2::facet_wrap(~ decade) +
+  ggplot2::labs(x = "Δ ppm (current − previous month)", y = "Months",
+                title = "Distribution of monthly CO2 changes by decade") +
+  ggplot2::theme_minimal()
+
+# The x-axes get cut off, which is annoying, but as an exploratory analysis we can leave it. 
+```
+What is your interpretation of these historgrams?
+
+### Common types of visualizations
+
+- Trends: `geom_line()`, `geom_smooth()`
+- Distribution: `geom_histogram()`, `geom_density()`, `geom_boxplot()`, `geom_violin()`
+- Relationship: `geom_point()` (+ `geom_smooth()`)
+- Composition: stacked/filled bars (`geom_bar(position = "fill")`), area charts
+- Uncertainty: `geom_errorbar()`, `geom_ribbon()`
+
+### Fun graph references:
+[Friends don't let friends make bad graphs](https://github.com/cxli233/FriendsDontLetFriends?tab=readme-ov-file)
+
+[R graph gallary](https://r-graph-gallery.com/)
+
+[R colors](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf)
+
+---
+
+```{r child="readings/03-reading.Rmd", echo=FALSE, error=TRUE}
+```
+
+---
+
+```{r child="labs/03-lab-climate_student.Rmd", echo=FALSE, error=TRUE}
+```

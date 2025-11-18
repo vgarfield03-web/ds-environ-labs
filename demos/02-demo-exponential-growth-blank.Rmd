@@ -1,0 +1,136 @@
+
+## Demo: Exponential Population Growth (week 2)
+
+> **Learning goals**  
+> • Simulate **deterministic exponential growth**.  
+> • Explore how **initial size** \(N_0\) and **growth rate** \(r\) shape trajectories.  
+> • Compute **doubling time** \(T_d = \ln 2 / r\) and **time to reach a threshold**.  
+
+### Exponential population growth model
+
+Exponential growth assumes the population changes proportionally to its current size:
+\[
+N_t \;=\; N_0 \, e^{r t},
+\]
+where \(N_0\) is the initial size and \(r\) is the **per‑time growth rate**.
+
+- **Doubling time:** \(T_d = \dfrac{\ln 2}{r}\) (time until \(N_t\) doubles).  
+- **Time to threshold \(N^\*\):** \(t^\* = \dfrac{\ln(N^\*/N_0)}{r}\).
+
+---
+
+### Simulate & plot a single scenario
+
+```{r setup, message=FALSE, warning=FALSE}
+set.seed(1)  # reproducibility for optional noise below
+```
+
+First we will write a function to compute the population size and time step t. 
+
+```{r function}
+
+calcN <- function(N0, r, t){
+  ## This function calculates exponential growth of N, given N0 (initial population), r(growth rate) and t
+  N <- N0*exp(r*t)
+  return(N)
+}
+```
+
+Set parameters (tweak live to show effects of **N0** and **r**):
+
+```{r simulate}
+N0 <- 50        # initial size
+r  <- -0.01      # growth rate per time step
+T  <- 50        # number of time steps
+t <- 0:T
+
+## use our function to calculate N
+
+N <- calcN(N0=N0, r=r, t=t)
+
+```
+
+Plot the trajectory:
+
+```{r plot-deterministic, fig.height=3.6, fig.width=6}
+
+plot(x=t, y=N, type = "l", main = "Deterministic exponential growth",
+        xlab = "Time (t)", ylab = "N_t")
+
+```
+
+Compute **doubling time** directly from `r`:
+
+```{r doubling}
+
+r <- 0.01
+log(2)/r 
+
+calcDoublingTime <- function(r){
+  double.t <- log(2)/r 
+  return(double.t )
+}
+
+calcDoublingTime(1.0)
+
+```
+
+Compute **time to threshold** \(N^\* = 10{,}000\) (can change this number to explore different dynamics):
+
+```{r threshold}
+N0 <- 50
+Nstar <- 10000
+r <- 0.1
+tstar <- (log(Nstar) - log(N0))/r
+tstar
+
+calcTstar <- function(Nstar, N0, r){
+  tstar <- (log(Nstar) - log(N0))/r
+  return(tstar)
+}
+
+calcTstar(Nstar = 10^10, N0 = 1, r = 0.01)
+
+```
+
+---
+
+### Compare two growth rates 
+
+Side‑by‑side curves make the influence of \(r\) obvious.
+
+```{r compare-two, fig.height=3.6, fig.width=6}
+r1 <- 0.05
+r2 <- 0.10
+t  <- 0:T
+N1 <- calcN(N0, r1, t)
+N2 <- calcN(N0, r2, t)
+
+matplot(t, cbind(N1, N2), type = "b", pch = 1:2, col = 1:2,
+          xlab = "Time (t)", ylab = "N_t",
+          main = "Exponential growth with two r values")
+
+legend("topleft", legend = c(paste("r =", r1), paste("r =", r2)),
+         pch = 1:2, col = 1:2, bty = "n")
+```
+
+**Observation.** Small changes in \(r\) cause large differences later in time.
+
+---
+
+### In class challenge
+
+1) Change `r` to from a number < $-1$ to a number $>$ 1, trying 10 different numbers. HINT: use a for loop.  Describe what the different `r` do to the population dynamics. 
+
+
+```{r}
+
+```
+
+2) Another type of "population" can grow exponentially is the population of infected individuals. We have a separate model for their growth known as SIR models (susceptible-infected-recovered), but when a infectious disease is first introduced to a population, it grows exponentially because no one is immune (i.e., via getting sick and recovering or getting vaccinated) `r`.  Explore the population trajectory of measles if no one in Eugene were vaccinated, and one infected person was introduced (N0=1). How long would it take for the entire population of  178,786 to be sick? 
+
+```{r}
+
+```
+
+![R₀ illustration](demos/figures/r0.png){width=60%}

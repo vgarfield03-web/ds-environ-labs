@@ -1,0 +1,13 @@
+"0","holiday_df <- as.data.frame(holiday_rast, xy = TRUE)"
+"0","beachie_df <- as.data.frame(beachie_rast, xy = TRUE)"
+"0","terwilliger_df <- as.data.frame(terwilliger_rast, xy = TRUE)"
+"0",""
+"0","holiday_df$severity <- as.factor(holiday_df$Layer_1)"
+"0","beachie_df$severity <- as.factor(beachie_df$Layer_1)"
+"0","terwilliger_df$severity <- as.factor(terwilliger_df$Layer_1)"
+"0",""
+"0","holiday_df$fire <- ""holiday farm"""
+"0","beachie_df$fire <- ""beachie Creek"""
+"2","Error in `$<-.data.frame`(`*tmp*`, fire, value = ""beachie Creek"") : 
+  replacement has 1 row, data has 0
+"

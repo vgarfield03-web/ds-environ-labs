@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Final project | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="9 Final project | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Final project | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Final project | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="string-processing-debugging.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth"><i class="fa fa-check"></i><b>3.2</b> Demo: Exponential Population Growth</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.2.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.2.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.2.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.2.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.3</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.3.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.4</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.4.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.4.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.4.3</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.4.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.4.4</b> Individual things</a></li>
+<li class="chapter" data-level="3.4.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.4.5</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.4.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.4.6</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.4.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.4.7</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.4.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.4.8</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.4.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.4.9</b> Groups of things</a></li>
+<li class="chapter" data-level="3.4.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.4.10</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.4.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.4.11</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.4.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.4.12</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.4.13" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.4.13</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.4.14" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.4.14</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.4.15" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.4.15</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.4.16" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.4.16</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.4.17" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.4.17</b> Creating chunks</a></li>
+<li class="chapter" data-level="3.4.18" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.4.18</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.4.19" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.4.19</b> Question 8 (Extra credit or graduate students)</a></li>
+<li class="chapter" data-level="3.4.20" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-visualize-baseline"><i class="fa fa-check"></i><b>3.4.20</b> Simulate &amp; visualize (baseline)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="10-finalproject.html"><a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="10-finalproject.html"><a href="#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="10-finalproject.html"><a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.7</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.3.2</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.3.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.3.3</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.3.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-joining-data"><i class="fa fa-check"></i><b>5.3.4</b> Question 2: Joining data</a></li>
+<li class="chapter" data-level="5.3.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-3-1"><i class="fa fa-check"></i><b>5.3.5</b> Question 3</a></li>
+<li class="chapter" data-level="5.3.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.3.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.3.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.3.7</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.3.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-5"><i class="fa fa-check"></i><b>5.3.8</b> Lab Question 5</a></li>
+<li class="chapter" data-level="5.3.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.3.9</b> Question 6</a></li>
+<li class="chapter" data-level="5.3.10" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.3.10</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.3.11" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-7"><i class="fa fa-check"></i><b>5.3.11</b> Question 7</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> ## Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-questions-week-2"><i class="fa fa-check"></i><b>6.2.2</b> Discussion Questions (Week 2)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-5-question-1"><i class="fa fa-check"></i><b>6.3</b> Lab 5 Question 1</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2a-partners"><i class="fa fa-check"></i><b>6.3.1</b> Question 2a (partners)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2b-solo-project"><i class="fa fa-check"></i><b>6.3.2</b> Question 2b (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lecture-summary-4"><i class="fa fa-check"></i><b>7.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.1.2</b> Linear‑algebra essentials for ecological networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data"><i class="fa fa-check"></i><b>7.2</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.2.1</b> From data to networks</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.2.2</b> Core network properties (formulas, intuition, tools)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-building-networks-and-characterizing-their-structure"><i class="fa fa-check"></i><b>7.2.3</b> Demo: Building networks and characterizing their structure</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ecological-networks.html"><a href="ecological-networks.html#null-models-for-fair-comparisons"><i class="fa fa-check"></i><b>7.2.4</b> Null models for fair comparisons</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-pollination"><i class="fa fa-check"></i><b>7.2.5</b> Demo: Calculating network metrics (pollination)</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.2.6</b> Demo: Create a graph from OBA data, visualize it</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.2.7</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.2.8" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.2.8</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.2.9" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.2.9</b> Further reading &amp; software</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.3</b> Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.3.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-questions"><i class="fa fa-check"></i><b>7.3.2</b> Discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.4</b> Lab — Food Webs &amp; Network Measures (Student Version)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.4.2</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.4.3</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.4.4</b> Lab question 3: Visualize the networks</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.4.5</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html"><i class="fa fa-check"></i><b>8</b> String Processing &amp; Debugging</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lecture-summary-5"><i class="fa fa-check"></i><b>8.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.1.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-in-base-r"><i class="fa fa-check"></i><b>8.1.2</b> String manipulation in base R</a></li>
+<li class="chapter" data-level="8.1.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-using-stringr"><i class="fa fa-check"></i><b>8.1.3</b> String manipulation using <em>stringr</em></a></li>
+<li class="chapter" data-level="8.1.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#regular-expressions-regexregexp"><i class="fa fa-check"></i><b>8.1.4</b> Regular expressions (regex/regexp)</a></li>
+<li class="chapter" data-level="8.1.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#general-principles-for-working-with-regex"><i class="fa fa-check"></i><b>8.1.5</b> General principles for working with regex</a></li>
+<li class="chapter" data-level="8.1.6" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#working-with-patterns"><i class="fa fa-check"></i><b>8.1.6</b> Working with patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match"><i class="fa fa-check"></i><b>8.2</b> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?</a></li>
+<li class="chapter" data-level="8.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string"><i class="fa fa-check"></i><b>8.3</b> In class challenge 2: How would I extract an email address from an arbitrary text string?</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#groups"><i class="fa fa-check"></i><b>8.3.1</b> Groups</a></li>
+<li class="chapter" data-level="8.3.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#other-comments"><i class="fa fa-check"></i><b>8.3.2</b> Other comments</a></li>
+<li class="chapter" data-level="8.3.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#additional-resources"><i class="fa fa-check"></i><b>8.3.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r"><i class="fa fa-check"></i><b>8.4</b> Dicussion &amp; Reflection: Debugging in R</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#basic-debugging-strategies"><i class="fa fa-check"></i><b>8.4.1</b> 1) Basic debugging strategies</a></li>
+<li class="chapter" data-level="8.4.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#rs-interactive-debugging-tools"><i class="fa fa-check"></i><b>8.4.2</b> 2) R’s interactive debugging tools</a></li>
+<li class="chapter" data-level="8.4.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#some-common-causes-of-bugs"><i class="fa fa-check"></i><b>8.4.3</b> 3) Some common causes of bugs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors"><i class="fa fa-check"></i><b>8.4.4</b> 4) Tips for avoiding bugs and catching errors</a></li>
+<li class="chapter" data-level="8.4.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#how-to-get-help-online"><i class="fa fa-check"></i><b>8.4.5</b> 5) How to get help online</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version"><i class="fa fa-check"></i><b>8.5</b> Lab — Regular expressions and cleaning OBA data (Student Version)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lesson-overview-3"><i class="fa fa-check"></i><b>8.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="8.5.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Lab question 1: Oregon bee atlas data exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution"><i class="fa fa-check"></i><b>8.5.3</b> Lab question 2: Making a column for plant resolution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-project-1.html"><a href="final-project-1.html"><i class="fa fa-check"></i><b>9</b> Final project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="final-project-1.html"><a href="final-project-1.html#final-project-objective"><i class="fa fa-check"></i><b>9.1</b> Final project objective</a></li>
+<li class="chapter" data-level="9.2" data-path="final-project-1.html"><a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment"><i class="fa fa-check"></i><b>9.2</b> Final project topic selection (first final project assignment)</a></li>
+<li class="chapter" data-level="9.3" data-path="final-project-1.html"><a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment"><i class="fa fa-check"></i><b>9.3</b> Final project office hours discussion (second final project assignment)</a></li>
+<li class="chapter" data-level="9.4" data-path="final-project-1.html"><a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment"><i class="fa fa-check"></i><b>9.4</b> Final project annotated bibliography (third final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="final-project-1.html"><a href="final-project-1.html#overview"><i class="fa fa-check"></i><b>9.4.1</b> Overview</a></li>
+<li class="chapter" data-level="9.4.2" data-path="final-project-1.html"><a href="final-project-1.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.4.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.4.3" data-path="final-project-1.html"><a href="final-project-1.html#requirements"><i class="fa fa-check"></i><b>9.4.3</b> Requirements</a></li>
+<li class="chapter" data-level="9.4.4" data-path="final-project-1.html"><a href="final-project-1.html#how-to-search-effectively-google-scholar-tips"><i class="fa fa-check"></i><b>9.4.4</b> How to search effectively (Google Scholar tips)</a></li>
+<li class="chapter" data-level="9.4.5" data-path="final-project-1.html"><a href="final-project-1.html#recommended-workflow"><i class="fa fa-check"></i><b>9.4.5</b> Recommended workflow</a></li>
+<li class="chapter" data-level="9.4.6" data-path="final-project-1.html"><a href="final-project-1.html#what-each-entry-should-include"><i class="fa fa-check"></i><b>9.4.6</b> What each entry should include</a></li>
+<li class="chapter" data-level="9.4.7" data-path="final-project-1.html"><a href="final-project-1.html#template-copy-for-each-source"><i class="fa fa-check"></i><b>9.4.7</b> Template (copy for each source)</a></li>
+<li class="chapter" data-level="9.4.8" data-path="final-project-1.html"><a href="final-project-1.html#author-surname-et-al.-year.-title."><i class="fa fa-check"></i><b>9.4.8</b> Author Surname et al. (Year). <em>Title</em>.</a></li>
+<li class="chapter" data-level="9.4.9" data-path="final-project-1.html"><a href="final-project-1.html#example-of-intext-citation-references"><i class="fa fa-check"></i><b>9.4.9</b> Example of in‑text citation &amp; references</a></li>
+<li class="chapter" data-level="9.4.10" data-path="final-project-1.html"><a href="final-project-1.html#rubric"><i class="fa fa-check"></i><b>9.4.10</b> Rubric</a></li>
+<li class="chapter" data-level="9.4.11" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist"><i class="fa fa-check"></i><b>9.4.11</b> Submission checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment"><i class="fa fa-check"></i><b>9.5</b> Literature review and workflow plan (fourth final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project"><i class="fa fa-check"></i><b>9.5.1</b> Literature review (i.e., the introduction section of your final project)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="final-project-1.html"><a href="final-project-1.html#dataset-identification"><i class="fa fa-check"></i><b>9.5.2</b> Dataset identification</a></li>
+<li class="chapter" data-level="9.5.3" data-path="final-project-1.html"><a href="final-project-1.html#workflow-plan"><i class="fa fa-check"></i><b>9.5.3</b> Workflow plan</a></li>
+<li class="chapter" data-level="9.5.4" data-path="final-project-1.html"><a href="final-project-1.html#rubric-1"><i class="fa fa-check"></i><b>9.5.4</b> Rubric</a></li>
+<li class="chapter" data-level="9.5.5" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist-1"><i class="fa fa-check"></i><b>9.5.5</b> Submission Checklist</a></li>
+<li class="chapter" data-level="9.5.6" data-path="final-project-1.html"><a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc"><i class="fa fa-check"></i><b>9.5.6</b> Optional scaffold (copy into your working doc)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="final-project-1.html"><a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit"><i class="fa fa-check"></i><b>9.6</b> Final Project Rubric (10 pts total + 1 pt extra credit)</a></li>
+<li class="chapter" data-level="9.7" data-path="final-project-1.html"><a href="final-project-1.html#poster-presentation-rubric-10-pts-total"><i class="fa fa-check"></i><b>9.7</b> Poster Presentation Rubric (10 pts total)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="final-project-1" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Final project<a href="final-project-1.html#final-project-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="final-project-objective" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Final project objective<a href="final-project-1.html#final-project-objective" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The objective of the final project will be to complete a fully reproducible workflow that uses Oregon Bee Atlas (OBA) (undergrads) or your own data (graduate students, or undergrads doing a senior thesis) to address your chosen conservation/ecology question. The project must illustrate all of the following tasks:</p>
+<ul>
+<li>A testable hypothesis, including the null and alternative</li>
+<li>Some form of data access / reading into R</li>
+<li>Integration of multiple types of data/data skills (interaction data, spatial data, merging together multiple datasets) including OBA data to address the question. Choose 3 of the data types we will cover in class.</li>
+<li>Data tidying, including data joins, using regular expressions to clean entries</li>
+<li>Manipulate and summarize the data in relevant ways</li>
+<li>Initial data visualization/exploration</li>
+<li>A test of your hypothesis, using simulation, A/B testing or another statistical test</li>
+<li>Final, publication-worthy visualization answering your question</li>
+<li>RMarkdown writeup, with final submission as both the .Rmd file and a nicely formatted PDF document that includes code and results</li>
+<li>The project should be version controlled using github</li>
+<li>Overall clean and clear presentation of the workflow, code, and explanation</li>
+</ul>
+<p><strong>This is a great reference on scientific writing:</strong> Turbek, Sheela P., Taylor M. Chock, Kyle Donahue, Caroline A. Havrilla, Angela M. Oliverio, Stephanie K. Polutchko, Lauren G. Shoemaker, and Lara Vimercati. “Scientific Writing Made Easy: A Step-by-Step Guide to Undergraduate Writing in the Biological Sciences.” The Bulletin of the Ecological Society of America 97, no. 4 (October 2016): 417–26. <a href="https://doi.org/10.1002/bes2.1258" class="uri">https://doi.org/10.1002/bes2.1258</a>.</p>
+</div>
+<div id="final-project-topic-selection-first-final-project-assignment" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Final project topic selection (first final project assignment)<a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will be building toward the final project throughout the class. At this stage we need enough information from you to ensure your project is do-able during the timespan of a quarter. A full project proposal, with questions and identified data sources, will be due later in the quarter. For now, please submit a knitted .Rmd file saved as “LASTNAME_ProjectTopic.pdf”. Include the following:</p>
+<ol style="list-style-type: decimal">
+<li>General topic of interest in relation to the Oregon Bee Atlas data (e.g., patterns of diversity, bee diets, sampling bias)<br />
+</li>
+<li>Potential questions within that topic area</li>
+<li>Potential additional datasets within that topic area (e.g.,specify relevant government databases, academic data repositories, etc)</li>
+<li>The name of your partner (if undergrads)</li>
+</ol>
+<p><strong>If you do have your own data (graduate students, thesis undergrads):</strong>
+1) The questions you would like to answer with your data<br />
+2) The structure and metadata of the dataset
+3) Potential additional datasets within that topic area</p>
+</div>
+<div id="final-project-office-hours-discussion-second-final-project-assignment" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Final project office hours discussion (second final project assignment)<a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sign up for an office hours slot to discuss your project with LP (me). I will provide feedback on feasibility, match to the assignment, and general pointers on approach.</p>
+</div>
+<div id="final-project-annotated-bibliography-third-final-project-assignment" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Final project annotated bibliography (third final project assignment)<a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview" class="section level3 hasAnchor" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Overview<a href="final-project-1.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An <strong>annotated bibliography</strong> is a curated list of sources (journal articles, books, datasets, methods papers). Each entry provides (i) a complete citation and (ii) a brief annotation <strong>in your own words</strong> that summarizes, evaluates, and explains the source’s relevance to your project. It demonstrates that you’ve found high‑quality literature, understand it, and know how you’ll use it.</p>
+</div>
+<div id="learning-objectives-6" class="section level3 hasAnchor" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Learning objectives<a href="final-project-1.html#learning-objectives-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By completing this assignment you will be able to:
+- Locate and filter <strong>relevant</strong> scholarly sources for your topic.
+- <strong>Summarize</strong> methods, findings, and limitations clearly and concisely.
+- <strong>Evaluate</strong> credibility, generalizability, and relevance to your research question.
+- Track source <strong>provenance</strong> and manage citations reproducibly with a <code>.bib</code> file.</p>
+</div>
+<div id="requirements" class="section level3 hasAnchor" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> Requirements<a href="final-project-1.html#requirements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Number of sources:</strong> 10+ total, peer reviewed articles.</li>
+<li>Focus on work <strong>directly relevant</strong> to your methods or hypotheses.<br />
+</li>
+<li>Use a consistent citation style (e.g., <strong>APA</strong>, <strong>Chicago</strong>, or <strong>Ecology</strong>) via a CSL file.<br />
+</li>
+<li>Submit: use your <strong>Rmd</strong>, your <strong><code>references.bib</code></strong> to create a knitted <strong>PDF</strong>, upload to canvas.</li>
+</ul>
+<p><strong>Academic integrity &amp; tool policy.</strong> You may use LLM tools (e.g., GitHub Copilot, ChatGPT) <strong>only for discovery</strong> (brainstorming keywords, surfacing candidate papers). You must <strong>find, read, and summarize</strong> the articles yourself. Annotations must be <strong>in your own words</strong>—do not paste or lightly paraphrase abstracts. Verify all bibliographic details (authors, year, journal, DOI).</p>
+</div>
+<div id="how-to-search-effectively-google-scholar-tips" class="section level3 hasAnchor" number="9.4.4">
+<h3><span class="header-section-number">9.4.4</span> How to search effectively (Google Scholar tips)<a href="final-project-1.html#how-to-search-effectively-google-scholar-tips" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Start broad, then narrow: <code>"pollinator network" modularity</code>, <code>beta diversity turnover habitat</code>.<br />
+</li>
+<li>Use <strong>quotes</strong> for exact phrases; use <strong>minus</strong> to exclude terms: <code>trait diversity -human -medical</code>.<br />
+</li>
+<li>Filter by <strong>Year</strong> (left sidebar): last 5–10 years first, then “Cited by …” to trace backward.<br />
+</li>
+<li>Click <strong>“Related articles”</strong> to widen the net; <strong>“All versions”</strong> can reveal accessible PDFs.<br />
+</li>
+<li>Use the <strong>export citation button</strong> to copy citations.</li>
+</ul>
+</div>
+<div id="recommended-workflow" class="section level3 hasAnchor" number="9.4.5">
+<h3><span class="header-section-number">9.4.5</span> Recommended workflow<a href="final-project-1.html#recommended-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Create a project folder and add this Rmd.<br />
+</p></li>
+<li><p>Manage references with <strong>Zotero + Better BibTeX</strong> or export <strong>BibTeX</strong> from publishers/Scholar.<br />
+</p></li>
+<li><p>Save <code>references.bib</code> next to this Rmd and add to YAML if standalone:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="final-project-1.html#cb1-1" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> references.bib</span></span>
+<span id="cb1-2"><a href="final-project-1.html#cb1-2" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> apa.csl</span></span></code></pre></div></li>
+<li><p>Cite sources in text with <code>[@key]</code> and knit—<strong>References</strong> appear automatically.<br />
+</p></li>
+<li><p>Write each annotation using the template below (≈ 150–250 words per entry).</p></li>
+</ol>
+</div>
+<div id="what-each-entry-should-include" class="section level3 hasAnchor" number="9.4.6">
+<h3><span class="header-section-number">9.4.6</span> What each entry should include<a href="final-project-1.html#what-each-entry-should-include" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Full citation</strong> (via your <code>.bib</code> key) and a <strong>persistent identifier</strong> (DOI/URL).<br />
+</li>
+<li><strong>Summary:</strong> research question, system/data, methods/analyses, main findings (3–5 sentences).<br />
+</li>
+<li><strong>Evaluation:</strong> design strengths/weaknesses, limitations, potential biases (2–3 sentences).<br />
+</li>
+<li><strong>Relevance:</strong> how it informs your hypotheses, variables, data, or analysis plan (1–2 sentences).<br />
+</li>
+<li><strong>Tags</strong> (optional): keywords you’ll use to organize sources (e.g., <code>trait-diversity</code>, <code>GLM</code>, <code>restoration</code>).</li>
+</ul>
+<blockquote>
+<p>Aim for <strong>clarity and specificity</strong>: what exactly did they measure, how, and why does it matter to your project?</p>
+</blockquote>
+</div>
+<div id="template-copy-for-each-source" class="section level3 hasAnchor" number="9.4.7">
+<h3><span class="header-section-number">9.4.7</span> Template (copy for each source)<a href="final-project-1.html#template-copy-for-each-source" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Replace <code>@key</code> with your BibTeX citation key.</p>
+</div>
+<div id="author-surname-et-al.-year.-title." class="section level3 hasAnchor" number="9.4.8">
+<h3><span class="header-section-number">9.4.8</span> Author Surname et al. (Year). <em>Title</em>.<a href="final-project-1.html#author-surname-et-al.-year.-title." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Citation:</strong> <code>@key</code></p>
+<p><strong>Summary (what they did &amp; found):</strong><br />
+<em>3–5 sentences: research question; system/data; methods; main findings.</em></p>
+<p><strong>Evaluation (quality &amp; limits):</strong><br />
+<em>2–3 sentences: design strengths/weaknesses, assumptions, possible biases.</em></p>
+<p><strong>Relevance (how you’ll use it):</strong><br />
+<em>1–2 sentences: informs variable/metric choice, design, or interpretation.</em></p>
+<p><strong>Tags:</strong> <code>your, tags, here</code></p>
+<hr />
+</div>
+<div id="example-of-intext-citation-references" class="section level3 hasAnchor" number="9.4.9">
+<h3><span class="header-section-number">9.4.9</span> Example of in‑text citation &amp; references<a href="final-project-1.html#example-of-intext-citation-references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cite inline (e.g., <span class="citation">(<a href="#ref-key"><strong>key?</strong></a>)</span>) or parenthetically (e.g., <span class="citation">(<a href="#ref-key"><strong>key?</strong></a>)</span>). Multiple citations: <span class="citation">(<a href="#ref-key1"><strong>key1?</strong></a>; <a href="#ref-key2"><strong>key2?</strong></a>)</span>.</p>
+<blockquote>
+<p>If you configure <code>bibliography:</code> and <code>csl:</code> in YAML, a <strong>References</strong> section will be generated when you knit.</p>
+</blockquote>
+</div>
+<div id="rubric" class="section level3 hasAnchor" number="9.4.10">
+<h3><span class="header-section-number">9.4.10</span> Rubric<a href="final-project-1.html#rubric" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Relevance &amp; coverage (30%)</strong> — appropriate breadth/depth; includes methods and data sources.<br />
+</li>
+<li><strong>Annotation quality (40%)</strong> — accurate summaries, critical evaluation, clear relevance.<br />
+</li>
+<li><strong>Citation management (15%)</strong> — valid <code>.bib</code> entries; consistent style; working DOIs/links.<br />
+</li>
+<li><strong>Professionalism (15%)</strong> — organization, clarity, grammar; files named and submitted as requested.</li>
+</ul>
+</div>
+<div id="submission-checklist" class="section level3 hasAnchor" number="9.4.11">
+<h3><span class="header-section-number">9.4.11</span> Submission checklist<a href="final-project-1.html#submission-checklist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />This Rmd knits (no errors).<br />
+</label></li>
+<li><label><input type="checkbox" /><code>references.bib</code> included in repo and paths correct in YAML.<br />
+</label></li>
+<li><label><input type="checkbox" />Annotations in your <strong>own words</strong>; no pasted abstracts.<br />
+</label></li>
+<li><label><input type="checkbox" />Each entry has summary, evaluation, relevance, and key details.<br />
+</label></li>
+<li><label><input type="checkbox" />Provenance log included.<br />
+</label></li>
+<li><label><input type="checkbox" />Final commit pushed to your course repository.</label></li>
+</ul>
+</div>
+</div>
+<div id="literature-review-and-workflow-plan-fourth-final-project-assignment" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Literature review and workflow plan (fourth final project assignment)<a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To progress toward the final project, please prepare a literature review using your annotated bib and develop a workflow plan. A description of each is below. Include the name of your partner in the header.</p>
+<div id="literature-review-i.e.-the-introduction-section-of-your-final-project" class="section level3 hasAnchor" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> Literature review (i.e., the introduction section of your final project)<a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We expect the literature review will be around 5 well cited paragraphs that do the following:</p>
+<p><strong>1. Introduce the problem and explain why</strong></p>
+<ul>
+<li>Set the stage for the problem<br />
+</li>
+<li>Put the concept and question into context<br />
+</li>
+<li>Lots of big-picture citations (such as reviews) in the first paragraph</li>
+<li>See the <a href="https://ecoevoevoeco.blogspot.com/2014/10/how-to-writepresent-science-baby.html%7D">baby-werewolf-silver bullet guide to writing science</a></li>
+</ul>
+<p><strong>2. Past work and data available</strong></p>
+<ul>
+<li>Who has addressed this problem (perhaps with a different dataset/region), and what did they do it?<br />
+</li>
+<li>What are the data available to address this problem (in addition to the OBA/your dataset)?</li>
+</ul>
+<p><strong>3. Purpose of the study</strong></p>
+<ul>
+<li>Further refine your approach (e.g., what data will you combine/transorm to a new type, how will you address the question)<br />
+</li>
+<li>Justify why this is needed now (e.g., visualization to test a new dimension of the question or better convey an old one)</li>
+</ul>
+<p><strong>4. Hypotheses/questions</strong></p>
+<ul>
+<li>List these clearly and in a logical order<br />
+</li>
+<li>Make hypotheses directionally using predictions (e.g. “I predict urbanization will reduce plant diversity” rather than “I predict urbanization will change plant diversity”)</li>
+</ul>
+</div>
+<div id="dataset-identification" class="section level3 hasAnchor" number="9.5.2">
+<h3><span class="header-section-number">9.5.2</span> Dataset identification<a href="final-project-1.html#dataset-identification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Please identify any additional datasets you will be using to address your question.
+* For data other than the OBA data provide the data source (including web url)
+* Describe sufficient metadata to convey who collected the data, how it was collected, and what each column contains.
+* If transforming the OBA data into a different data type, explain your plan for doing this.</p>
+</div>
+<div id="workflow-plan" class="section level3 hasAnchor" number="9.5.3">
+<h3><span class="header-section-number">9.5.3</span> Workflow plan<a href="final-project-1.html#workflow-plan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In pros, please describe the workflow you will use tidy your raw data, manipulate and summarize it in relevant ways, test you hypothesis, and visualize it.The goal here is to develop a logic to your workflow before you code.</p>
+<ul>
+<li>Include any needed cleaning steps (e.g., “remove non-species such as ‘fly’ from the species column”)</li>
+<li>Include any aggregation steps (e.g., “count the number of entries by region and year to calculate species richness”).</li>
+<li>Include descriptions of any functions/for loops you will write.<br />
+</li>
+<li>Include a description the the statistical test you will use, and how you will apply it programatically (i.e., I will simulate the null hypothesis by shuffling the labels…“)</li>
+</ul>
+</div>
+<div id="rubric-1" class="section level3 hasAnchor" number="9.5.4">
+<h3><span class="header-section-number">9.5.4</span> Rubric<a href="final-project-1.html#rubric-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>What to look for</th>
+<th align="right">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1) Problem framing &amp; significance</strong></td>
+<td>Clear statement of the problem, why it matters, big‑picture context with a few review citations.</td>
+<td align="right"><strong>20%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>2) Prior work &amp; data landscape</strong></td>
+<td>Brief synthesis of who has studied this (where/how), key findings or gaps, and available datasets beyond OBA (with links).</td>
+<td align="right"><strong>20%</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>3) Purpose &amp; hypotheses</strong></td>
+<td>Specific aim/purpose and <strong>directional</strong> hypotheses (“increase/decrease”) that follow logically from the literature.</td>
+<td align="right"><strong>20%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>4) Workflow plan (data → analysis → viz)</strong></td>
+<td>Plain‑language steps: cleaning/validation, aggregations/derivations, any functions/loops, the statistical test <strong>and</strong> how you’ll implement it (e.g., permutation), and intended figures/tables.</td>
+<td align="right"><strong>30%</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>5) Writing, citations, professionalism</strong></td>
+<td>~5 concise paragraphs, organized and typo‑light; consistent in‑text citations with DOIs/URLs for datasets; partner named in header.</td>
+<td align="right"><strong>10%</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="submission-checklist-1" class="section level3 hasAnchor" number="9.5.5">
+<h3><span class="header-section-number">9.5.5</span> Submission Checklist<a href="final-project-1.html#submission-checklist-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Header &amp; format</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Partner’s name(s) in the document header.<br />
+</label></li>
+<li><label><input type="checkbox" />Clear, descriptive title &amp; system context.<br />
+</label></li>
+<li><label><input type="checkbox" />~5 paragraphs, each with appropriate citations.</label></li>
+</ul>
+<p><strong>Literature review</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Opens with big‑picture motivation and review citations (see <em>baby‑werewolf–silver bullet</em> guide).<br />
+</label></li>
+<li><label><input type="checkbox" />Synthesizes prior work (who/where/how) and main findings/gaps.<br />
+</label></li>
+<li><label><input type="checkbox" />States the <strong>purpose</strong> and why it’s timely.<br />
+</label></li>
+<li><label><input type="checkbox" />Lists clear, <strong>directional</strong> hypotheses with brief rationale.</label></li>
+</ul>
+<p><strong>Dataset identification</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Each non‑OBA dataset: name, URL/DOI, collector, methods, columns/units.<br />
+</label></li>
+<li><label><input type="checkbox" />OBA transformation plan: what becomes what, with justification.</label></li>
+</ul>
+<p><strong>Workflow plan</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Cleaning/validation steps (e.g., remove non‑species; standardize units; handle missing data).<br />
+</label></li>
+<li><label><input type="checkbox" />Aggregations/derivations (e.g., richness by region × year; diversity metrics; trait construction).<br />
+</label></li>
+<li><label><input type="checkbox" />Functions/loops or <code>purrr</code>/<code>dplyr</code> maps planned; inputs/outputs noted.<br />
+</label></li>
+<li><label><input type="checkbox" />Statistical test(s) specified <strong>and</strong> how implemented programmatically (e.g., simulate null by shuffling labels; number of permutations; summary statistic).<br />
+</label></li>
+<li><label><input type="checkbox" />Planned visualizations/tables and their purpose.<br />
+</label></li>
+<li><label><input type="checkbox" />Risks &amp; mitigations (e.g., incomplete metadata, unbalanced sampling, expected limitations).</label></li>
+</ul>
+<p><strong>Citations &amp; integrity</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Consistent citation style; inline citations throughout.<br />
+</label></li>
+<li><label><input type="checkbox" />DOIs/URLs included for datasets and key papers.<br />
+</label></li>
+<li><label><input type="checkbox" />Summaries and paraphrases are in <strong>your own words</strong> (no abstracts copied).<br />
+</label></li>
+<li><label><input type="checkbox" />LLMs (Copilot/ChatGPT) used <strong>only for discovery</strong>; you verified and summarized all sources yourself.</label></li>
+</ul>
+<p><strong>Professionalism</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />File compiles/exports cleanly (Rmd → HTML/PDF, if applicable).<br />
+</label></li>
+<li><label><input type="checkbox" />Clear headings/subheadings; figures/tables (if any) captioned and referenced.<br />
+</label></li>
+<li><label><input type="checkbox" />Final commit pushed to your course repository in the correct folder.</label></li>
+</ul>
+<hr />
+</div>
+<div id="optional-scaffold-copy-into-your-working-doc" class="section level3 hasAnchor" number="9.5.6">
+<h3><span class="header-section-number">9.5.6</span> Optional scaffold (copy into your working doc)<a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="final-project-1.html#cb2-1" tabindex="-1"></a><span class="fu"># Title of project (system/region)</span></span>
+<span id="cb2-2"><a href="final-project-1.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="final-project-1.html#cb2-3" tabindex="-1"></a>**Partner(s):** Name Surname</span>
+<span id="cb2-4"><a href="final-project-1.html#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="final-project-1.html#cb2-5" tabindex="-1"></a><span class="fu">## Literature review (~5 paragraphs)</span></span>
+<span id="cb2-6"><a href="final-project-1.html#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="final-project-1.html#cb2-7" tabindex="-1"></a><span class="fu">### Paragraph 1 — Problem &amp; significance (big‑picture reviews)</span></span>
+<span id="cb2-8"><a href="final-project-1.html#cb2-8" tabindex="-1"></a>…</span>
+<span id="cb2-9"><a href="final-project-1.html#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="final-project-1.html#cb2-10" tabindex="-1"></a><span class="fu">### Paragraph 2–3 — Past work &amp; data landscape (who/where/how; gaps)</span></span>
+<span id="cb2-11"><a href="final-project-1.html#cb2-11" tabindex="-1"></a>…</span>
+<span id="cb2-12"><a href="final-project-1.html#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="final-project-1.html#cb2-13" tabindex="-1"></a><span class="fu">### Paragraph 4 — Purpose &amp; why now</span></span>
+<span id="cb2-14"><a href="final-project-1.html#cb2-14" tabindex="-1"></a>…</span>
+<span id="cb2-15"><a href="final-project-1.html#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="final-project-1.html#cb2-16" tabindex="-1"></a><span class="fu">### Paragraph 5 — Hypotheses (directional) &amp; brief rationale</span></span>
+<span id="cb2-17"><a href="final-project-1.html#cb2-17" tabindex="-1"></a><span class="ss">- </span>H1: … (I predict … because …)</span>
+<span id="cb2-18"><a href="final-project-1.html#cb2-18" tabindex="-1"></a><span class="ss">- </span>H2: …</span>
+<span id="cb2-19"><a href="final-project-1.html#cb2-19" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="final-project-1.html#cb2-20" tabindex="-1"></a><span class="fu">## Dataset identification</span></span>
+<span id="cb2-21"><a href="final-project-1.html#cb2-21" tabindex="-1"></a><span class="ss">- </span>Dataset A (URL/DOI): collector, methods, columns/units …</span>
+<span id="cb2-22"><a href="final-project-1.html#cb2-22" tabindex="-1"></a><span class="ss">- </span>OBA → transformed to … (plan and rationale) …</span>
+<span id="cb2-23"><a href="final-project-1.html#cb2-23" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="final-project-1.html#cb2-24" tabindex="-1"></a><span class="fu">## Workflow plan (prose)</span></span>
+<span id="cb2-25"><a href="final-project-1.html#cb2-25" tabindex="-1"></a>1) Cleaning &amp; validation: …  </span>
+<span id="cb2-26"><a href="final-project-1.html#cb2-26" tabindex="-1"></a>2) Aggregations/derivations: …  </span>
+<span id="cb2-27"><a href="final-project-1.html#cb2-27" tabindex="-1"></a>3) Functions/loops (inputs → outputs): …  </span>
+<span id="cb2-28"><a href="final-project-1.html#cb2-28" tabindex="-1"></a>4) Statistical test + programmatic implementation: …  </span>
+<span id="cb2-29"><a href="final-project-1.html#cb2-29" tabindex="-1"></a>5) Planned visualizations/tables: …  </span>
+<span id="cb2-30"><a href="final-project-1.html#cb2-30" tabindex="-1"></a>6) Risks &amp; mitigations: …</span></code></pre></div>
+</div>
+</div>
+<div id="final-project-rubric-10-pts-total-1-pt-extra-credit" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Final Project Rubric (10 pts total + 1 pt extra credit)<a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Use this to score the written analysis deliverable (Rmd + PDF).</p>
+</blockquote>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Details</th>
+<th align="right">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Introduction</strong></td>
+<td>Background &amp; literature foreshadow the importance of each question; <strong>clear statement of 2+ questions</strong> addressing a new dimension of bee conservation, ecology, or management using OBA or student’s data. Graduate students write as a thesis‑style intro with comprehensive background literature. Citations use a standardized style. ~1 page.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Data</strong></td>
+<td>(1) List <strong>2+ datasets</strong> and <strong>3+ distinct data skills</strong> (e.g., table manipulation, interaction data, raster, vector). Provide general metadata (as in workflow). (2) Read and tidy <strong>2018–2024 OBA</strong> (plant taxonomy cleaned via regex if using plant data). If using own data, it is complete and cleaned.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Data wrangling, summarizing, exploring</strong></td>
+<td>Relevant manipulation &amp; summaries; exploratory tables and plots (scatter, hist, bar, etc.); multiple <strong>relevant</strong> visualizations and data checks.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Hypothesis test</strong></td>
+<td>Use a <strong>simulation or statistical test</strong> to make an inference; grad students use the <strong>best available</strong> statistical approach.</td>
+<td align="right"><strong>2</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Visualization</strong></td>
+<td>Final, publication‑quality figures that answer the questions; clear labels, legends, and units.</td>
+<td align="right"><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Additional tool/analysis</strong></td>
+<td><em>Extra credit:</em> grads must incorporate a tool not addressed in class in analysis/visualization/workflow; undergrads may earn EC.</td>
+<td align="right"><strong>+1 EC</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Conclusion</strong></td>
+<td>Clearly answers the original questions and connects to relevant comparative literature.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Overall workflow</strong></td>
+<td>(1) Version control on GitHub; (2) clear, complete Rmd and PDF; (3) organized, readable workflow, code, and explanations.</td>
+<td align="right"><strong>2</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total:</strong> 10 pts (plus up to <strong>+1</strong> extra credit)</p>
+<hr />
+</div>
+<div id="poster-presentation-rubric-10-pts-total" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> Poster Presentation Rubric (10 pts total)<a href="final-project-1.html#poster-presentation-rubric-10-pts-total" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Use this to score the conference‑style poster deliverable.</p>
+</blockquote>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Details</th>
+<th align="right">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Intro part 1 — Context</strong></td>
+<td>Introduce main ideas; explain significance; include most relevant citations; short paragraph or bullets.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Intro part 2 — Scientific/management gap</strong></td>
+<td>Present the gap that motivates a compelling question (<strong>bold the question</strong>).</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Research question(s)</strong></td>
+<td>Bullet the specific question(s) clearly tied to the gap.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Methods — Data &amp; tidying</strong></td>
+<td>Introduce data sources (e.g., land cover, elevation, fire). If using own data, describe collection. Summarize OBA tidying/manipulation. Use a flow diagram and/or bullets.</td>
+<td align="right"><strong>2</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Methods — Analysis workflow</strong></td>
+<td>Flow diagram of each analysis step; explain statistical or simulation test.</td>
+<td align="right"><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Results</strong></td>
+<td>Summaries with at least one visualization per result.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Conclusion</strong></td>
+<td>Answer the question(s) and interpret meaning.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Overall display</strong></td>
+<td>Layout, readability, and visual design quality.</td>
+<td align="right"><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total:</strong> 10 pts</p>
+<hr />
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="string-processing-debugging.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
