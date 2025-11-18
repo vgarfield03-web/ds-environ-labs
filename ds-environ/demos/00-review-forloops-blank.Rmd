@@ -1,0 +1,45 @@
+---
+title: "For Loops and Logical Indexing in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Example 1: Basic for loop to print values
+
+```{r}
+for(i in 1:5){
+  print(paste("this iteration is", i, ".", sep=""))
+}
+```
+
+## Example 2: Using a for loop to fill a vector
+
+```{r}
+squares <- matrix(NA, nrow=10, ncol= 10)
+
+for(i in 1:ncol(squares)){
+  squares[i,] <- i^2
+}
+
+squares
+
+
+```
+
+## Example 3: Using a for loop with an if-statement
+
+```{r}
+temps <- c(12, 18, 23, 5, 30, 0)
+
+for(t in temps){
+  if(t > 20){
+    print(paste(t, "is warm"))
+  } 
+}
+
+
+```
+

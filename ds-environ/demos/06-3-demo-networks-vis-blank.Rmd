@@ -1,0 +1,106 @@
+## Demo: Create a graph from OBA data, visualize it
+
+Let's load in our OBA data and make a network for all the bumble bees in Oregon. We will need to subset the data, then keep only the bee and plant species columns. 
+
+```{r, load-oba}
+library(networkD3)
+library(igraph)
+library(tidyverse)
+oba <- read.csv("../data/OBA_2018-2024.csv")
+glimpse(oba)
+```
+
+The entire network would be difficult to visualize, so let's subset the data to just bumble bees. We need to extract only the columns that are relevant for the bee-plant interactions. The column "speciesPlant" has the floral species a bee was caught visiting, if it was caught on a flower.
+
+```{r, subset-obs}
+## subset to only bombus
+# bumbles <-
+
+## drop rows without species names
+
+
+## create a bee genus species column 
+
+
+## subset down to just the columns of interest for a network
+
+
+## rename them to something more consistent
+
+```
+
+There are a lot of blank rows from associated taxa for individuals not caught on a flower. We cannot do anything with those so we will just drop them. 
+
+```{r, subset-obs-2}
+
+#sort(unique(bumbles$PlantGenusSpecies))[1:10]
+#sort(unique(bumbles$GenusSpecies))[1:10]
+```
+You all are a very lucky class because it previous years there were a ton of terrible looking names.
+
+We can explore the species in our network. These will be the vertices. 
+```{r, explore}
+sort(table(bumbles$GenusSpecies))[1:10]
+sort(table(bumbles$PlantGenusSpecies))[1:10]
+```
+We have a variety of options for converting of data (which is basically an edge list) into a graph. One is to sum up our interactions but bee-plant combinations to make an bipartite adjacency matrix. Then convert that matrix to a igraph object. 
+
+```{r, make-adj-1}
+### 1. sum up interactions and take a look
+
+
+### write to a file
+#save(bumbles_adj, file="bumbles_adj_mat.Rdata")
+#dim(bumbles_adj)
+#bumbles_adj[1:5, 1:5] 
+```
+
+```{r, make-adj-2}
+### 2. convert to igraph bipartite adjacency matrix 
+g_bumbles <- 
+#g_bumbles
+```
+
+To use the 'forceNetwork' function to make a beautiful visualization, we need to convert our graph into a dataframe. Luckily there is a function 'igraph_to_networkD3' to convert from graph objects to what the network3d package wants. That function also wants a each vertex assigned to a group. We have a variety of options on how to assign groups, one is to look for modules or compartments in the network. 
+
+```{r, plot-oba}
+### find modules
+mod_bumbles <- cluster_walktrap(g_bumbles)
+### assign vertices to modules
+groups <- membership(mod_bumbles)
+
+### convert to a network 3d object
+g_bumbles_net3d <- igraph_to_networkD3(g_bumbles, group=groups, 
+                                       what = "both")
+### plot the bumble-plant network
+forceNetwork(Links = g_bumbles_net3d$links,
+             Nodes = g_bumbles_net3d$nodes,
+            Source = "source", Target = "target",
+            Value = "value",  NodeID = "name",
+             Group = "group", 
+            opacity = 0.8, zoom=TRUE, opacityNoHover = 0.9)
+```
+
+We can also use a flow-like visualization plot. 
+
+```{r, plot-oba-2}
+
+sankeyNetwork(Links = g_bumbles_net3d$links,
+             Nodes = g_bumbles_net3d$nodes,
+            Source = "source", Target = "target",
+            Value = "value",  NodeID = "name", 
+            nodePadding = 0, height = 5000)
+```
+
+### In class: Visualization challange 1.
+
+Choose a different genus of bees and repeat the steps above to make a network. 
+
+### In class: Visualization challange 2. 
+How could we use graph attributes to create informative network visualizations? Set some attributes and use them to plot your network.
+Consider using static network plots instead of network3D, see this [turorial](https://yunranchen.github.io/intro-net-r/advanced-network-visualization.html#visualization-for-static-network) for examples.  
+
+
+```{r, plot-oba-challange}
+
+```

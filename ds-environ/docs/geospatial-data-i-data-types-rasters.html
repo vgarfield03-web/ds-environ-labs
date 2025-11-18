@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Geospatial data I: data types (rasters) | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="8 Geospatial data I: data types (rasters) | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Geospatial data I: data types (rasters) | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Geospatial data I: data types (rasters) | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ecological-networks.html"/>
+<link rel="next" href="string-processing-debugging.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.9.1/d3.min.js"></script>
+<script src="libs/forceNetwork-binding-0.4.1/forceNetwork.js"></script>
+<script src="libs/sankey-1/sankey.js"></script>
+<script src="libs/sankeyNetwork-binding-0.4.1/sankeyNetwork.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-programming-key-concepts-part-1-week-1"><i class="fa fa-check"></i><b>3.2</b> Demo: Programming Key Concepts part 1 (week 1)</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.2.1</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.2.2</b> Individual things</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.2.3</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.2.4</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.2.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.2.5</b> Groups of things</a></li>
+<li class="chapter" data-level="3.2.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.2.6</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.2.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.2.7</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.2.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.2.8</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.2.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.2.9</b> Creating chunks</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth-week-2"><i class="fa fa-check"></i><b>3.3</b> Demo: Exponential Population Growth (week 2)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.3.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.3.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.3.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.3.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.4</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.4.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.4.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.5</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.5.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.5.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.5.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.5.3</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.5.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.5.4</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.5.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.5.5</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.5.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.5.6</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.5.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.5.7</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.5.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.5.8</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.5.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.5.9</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.5.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.5.10</b> Question 8 (Extra credit or graduate students)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#functional-diversity-trait-based"><i class="fa fa-check"></i><b>5.2.7</b> Functional diversity (trait-based)</a></li>
+<li class="chapter" data-level="5.2.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#beta-diversity-among-site-turnover"><i class="fa fa-check"></i><b>5.2.8</b> Beta diversity (among-site turnover)</a></li>
+<li class="chapter" data-level="5.2.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.9</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.4.1</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-joining-data"><i class="fa fa-check"></i><b>5.4.2</b> Demo: Joining data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-1"><i class="fa fa-check"></i><b>5.4.3</b> Question 2</a></li>
+<li class="chapter" data-level="5.4.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-3"><i class="fa fa-check"></i><b>5.4.4</b> Lab Question 3</a></li>
+<li class="chapter" data-level="5.4.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4.5</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.4.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.4.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.4.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-5"><i class="fa fa-check"></i><b>5.4.7</b> Question 5</a></li>
+<li class="chapter" data-level="5.4.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.4.8</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.4.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.4.9</b> Question 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-git-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Git Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+<li class="chapter" data-level="6.1.14" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#introducing-the-shell"><i class="fa fa-check"></i><b>6.1.14</b> Introducing the shell</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#individual-reflection-short-written-responses"><i class="fa fa-check"></i><b>6.2.2</b> Individual reflection (short written responses)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-git-and-github"><i class="fa fa-check"></i><b>6.3</b> Lab: Git and Github</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-1-1"><i class="fa fa-check"></i><b>6.3.1</b> Question 1</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2-2"><i class="fa fa-check"></i><b>6.3.2</b> Question 2</a></li>
+<li class="chapter" data-level="6.3.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-3-v1-partners"><i class="fa fa-check"></i><b>6.3.3</b> Question 3 v1 (partners)</a></li>
+<li class="chapter" data-level="6.3.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-3-v2-solo-project"><i class="fa fa-check"></i><b>6.3.4</b> Question 3 v2 (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lecture-summary-4"><i class="fa fa-check"></i><b>7.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.1.2</b> From data to networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.2</b> Linear‑algebra essentials for ecological networks</a></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-linear-algebra-for-networks"><i class="fa fa-check"></i><b>7.3</b> Demo: Linear algebra for networks</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data"><i class="fa fa-check"></i><b>7.3.1</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.4</b> Core network properties (formulas, intuition, tools)</a></li>
+<li class="chapter" data-level="7.5" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-and-using-null-models"><i class="fa fa-check"></i><b>7.5</b> Demo: Calculating network metrics and using null models</a></li>
+<li class="chapter" data-level="7.6" data-path="ecological-networks.html"><a href="ecological-networks.html#network-visualization"><i class="fa fa-check"></i><b>7.6</b> Network visualization</a></li>
+<li class="chapter" data-level="7.7" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.7</b> Demo: Create a graph from OBA data, visualize it</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.7.1</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.7.2</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.7.3</b> Further reading &amp; software</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-reflection-yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.8</b> Discussion &amp; Reflection: Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.8.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.8.2" data-path="ecological-networks.html"><a href="ecological-networks.html#reflection-and-in-class-discussion-questions"><i class="fa fa-check"></i><b>7.8.2</b> Reflection and in-class discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.9</b> Lab: Food Webs &amp; Network Measures (Student Version)</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.9.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="7.9.2" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.9.2</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.9.3" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.9.3</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.9.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.9.4</b> Lab question 3: Visualize the networks</a></li>
+<li class="chapter" data-level="7.9.5" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.9.5</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="geospatial-data-i-data-types-rasters.html"><a href="geospatial-data-i-data-types-rasters.html"><i class="fa fa-check"></i><b>8</b> Geospatial data I: data types (rasters)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="geospatial-data-i-data-types-rasters.html"><a href="geospatial-data-i-data-types-rasters.html#lecture-summary-5"><i class="fa fa-check"></i><b>8.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="geospatial-data-i-data-types-rasters.html"><a href="geospatial-data-i-data-types-rasters.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.1.2" data-path="geospatial-data-i-data-types-rasters.html"><a href="geospatial-data-i-data-types-rasters.html#introduction-to-geospatial-data"><i class="fa fa-check"></i><b>8.1.2</b> Introduction to geospatial data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="geospatial-data-i-data-types-rasters.html"><a href="geospatial-data-i-data-types-rasters.html#in-class-challange-1-extent-change-with-crs-change"><i class="fa fa-check"></i><b>8.2</b> In class challange 1: Extent Change with CRS Change</a></li>
+<li class="chapter" data-level="8.3" data-path="geospatial-data-i-data-types-rasters.html"><a href="geospatial-data-i-data-types-rasters.html#in-class-challenge-2-reproject-then-plot-a-digital-terrain-model"><i class="fa fa-check"></i><b>8.3</b> In class challenge 2: Reproject, then Plot a Digital Terrain Model</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html"><i class="fa fa-check"></i><b>9</b> String Processing &amp; Debugging</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lecture-summary-6"><i class="fa fa-check"></i><b>9.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.1.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-in-base-r"><i class="fa fa-check"></i><b>9.1.2</b> String manipulation in base R</a></li>
+<li class="chapter" data-level="9.1.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-using-stringr"><i class="fa fa-check"></i><b>9.1.3</b> String manipulation using <em>stringr</em></a></li>
+<li class="chapter" data-level="9.1.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#regular-expressions-regexregexp"><i class="fa fa-check"></i><b>9.1.4</b> Regular expressions (regex/regexp)</a></li>
+<li class="chapter" data-level="9.1.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#general-principles-for-working-with-regex"><i class="fa fa-check"></i><b>9.1.5</b> General principles for working with regex</a></li>
+<li class="chapter" data-level="9.1.6" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#working-with-patterns"><i class="fa fa-check"></i><b>9.1.6</b> Working with patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match"><i class="fa fa-check"></i><b>9.2</b> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?</a></li>
+<li class="chapter" data-level="9.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string"><i class="fa fa-check"></i><b>9.3</b> In class challenge 2: How would I extract an email address from an arbitrary text string?</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#groups"><i class="fa fa-check"></i><b>9.3.1</b> Groups</a></li>
+<li class="chapter" data-level="9.3.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#other-comments"><i class="fa fa-check"></i><b>9.3.2</b> Other comments</a></li>
+<li class="chapter" data-level="9.3.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#additional-resources"><i class="fa fa-check"></i><b>9.3.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r"><i class="fa fa-check"></i><b>9.4</b> Dicussion &amp; Reflection: Debugging in R</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#basic-debugging-strategies"><i class="fa fa-check"></i><b>9.4.1</b> 1) Basic debugging strategies</a></li>
+<li class="chapter" data-level="9.4.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#rs-interactive-debugging-tools"><i class="fa fa-check"></i><b>9.4.2</b> R’s interactive debugging tools</a></li>
+<li class="chapter" data-level="9.4.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#some-common-causes-of-bugs"><i class="fa fa-check"></i><b>9.4.3</b> Some common causes of bugs</a></li>
+<li class="chapter" data-level="9.4.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors"><i class="fa fa-check"></i><b>9.4.4</b> Tips for avoiding bugs and catching errors</a></li>
+<li class="chapter" data-level="9.4.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#how-to-get-help-online"><i class="fa fa-check"></i><b>9.4.5</b> How to get help online</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version"><i class="fa fa-check"></i><b>9.5</b> Lab: Regular expressions and cleaning OBA data (Student Version)</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lesson-overview-3"><i class="fa fa-check"></i><b>9.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="9.5.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration"><i class="fa fa-check"></i><b>9.5.2</b> Lab question 1: Oregon bee atlas data exploration</a></li>
+<li class="chapter" data-level="9.5.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution"><i class="fa fa-check"></i><b>9.5.3</b> Lab question 2: Making a column for plant resolution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="final-project-1.html"><a href="final-project-1.html"><i class="fa fa-check"></i><b>10</b> Final project</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="final-project-1.html"><a href="final-project-1.html#final-project-objective"><i class="fa fa-check"></i><b>10.1</b> Final project objective</a></li>
+<li class="chapter" data-level="10.2" data-path="final-project-1.html"><a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment"><i class="fa fa-check"></i><b>10.2</b> Final project topic selection (first final project assignment)</a></li>
+<li class="chapter" data-level="10.3" data-path="final-project-1.html"><a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment"><i class="fa fa-check"></i><b>10.3</b> Final project office hours discussion (second final project assignment)</a></li>
+<li class="chapter" data-level="10.4" data-path="final-project-1.html"><a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment"><i class="fa fa-check"></i><b>10.4</b> Final project annotated bibliography (third final project assignment)</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="final-project-1.html"><a href="final-project-1.html#overview"><i class="fa fa-check"></i><b>10.4.1</b> Overview</a></li>
+<li class="chapter" data-level="10.4.2" data-path="final-project-1.html"><a href="final-project-1.html#learning-objectives-7"><i class="fa fa-check"></i><b>10.4.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="10.4.3" data-path="final-project-1.html"><a href="final-project-1.html#requirements"><i class="fa fa-check"></i><b>10.4.3</b> Requirements</a></li>
+<li class="chapter" data-level="10.4.4" data-path="final-project-1.html"><a href="final-project-1.html#how-to-search-effectively-google-scholar-tips"><i class="fa fa-check"></i><b>10.4.4</b> How to search effectively (Google Scholar tips)</a></li>
+<li class="chapter" data-level="10.4.5" data-path="final-project-1.html"><a href="final-project-1.html#recommended-workflow"><i class="fa fa-check"></i><b>10.4.5</b> Recommended workflow</a></li>
+<li class="chapter" data-level="10.4.6" data-path="final-project-1.html"><a href="final-project-1.html#what-each-entry-should-include"><i class="fa fa-check"></i><b>10.4.6</b> What each entry should include</a></li>
+<li class="chapter" data-level="10.4.7" data-path="final-project-1.html"><a href="final-project-1.html#template-copy-for-each-source"><i class="fa fa-check"></i><b>10.4.7</b> Template (copy for each source)</a></li>
+<li class="chapter" data-level="10.4.8" data-path="final-project-1.html"><a href="final-project-1.html#author-surname-et-al.-year.-title."><i class="fa fa-check"></i><b>10.4.8</b> Author Surname et al. (Year). <em>Title</em>.</a></li>
+<li class="chapter" data-level="10.4.9" data-path="final-project-1.html"><a href="final-project-1.html#example-of-intext-citation-references"><i class="fa fa-check"></i><b>10.4.9</b> Example of in‑text citation &amp; references</a></li>
+<li class="chapter" data-level="10.4.10" data-path="final-project-1.html"><a href="final-project-1.html#rubric"><i class="fa fa-check"></i><b>10.4.10</b> Rubric</a></li>
+<li class="chapter" data-level="10.4.11" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist"><i class="fa fa-check"></i><b>10.4.11</b> Submission checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment"><i class="fa fa-check"></i><b>10.5</b> Literature review and workflow plan (fourth final project assignment)</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project"><i class="fa fa-check"></i><b>10.5.1</b> Literature review (i.e., the introduction section of your final project)</a></li>
+<li class="chapter" data-level="10.5.2" data-path="final-project-1.html"><a href="final-project-1.html#dataset-identification"><i class="fa fa-check"></i><b>10.5.2</b> Dataset identification</a></li>
+<li class="chapter" data-level="10.5.3" data-path="final-project-1.html"><a href="final-project-1.html#workflow-plan"><i class="fa fa-check"></i><b>10.5.3</b> Workflow plan</a></li>
+<li class="chapter" data-level="10.5.4" data-path="final-project-1.html"><a href="final-project-1.html#rubric-1"><i class="fa fa-check"></i><b>10.5.4</b> Rubric</a></li>
+<li class="chapter" data-level="10.5.5" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist-1"><i class="fa fa-check"></i><b>10.5.5</b> Submission Checklist</a></li>
+<li class="chapter" data-level="10.5.6" data-path="final-project-1.html"><a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc"><i class="fa fa-check"></i><b>10.5.6</b> Optional scaffold (copy into your working doc)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="final-project-1.html"><a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit"><i class="fa fa-check"></i><b>10.6</b> Final Project Rubric (10 pts total + 1 pt extra credit)</a></li>
+<li class="chapter" data-level="10.7" data-path="final-project-1.html"><a href="final-project-1.html#poster-presentation-rubric-10-pts-total"><i class="fa fa-check"></i><b>10.7</b> Poster Presentation Rubric (10 pts total)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="geospatial-data-i-data-types-rasters" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Geospatial data I: data types (rasters)<a href="geospatial-data-i-data-types-rasters.html#geospatial-data-i-data-types-rasters" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lecture-summary-5" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Lecture summary<a href="geospatial-data-i-data-types-rasters.html#lecture-summary-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="learning-objectives-5" class="section level3 hasAnchor" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Learning Objectives<a href="geospatial-data-i-data-types-rasters.html#learning-objectives-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Describe the fundamental attributes of a raster dataset.</li>
+<li>Explore raster attributes and metadata using R.</li>
+<li>Import rasters into R using the <code>terra</code> package.</li>
+<li>Plot a raster file in R using the <code>ggplot2</code> package.</li>
+<li>Describe the difference between single- and multi-band rasters.</li>
+<li>Build customized plots for a single band raster using the <code>ggplot2</code> package.</li>
+<li>Layer a raster dataset on top of a hillshade to create an elegant basemap.</li>
+<li>Reproject a raster</li>
+</ul>
+</div>
+<div id="introduction-to-geospatial-data" class="section level3 hasAnchor" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Introduction to geospatial data<a href="geospatial-data-i-data-types-rasters.html#introduction-to-geospatial-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Summary</strong></p>
+<ul>
+<li>Describe the fundamental attributes of a raster dataset.</li>
+<li>Explore raster attributes and metadata using R.</li>
+<li>Import rasters into R using the <code>terra</code> package.</li>
+<li>Plot a raster file in R using the <code>ggplot2</code> package.</li>
+<li>Describe the difference between single- and multi-band rasters.</li>
+</ul>
+<p>We will introduce the fundamental principles, packages and
+metadata/raster attributes that are needed to work with raster data in R. We will discuss some of the core metadata elements that we need to understand to work with rasters in R, including CRS and resolution. We will also explore missing and bad data values as stored in a raster and how R handles these elements.</p>
+<p><strong>About Raster Data</strong></p>
+<p>Raster data is any pixelated (or gridded) data where each pixel is associated with a specific geographical location. The value of a pixel can be continuous (e.g. elevation) or categorical (e.g. land use). If this sounds familiar, it is because this data structure is very common: it’s how we represent any digital image. A geospatial raster is only different from a digital photo in that it is accompanied by spatial information that connects the data to a particular location. This includes the raster’s extent and cell size, the number of rows and columns, and its coordinate reference system (or CRS).</p>
+<p><img src="fig/dc-spatial-raster/raster_concept.png" alt="Raster Concept" /></p>
+<p><strong>Continuous rasters</strong>
+Some examples of continuous rasters include:</p>
+<ol style="list-style-type: decimal">
+<li>Precipitation maps.</li>
+<li>Maps of tree height derived from LiDAR data.</li>
+<li>Elevation values for a region.</li>
+</ol>
+<p><strong>Categorial rasters</strong>
+Some rasters contain categorical data where each pixel represents a discrete class such as a landcover type (e.g., “forest” or “grassland”) rather than a continuous value such as elevation or temperature. Some examples of classified maps include:</p>
+<ol style="list-style-type: decimal">
+<li>Landcover / land-use maps.</li>
+<li>Tree height maps classified as short, medium, and tall trees.</li>
+<li>Elevation maps classified as low, medium, and high elevation.</li>
+</ol>
+<p><img src="fig/USA_landcover_classification.png" alt="USA landcover classification" /></p>
+<p><strong>Reading in raster data and understanding its attributes</strong></p>
+<p><strong>The Data</strong>
+The data was collected by <a href="https://www.neonscience.org/">National Ecological Observatory Network (NEON)</a>.
+The data uses data from Harvard Forest (HARV) - Massachusetts, USA - <a href="https://www.neonscience.org/field-sites/harv">fieldsite description</a></p>
+<p><strong>View Raster File Attributes</strong></p>
+<p>We will be working with a series of GeoTIFF files. The
+GeoTIFF format contains a set of embedded tags with metadata about the raster data. We can use the function <code>describe()</code> to get information about our raster data before we read that data into R. It is ideal to do this before importing your data.</p>
+<p>We will be using the digital elevation model (DSM) data from the forest</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="geospatial-data-i-data-types-rasters.html#cb1-1" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif&quot;</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;Driver: GTiff/GeoTIFF&quot;                                                                                                                                                                                                                                                          
+##  [2] &quot;Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif&quot;                                                                                                                                                                                                          
+##  [3] &quot;Size is 1697, 1367&quot;                                                                                                                                                                                                                                                             
+##  [4] &quot;Coordinate System is:&quot;                                                                                                                                                                                                                                                          
+##  [5] &quot;PROJCRS[\&quot;WGS 84 / UTM zone 18N\&quot;,&quot;                                                                                                                                                                                                                                             
+##  [6] &quot;    BASEGEOGCRS[\&quot;WGS 84\&quot;,&quot;                                                                                                                                                                                                                                                    
+##  [7] &quot;        DATUM[\&quot;World Geodetic System 1984\&quot;,&quot;                                                                                                                                                                                                                                  
+##  [8] &quot;            ELLIPSOID[\&quot;WGS 84\&quot;,6378137,298.257223563,&quot;                                                                                                                                                                                                                        
+##  [9] &quot;                LENGTHUNIT[\&quot;metre\&quot;,1]]],&quot;                                                                                                                                                                                                                                     
+## [10] &quot;        PRIMEM[\&quot;Greenwich\&quot;,0,&quot;                                                                                                                                                                                                                                                
+## [11] &quot;            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433]],&quot;                                                                                                                                                                                                                         
+## [12] &quot;        ID[\&quot;EPSG\&quot;,4326]],&quot;                                                                                                                                                                                                                                                    
+## [13] &quot;    CONVERSION[\&quot;UTM zone 18N\&quot;,&quot;                                                                                                                                                                                                                                               
+## [14] &quot;        METHOD[\&quot;Transverse Mercator\&quot;,&quot;                                                                                                                                                                                                                                        
+## [15] &quot;            ID[\&quot;EPSG\&quot;,9807]],&quot;                                                                                                                                                                                                                                                
+## [16] &quot;        PARAMETER[\&quot;Latitude of natural origin\&quot;,0,&quot;                                                                                                                                                                                                                            
+## [17] &quot;            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],&quot;                                                                                                                                                                                                                          
+## [18] &quot;            ID[\&quot;EPSG\&quot;,8801]],&quot;                                                                                                                                                                                                                                                
+## [19] &quot;        PARAMETER[\&quot;Longitude of natural origin\&quot;,-75,&quot;                                                                                                                                                                                                                         
+## [20] &quot;            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],&quot;                                                                                                                                                                                                                          
+## [21] &quot;            ID[\&quot;EPSG\&quot;,8802]],&quot;                                                                                                                                                                                                                                                
+## [22] &quot;        PARAMETER[\&quot;Scale factor at natural origin\&quot;,0.9996,&quot;                                                                                                                                                                                                                   
+## [23] &quot;            SCALEUNIT[\&quot;unity\&quot;,1],&quot;                                                                                                                                                                                                                                            
+## [24] &quot;            ID[\&quot;EPSG\&quot;,8805]],&quot;                                                                                                                                                                                                                                                
+## [25] &quot;        PARAMETER[\&quot;False easting\&quot;,500000,&quot;                                                                                                                                                                                                                                    
+## [26] &quot;            LENGTHUNIT[\&quot;metre\&quot;,1],&quot;                                                                                                                                                                                                                                           
+## [27] &quot;            ID[\&quot;EPSG\&quot;,8806]],&quot;                                                                                                                                                                                                                                                
+## [28] &quot;        PARAMETER[\&quot;False northing\&quot;,0,&quot;                                                                                                                                                                                                                                        
+## [29] &quot;            LENGTHUNIT[\&quot;metre\&quot;,1],&quot;                                                                                                                                                                                                                                           
+## [30] &quot;            ID[\&quot;EPSG\&quot;,8807]]],&quot;                                                                                                                                                                                                                                               
+## [31] &quot;    CS[Cartesian,2],&quot;                                                                                                                                                                                                                                                           
+## [32] &quot;        AXIS[\&quot;(E)\&quot;,east,&quot;                                                                                                                                                                                                                                                     
+## [33] &quot;            ORDER[1],&quot;                                                                                                                                                                                                                                                          
+## [34] &quot;            LENGTHUNIT[\&quot;metre\&quot;,1]],&quot;                                                                                                                                                                                                                                          
+## [35] &quot;        AXIS[\&quot;(N)\&quot;,north,&quot;                                                                                                                                                                                                                                                    
+## [36] &quot;            ORDER[2],&quot;                                                                                                                                                                                                                                                          
+## [37] &quot;            LENGTHUNIT[\&quot;metre\&quot;,1]],&quot;                                                                                                                                                                                                                                          
+## [38] &quot;    USAGE[&quot;                                                                                                                                                                                                                                                                     
+## [39] &quot;        SCOPE[\&quot;Navigation and medium accuracy spatial referencing.\&quot;],&quot;                                                                                                                                                                                                        
+## [40] &quot;        AREA[\&quot;Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamaica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\&quot;],&quot;
+## [41] &quot;        BBOX[0,-78,84,-72]],&quot;                                                                                                                                                                                                                                                   
+## [42] &quot;    ID[\&quot;EPSG\&quot;,32618]]&quot;                                                                                                                                                                                                                                                        
+## [43] &quot;Data axis to CRS axis mapping: 1,2&quot;                                                                                                                                                                                                                                             
+## [44] &quot;Origin = (731453.000000000000000,4713838.000000000000000)&quot;                                                                                                                                                                                                                      
+## [45] &quot;Pixel Size = (1.000000000000000,-1.000000000000000)&quot;                                                                                                                                                                                                                            
+## [46] &quot;Metadata:&quot;                                                                                                                                                                                                                                                                      
+## [47] &quot;  AREA_OR_POINT=Area&quot;                                                                                                                                                                                                                                                           
+## [48] &quot;Image Structure Metadata:&quot;                                                                                                                                                                                                                                                      
+## [49] &quot;  COMPRESSION=LZW&quot;                                                                                                                                                                                                                                                              
+## [50] &quot;  INTERLEAVE=BAND&quot;                                                                                                                                                                                                                                                              
+## [51] &quot;Corner Coordinates:&quot;                                                                                                                                                                                                                                                            
+## [52] &quot;Upper Left  (  731453.000, 4713838.000) ( 72d10&#39;52.71\&quot;W, 42d32&#39;32.18\&quot;N)&quot;                                                                                                                                                                                                      
+## [53] &quot;Lower Left  (  731453.000, 4712471.000) ( 72d10&#39;54.71\&quot;W, 42d31&#39;47.92\&quot;N)&quot;                                                                                                                                                                                                      
+## [54] &quot;Upper Right (  733150.000, 4713838.000) ( 72d 9&#39;38.40\&quot;W, 42d32&#39;30.35\&quot;N)&quot;                                                                                                                                                                                                      
+## [55] &quot;Lower Right (  733150.000, 4712471.000) ( 72d 9&#39;40.41\&quot;W, 42d31&#39;46.08\&quot;N)&quot;                                                                                                                                                                                                      
+## [56] &quot;Center      (  732301.500, 4713154.500) ( 72d10&#39;16.56\&quot;W, 42d32&#39; 9.13\&quot;N)&quot;                                                                                                                                                                                                      
+## [57] &quot;Band 1 Block=1697x1 Type=Float64, ColorInterp=Gray&quot;                                                                                                                                                                                                                             
+## [58] &quot;  Min=305.070 Max=416.070 &quot;                                                                                                                                                                                                                                                     
+## [59] &quot;  Minimum=305.070, Maximum=416.070, Mean=359.853, StdDev=17.832&quot;                                                                                                                                                                                                                
+## [60] &quot;  NoData Value=-9999&quot;                                                                                                                                                                                                                                                           
+## [61] &quot;  Metadata:&quot;                                                                                                                                                                                                                                                                    
+## [62] &quot;    STATISTICS_MAXIMUM=416.06997680664&quot;                                                                                                                                                                                                                                         
+## [63] &quot;    STATISTICS_MEAN=359.85311802914&quot;                                                                                                                                                                                                                                            
+## [64] &quot;    STATISTICS_MINIMUM=305.07000732422&quot;                                                                                                                                                                                                                                         
+## [65] &quot;    STATISTICS_STDDEV=17.83169335933&quot;</code></pre>
+<p>If you wish to store this information in R, you can do the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="geospatial-data-i-data-types-rasters.html#cb3-1" tabindex="-1"></a>HARV_dsmCrop_info <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(</span>
+<span id="cb3-2"><a href="geospatial-data-i-data-types-rasters.html#cb3-2" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif&quot;</span>)</span>
+<span id="cb3-3"><a href="geospatial-data-i-data-types-rasters.html#cb3-3" tabindex="-1"></a>)</span>
+<span id="cb3-4"><a href="geospatial-data-i-data-types-rasters.html#cb3-4" tabindex="-1"></a>HARV_dsmCrop_info</span></code></pre></div>
+<pre><code>##  [1] &quot; [1] \&quot;Driver: GTiff/GeoTIFF\&quot;                                                                                                                                                                                                                                                          &quot;    
+##  [2] &quot; [2] \&quot;Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif\&quot;                                                                                                                                                                                                          &quot;    
+##  [3] &quot; [3] \&quot;Size is 1697, 1367\&quot;                                                                                                                                                                                                                                                             &quot;    
+##  [4] &quot; [4] \&quot;Coordinate System is:\&quot;                                                                                                                                                                                                                                                          &quot;    
+##  [5] &quot; [5] \&quot;PROJCRS[\\\&quot;WGS 84 / UTM zone 18N\\\&quot;,\&quot;                                                                                                                                                                                                                                             &quot;
+##  [6] &quot; [6] \&quot;    BASEGEOGCRS[\\\&quot;WGS 84\\\&quot;,\&quot;                                                                                                                                                                                                                                                    &quot;
+##  [7] &quot; [7] \&quot;        DATUM[\\\&quot;World Geodetic System 1984\\\&quot;,\&quot;                                                                                                                                                                                                                                  &quot;
+##  [8] &quot; [8] \&quot;            ELLIPSOID[\\\&quot;WGS 84\\\&quot;,6378137,298.257223563,\&quot;                                                                                                                                                                                                                        &quot;
+##  [9] &quot; [9] \&quot;                LENGTHUNIT[\\\&quot;metre\\\&quot;,1]]],\&quot;                                                                                                                                                                                                                                     &quot;
+## [10] &quot;[10] \&quot;        PRIMEM[\\\&quot;Greenwich\\\&quot;,0,\&quot;                                                                                                                                                                                                                                                &quot;
+## [11] &quot;[11] \&quot;            ANGLEUNIT[\\\&quot;degree\\\&quot;,0.0174532925199433]],\&quot;                                                                                                                                                                                                                         &quot;
+## [12] &quot;[12] \&quot;        ID[\\\&quot;EPSG\\\&quot;,4326]],\&quot;                                                                                                                                                                                                                                                    &quot;
+## [13] &quot;[13] \&quot;    CONVERSION[\\\&quot;UTM zone 18N\\\&quot;,\&quot;                                                                                                                                                                                                                                               &quot;
+## [14] &quot;[14] \&quot;        METHOD[\\\&quot;Transverse Mercator\\\&quot;,\&quot;                                                                                                                                                                                                                                        &quot;
+## [15] &quot;[15] \&quot;            ID[\\\&quot;EPSG\\\&quot;,9807]],\&quot;                                                                                                                                                                                                                                                &quot;
+## [16] &quot;[16] \&quot;        PARAMETER[\\\&quot;Latitude of natural origin\\\&quot;,0,\&quot;                                                                                                                                                                                                                            &quot;
+## [17] &quot;[17] \&quot;            ANGLEUNIT[\\\&quot;degree\\\&quot;,0.0174532925199433],\&quot;                                                                                                                                                                                                                          &quot;
+## [18] &quot;[18] \&quot;            ID[\\\&quot;EPSG\\\&quot;,8801]],\&quot;                                                                                                                                                                                                                                                &quot;
+## [19] &quot;[19] \&quot;        PARAMETER[\\\&quot;Longitude of natural origin\\\&quot;,-75,\&quot;                                                                                                                                                                                                                         &quot;
+## [20] &quot;[20] \&quot;            ANGLEUNIT[\\\&quot;degree\\\&quot;,0.0174532925199433],\&quot;                                                                                                                                                                                                                          &quot;
+## [21] &quot;[21] \&quot;            ID[\\\&quot;EPSG\\\&quot;,8802]],\&quot;                                                                                                                                                                                                                                                &quot;
+## [22] &quot;[22] \&quot;        PARAMETER[\\\&quot;Scale factor at natural origin\\\&quot;,0.9996,\&quot;                                                                                                                                                                                                                   &quot;
+## [23] &quot;[23] \&quot;            SCALEUNIT[\\\&quot;unity\\\&quot;,1],\&quot;                                                                                                                                                                                                                                            &quot;
+## [24] &quot;[24] \&quot;            ID[\\\&quot;EPSG\\\&quot;,8805]],\&quot;                                                                                                                                                                                                                                                &quot;
+## [25] &quot;[25] \&quot;        PARAMETER[\\\&quot;False easting\\\&quot;,500000,\&quot;                                                                                                                                                                                                                                    &quot;
+## [26] &quot;[26] \&quot;            LENGTHUNIT[\\\&quot;metre\\\&quot;,1],\&quot;                                                                                                                                                                                                                                           &quot;
+## [27] &quot;[27] \&quot;            ID[\\\&quot;EPSG\\\&quot;,8806]],\&quot;                                                                                                                                                                                                                                                &quot;
+## [28] &quot;[28] \&quot;        PARAMETER[\\\&quot;False northing\\\&quot;,0,\&quot;                                                                                                                                                                                                                                        &quot;
+## [29] &quot;[29] \&quot;            LENGTHUNIT[\\\&quot;metre\\\&quot;,1],\&quot;                                                                                                                                                                                                                                           &quot;
+## [30] &quot;[30] \&quot;            ID[\\\&quot;EPSG\\\&quot;,8807]]],\&quot;                                                                                                                                                                                                                                               &quot;
+## [31] &quot;[31] \&quot;    CS[Cartesian,2],\&quot;                                                                                                                                                                                                                                                           &quot;    
+## [32] &quot;[32] \&quot;        AXIS[\\\&quot;(E)\\\&quot;,east,\&quot;                                                                                                                                                                                                                                                     &quot;
+## [33] &quot;[33] \&quot;            ORDER[1],\&quot;                                                                                                                                                                                                                                                          &quot;    
+## [34] &quot;[34] \&quot;            LENGTHUNIT[\\\&quot;metre\\\&quot;,1]],\&quot;                                                                                                                                                                                                                                          &quot;
+## [35] &quot;[35] \&quot;        AXIS[\\\&quot;(N)\\\&quot;,north,\&quot;                                                                                                                                                                                                                                                    &quot;
+## [36] &quot;[36] \&quot;            ORDER[2],\&quot;                                                                                                                                                                                                                                                          &quot;    
+## [37] &quot;[37] \&quot;            LENGTHUNIT[\\\&quot;metre\\\&quot;,1]],\&quot;                                                                                                                                                                                                                                          &quot;
+## [38] &quot;[38] \&quot;    USAGE[\&quot;                                                                                                                                                                                                                                                                     &quot;    
+## [39] &quot;[39] \&quot;        SCOPE[\\\&quot;Navigation and medium accuracy spatial referencing.\\\&quot;],\&quot;                                                                                                                                                                                                        &quot;
+## [40] &quot;[40] \&quot;        AREA[\\\&quot;Between 78°W and 72°W, northern hemisphere between equator and 84°N, onshore and offshore. Bahamas. Canada - Nunavut; Ontario; Quebec. Colombia. Cuba. Ecuador. Greenland. Haiti. Jamaica. Panama. Turks and Caicos Islands. United States (USA). Venezuela.\\\&quot;],\&quot;&quot;
+## [41] &quot;[41] \&quot;        BBOX[0,-78,84,-72]],\&quot;                                                                                                                                                                                                                                                   &quot;    
+## [42] &quot;[42] \&quot;    ID[\\\&quot;EPSG\\\&quot;,32618]]\&quot;                                                                                                                                                                                                                                                        &quot;
+## [43] &quot;[43] \&quot;Data axis to CRS axis mapping: 1,2\&quot;                                                                                                                                                                                                                                             &quot;    
+## [44] &quot;[44] \&quot;Origin = (731453.000000000000000,4713838.000000000000000)\&quot;                                                                                                                                                                                                                      &quot;    
+## [45] &quot;[45] \&quot;Pixel Size = (1.000000000000000,-1.000000000000000)\&quot;                                                                                                                                                                                                                            &quot;    
+## [46] &quot;[46] \&quot;Metadata:\&quot;                                                                                                                                                                                                                                                                      &quot;    
+## [47] &quot;[47] \&quot;  AREA_OR_POINT=Area\&quot;                                                                                                                                                                                                                                                           &quot;    
+## [48] &quot;[48] \&quot;Image Structure Metadata:\&quot;                                                                                                                                                                                                                                                      &quot;    
+## [49] &quot;[49] \&quot;  COMPRESSION=LZW\&quot;                                                                                                                                                                                                                                                              &quot;    
+## [50] &quot;[50] \&quot;  INTERLEAVE=BAND\&quot;                                                                                                                                                                                                                                                              &quot;    
+## [51] &quot;[51] \&quot;Corner Coordinates:\&quot;                                                                                                                                                                                                                                                            &quot;    
+## [52] &quot;[52] \&quot;Upper Left  (  731453.000, 4713838.000) ( 72d10&#39;52.71\\\&quot;W, 42d32&#39;32.18\\\&quot;N)\&quot;                                                                                                                                                                                                      &quot;
+## [53] &quot;[53] \&quot;Lower Left  (  731453.000, 4712471.000) ( 72d10&#39;54.71\\\&quot;W, 42d31&#39;47.92\\\&quot;N)\&quot;                                                                                                                                                                                                      &quot;
+## [54] &quot;[54] \&quot;Upper Right (  733150.000, 4713838.000) ( 72d 9&#39;38.40\\\&quot;W, 42d32&#39;30.35\\\&quot;N)\&quot;                                                                                                                                                                                                      &quot;
+## [55] &quot;[55] \&quot;Lower Right (  733150.000, 4712471.000) ( 72d 9&#39;40.41\\\&quot;W, 42d31&#39;46.08\\\&quot;N)\&quot;                                                                                                                                                                                                      &quot;
+## [56] &quot;[56] \&quot;Center      (  732301.500, 4713154.500) ( 72d10&#39;16.56\\\&quot;W, 42d32&#39; 9.13\\\&quot;N)\&quot;                                                                                                                                                                                                      &quot;
+## [57] &quot;[57] \&quot;Band 1 Block=1697x1 Type=Float64, ColorInterp=Gray\&quot;                                                                                                                                                                                                                             &quot;    
+## [58] &quot;[58] \&quot;  Min=305.070 Max=416.070 \&quot;                                                                                                                                                                                                                                                     &quot;    
+## [59] &quot;[59] \&quot;  Minimum=305.070, Maximum=416.070, Mean=359.853, StdDev=17.832\&quot;                                                                                                                                                                                                                &quot;    
+## [60] &quot;[60] \&quot;  NoData Value=-9999\&quot;                                                                                                                                                                                                                                                           &quot;    
+## [61] &quot;[61] \&quot;  Metadata:\&quot;                                                                                                                                                                                                                                                                    &quot;    
+## [62] &quot;[62] \&quot;    STATISTICS_MAXIMUM=416.06997680664\&quot;                                                                                                                                                                                                                                         &quot;    
+## [63] &quot;[63] \&quot;    STATISTICS_MEAN=359.85311802914\&quot;                                                                                                                                                                                                                                            &quot;    
+## [64] &quot;[64] \&quot;    STATISTICS_MINIMUM=305.07000732422\&quot;                                                                                                                                                                                                                                         &quot;    
+## [65] &quot;[65] \&quot;    STATISTICS_STDDEV=17.83169335933\&quot;                                                                                                                                                                                                                                           &quot;</code></pre>
+<p>Each line of text that was printed to the console is now stored as an element of
+the character vector <code>HARV_dsmCrop_info</code>. We will be exploring this data throughout this
+demo. By the end of this demo, you will be able to explain and understand the output above.</p>
+<p><strong>BP programming tip - Object names</strong></p>
+<p>To improve code readability, file and object names should be used that make it clear what is in the file. The data for this demo were collected from Harvard Forest so we’ll use a naming convention of <code>datatype_HARV</code>.</p>
+<p><strong>Open a Raster in R</strong>
+Now that we’ve previewed the metadata for our GeoTIFF, let’s import this
+raster dataset into R and explore its metadata more closely. We can use the <code>rast()</code> function to open a raster in R.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="geospatial-data-i-data-types-rasters.html#cb5-1" tabindex="-1"></a>DSM_HARV <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="geospatial-data-i-data-types-rasters.html#cb5-2" tabindex="-1"></a>  <span class="fu">rast</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif&quot;</span>)</span>
+<span id="cb5-3"><a href="geospatial-data-i-data-types-rasters.html#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="geospatial-data-i-data-types-rasters.html#cb5-4" tabindex="-1"></a>DSM_HARV</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## size        : 1367, 1697, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
+## coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
+## source      : HARV_dsmCrop.tif 
+## name        : HARV_dsmCrop 
+## min value   :       305.07 
+## max value   :       416.07</code></pre>
+<p>The information above includes a report of min and max values, but no other data range statistics. Similar to other R data structures like vectors and data frame columns, descriptive statistics for raster data can be retrieved like</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="geospatial-data-i-data-types-rasters.html#cb7-1" tabindex="-1"></a><span class="fu">summary</span>(DSM_HARV)</span></code></pre></div>
+<pre><code>## Warning: [summary] used a sample</code></pre>
+<pre><code>##   HARV_dsmCrop  
+##  Min.   :305.6  
+##  1st Qu.:345.6  
+##  Median :359.6  
+##  Mean   :359.8  
+##  3rd Qu.:374.3  
+##  Max.   :414.7</code></pre>
+<p>but note the warning - unless you force R to calculate these statistics using every cell in the raster, it will take a random sample of 100,000 cells and calculate from that instead. To force calculation all the values, you can use the function <code>values</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="geospatial-data-i-data-types-rasters.html#cb10-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">values</span>(DSM_HARV))</span></code></pre></div>
+<pre><code>##   HARV_dsmCrop  
+##  Min.   :305.1  
+##  1st Qu.:345.6  
+##  Median :359.7  
+##  Mean   :359.9  
+##  3rd Qu.:374.3  
+##  Max.   :416.1</code></pre>
+<p>To visualise this data in R using <code>ggplot2</code>, we need to convert it to a
+dataframe. The <code>terra</code> package has an built-in function for conversion to a plot-able dataframe. We need to tell R that the data is geo-referenced using the argument xy=TRUE.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="geospatial-data-i-data-types-rasters.html#cb12-1" tabindex="-1"></a>DSM_HARV_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DSM_HARV, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now when we view the structure of our data, we will see a standard
+dataframe format.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="geospatial-data-i-data-types-rasters.html#cb13-1" tabindex="-1"></a><span class="fu">str</span>(DSM_HARV_df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    2319799 obs. of  3 variables:
+##  $ x           : num  731454 731454 731456 731456 731458 ...
+##  $ y           : num  4713838 4713838 4713838 4713838 4713838 ...
+##  $ HARV_dsmCrop: num  409 408 407 407 409 ...</code></pre>
+<p>We can use <code>ggplot()</code> to plot this data.
+- We will set the color scale to <code>scale_fill_viridis_c</code> which is a color-blindness friendly color scale.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="geospatial-data-i-data-types-rasters.html#cb15-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-2"><a href="geospatial-data-i-data-types-rasters.html#cb15-2" tabindex="-1"></a>    <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_HARV_df , <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> HARV_dsmCrop)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="geospatial-data-i-data-types-rasters.html#cb15-3" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>() </span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:ggplot-raster"></span>
+<img src="07-geospatial-I_files/figure-html/ggplot-raster-1.png" alt="Raster plot with ggplot2 using the viridis color scale" width="672" />
+<p class="caption">
+Figure 8.1: Raster plot with ggplot2 using the viridis color scale
+</p>
+</div>
+<p><strong>Plotting Tip</strong></p>
+<p>More information about the Viridis palette used above at
+<a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">R Viridis package documentation</a>.</p>
+<p><strong>What do we see?</strong>
+This map shows the digital surface model, so the elevation of the surface of our study site in Harvard Forest. From the legend, we can see that the maximum elevation is ~400, but we can’t tell whether this is 400 feet or 400 meters because the legend doesn’t show us the units. We
+can look at the metadata of our object to see what the units are. Much of the metadata that we’re interested in is part of the Coordinate Reference System (CRS).</p>
+<p>Now we will see how features of the CRS appear in our data file and what
+meanings they have.</p>
+<p><strong>Raster Coordinate Reference System (CRS)</strong></p>
+<p>We can view the CRS string associated with our R object using the<code>crs()</code>
+function.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="geospatial-data-i-data-types-rasters.html#cb16-1" tabindex="-1"></a><span class="fu">crs</span>(DSM_HARV, <span class="at">proj =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs&quot;</code></pre>
+<p>What units are our data in?
+<code>+units=m</code> tells us that our data is in meters.</p>
+<p><strong>Understanding CRS in Proj4 Format</strong></p>
+<p>The CRS for our data is given to us by R in <code>proj4</code> format. Let’s break down the pieces of <code>proj4</code> string. The string contains all of the individual CRS elements that R or another GIS might need. Each element is specified with a <code>+</code> sign, similar to how a <code>.csv</code> file is delimited or broken up by a <code>,</code>. After each <code>+</code> we see the CRS element being defined. For example projection (<code>proj=</code>) and datum (<code>datum=</code>).</p>
+<p><strong>UTM Proj4 String</strong></p>
+<p>A projection string (like the one of <code>DSM_HARV</code>) specifies the UTM projection as follows:</p>
+<p>`+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs’</p>
+<ul>
+<li><strong>proj=utm:</strong> the projection is UTM, UTM has several zones.</li>
+<li><strong>zone=18:</strong> the zone is 18</li>
+<li><strong>datum=WGS84:</strong> the datum is WGS84 (the datum refers to the 0,0 reference for
+the coordinate system used in the projection)</li>
+<li><strong>units=m:</strong> the units for the coordinates are in meters</li>
+</ul>
+<p>Sometimes you will also see
++ellps=WGS84 +towgs84=0,0,0`</p>
+<ul>
+<li><strong>ellps=WGS84:</strong> the ellipsoid (how the earth’s roundness is calculated) for
+the data is WGS84 (not in our crs above, but it can be.)</li>
+<li><strong>+towgs84=0,0,0</strong> parameter shifts (translation + rotation + scaling) realted to the datum</li>
+</ul>
+<p>Note that the zone is unique to the UTM projection. Not all CRSs will have a zone. Image source: Chrismurf at English Wikipedia, via <a href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#/media/File:Utm-zones-USA.svg">Wikimedia Commons</a> (CC-BY).</p>
+<div class="float">
+<img src="fig/Utm-zones-USA.svg" alt="UTM zones in the USA." />
+<div class="figcaption">The UTM zones across the continental United States. From: <a href="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg" class="uri">https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg</a></div>
+</div>
+<p><strong>Extent</strong></p>
+<p>The spatial extent is the geographic area that the raster data covers.
+The spatial extent of an R spatial object represents the geographic edge or
+location that is the furthest north, south, east and west. In other words, extent
+represents the overall geographic coverage of the spatial object.</p>
+<p><img src="fig/dc-spatial-raster/spatial_extent.png" alt="Spatial extent image" /></p>
+<p>(Image Source: National Ecological Observatory Network (NEON))
+{: .text-center}</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="geospatial-data-i-data-types-rasters.html#cb18-1" tabindex="-1"></a><span class="fu">ext</span>(DSM_HARV)</span></code></pre></div>
+<pre><code>## SpatExtent : 731453, 733150, 4712471, 4713838 (xmin, xmax, ymin, ymax)</code></pre>
+<p><strong>Resolution</strong></p>
+<p>A resolution of a raster represents the area on the ground that each
+pixel of the raster covers. The image below illustrates the effect
+of changes in resolution.</p>
+<p><img src="fig/dc-spatial-raster/raster_resolution.png" alt="Resolution image" /></p>
+<p>(Source: National Ecological Observatory Network (NEON))
+{: .text-center}</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="geospatial-data-i-data-types-rasters.html#cb20-1" tabindex="-1"></a><span class="fu">res</span>(DSM_HARV)</span></code></pre></div>
+<pre><code>## [1] 1 1</code></pre>
+<p><strong>Raster Bands</strong></p>
+<p>The Digital Surface Model object (<code>DSM_HARV</code>) that we’ve been working with is a single band raster. This means that there is only one dataset stored in the raster: surface elevation in meters for one time period.</p>
+<p><img src="fig/dc-spatial-raster/single_multi_raster.png" alt="Multi-band raster image" /></p>
+<p>A raster dataset can contain one or more bands. We can use the <code>rast()</code>
+function to import one single band from a single or multi-band raster. We can view the number of bands in a raster using the <code>nly()</code> function.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="geospatial-data-i-data-types-rasters.html#cb22-1" tabindex="-1"></a><span class="fu">nlyr</span>(DSM_HARV)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>However, raster data can also be multi-band, meaning that one raster file
+contains data for more than one variable or time period for each cell. By
+default the <code>raster()</code> function only imports the first band in a raster
+regardless of whether it has one or more bands.</p>
+<p><strong>Calculate Raster Min and Max Values</strong></p>
+<p>It is useful to know the minimum or maximum values of a raster dataset. In this case, given we are working with elevation data, these values represent the min/max elevation range at our site.</p>
+<p>Raster statistics are often calculated and embedded in a GeoTIFF for us. We can view these values:</p>
+<p>We can see that the elevation at our site ranges from 305.0700073m to
+416.0699768m.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="geospatial-data-i-data-types-rasters.html#cb24-1" tabindex="-1"></a><span class="fu">minmax</span>(DSM_HARV)</span></code></pre></div>
+<pre><code>##     HARV_dsmCrop
+## min       305.07
+## max       416.07</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="geospatial-data-i-data-types-rasters.html#cb26-1" tabindex="-1"></a><span class="fu">min</span>(<span class="fu">values</span>(DSM_HARV))</span></code></pre></div>
+<pre><code>## [1] 305.07</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="geospatial-data-i-data-types-rasters.html#cb28-1" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">values</span>(DSM_HARV))</span></code></pre></div>
+<pre><code>## [1] 416.07</code></pre>
+<p><strong>“Classifying” a raster</strong></p>
+<p><strong>Binning Raster Data and Plotting Binned data</strong></p>
+<p>Above, we viewed our data using a continuous color ramp. For
+clarity and visibility of the plot, we may prefer to view the data in discrete bins or colored according to ranges of values. This is comparable to a “classified” map. To do this, we need to tell <code>ggplot</code> how many groups to break our data into, and where those breaks should be. To make these decisions, it is useful to first explore the distribution of the data using a bar plot. To begin with, we will use <code>dplyr</code>’s <code>mutate()</code> function combined with <code>cut()</code> to split the data into 3 bins.</p>
+<p>We want to set cutoff values for these groups to have the elevation ranges of 301–350 m, 351–400 m, and 401–450 m. To implement this we will give <code>mutate()</code> a numeric vector of break points instead of the number of breaks we want.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="geospatial-data-i-data-types-rasters.html#cb30-1" tabindex="-1"></a>custom_bins <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">300</span>, <span class="dv">350</span>, <span class="dv">400</span>, <span class="dv">450</span>)</span>
+<span id="cb30-2"><a href="geospatial-data-i-data-types-rasters.html#cb30-2" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="geospatial-data-i-data-types-rasters.html#cb30-3" tabindex="-1"></a>DSM_HARV_df <span class="ot">&lt;-</span> DSM_HARV_df <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="geospatial-data-i-data-types-rasters.html#cb30-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fct_elevation_2 =</span> <span class="fu">cut</span>(HARV_dsmCrop, <span class="at">breaks =</span> custom_bins))</span>
+<span id="cb30-5"><a href="geospatial-data-i-data-types-rasters.html#cb30-5" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="geospatial-data-i-data-types-rasters.html#cb30-6" tabindex="-1"></a><span class="fu">unique</span>(DSM_HARV_df<span class="sc">$</span>fct_elevation_2)</span></code></pre></div>
+<pre><code>## [1] (400,450] (350,400] (300,350]
+## Levels: (300,350] (350,400] (400,450]</code></pre>
+<p>We can use those groups to plot our raster data, with each group being a
+different color:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="geospatial-data-i-data-types-rasters.html#cb32-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb32-2"><a href="geospatial-data-i-data-types-rasters.html#cb32-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_HARV_df , <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> fct_elevation_2)) </span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/raster-with-breaks-1.png" width="672" /></p>
+<p>The plot above uses the default colors inside <code>ggplot</code> for raster objects.
+We can specify our own colors to make the plot look a little nicer.
+R has a built in set of colors for plotting terrain, which are built in
+to the <code>terrain.colors()</code> function.
+Since we have three bins, we want to create a 3-color palette:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="geospatial-data-i-data-types-rasters.html#cb33-1" tabindex="-1"></a><span class="fu">terrain.colors</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;#00A600&quot; &quot;#ECB176&quot; &quot;#F2F2F2&quot;</code></pre>
+<p>The <code>terrain.colors()</code> function returns <em>hex colors</em> -
+each of these character strings represents a color.
+To use these in our map, we pass them across using the
+<code>scale_fill_manual()</code> function.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="geospatial-data-i-data-types-rasters.html#cb35-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-2"><a href="geospatial-data-i-data-types-rasters.html#cb35-2" tabindex="-1"></a> <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_HARV_df , <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y,</span>
+<span id="cb35-3"><a href="geospatial-data-i-data-types-rasters.html#cb35-3" tabindex="-1"></a>                                      <span class="at">fill =</span> fct_elevation_2)) <span class="sc">+</span> </span>
+<span id="cb35-4"><a href="geospatial-data-i-data-types-rasters.html#cb35-4" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">terrain.colors</span>(<span class="dv">3</span>)) </span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/ggplot-breaks-customcolors-1.png" width="672" /></p>
+<p><strong>Layering Rasters</strong></p>
+<p>We can layer a raster on top of a hillshade raster for the same area, and use a transparency factor to create a 3-dimensional shaded effect.</p>
+<p>The <strong>hillshade layer</strong> maps the terrain using light and shadow to create a 3D-looking image, based on a <strong>hypothetical illumination of the ground level</strong>.A hillshade is a raster that maps the shadows and texture that you would see from above when viewing terrain. We will add a custom color, making the plot grey.</p>
+<p>First we need to read in our DSM hillshade data and view the structure:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="geospatial-data-i-data-types-rasters.html#cb36-1" tabindex="-1"></a>DSM_hill_HARV <span class="ot">&lt;-</span></span>
+<span id="cb36-2"><a href="geospatial-data-i-data-types-rasters.html#cb36-2" tabindex="-1"></a>  <span class="fu">rast</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif&quot;</span>)</span>
+<span id="cb36-3"><a href="geospatial-data-i-data-types-rasters.html#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="geospatial-data-i-data-types-rasters.html#cb36-4" tabindex="-1"></a>DSM_hill_HARV</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## size        : 1367, 1697, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
+## coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
+## source      : HARV_DSMhill.tif 
+## name        : HARV_DSMhill 
+## min value   :   -0.7136298 
+## max value   :    0.9999997</code></pre>
+<p>Next we convert it to a dataframe, so that we can plot it using <code>ggplot2</code>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="geospatial-data-i-data-types-rasters.html#cb38-1" tabindex="-1"></a>DSM_hill_HARV_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DSM_hill_HARV, <span class="at">xy =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb38-2"><a href="geospatial-data-i-data-types-rasters.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="geospatial-data-i-data-types-rasters.html#cb38-3" tabindex="-1"></a><span class="fu">str</span>(DSM_hill_HARV_df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    2313675 obs. of  3 variables:
+##  $ x           : num  731454 731456 731456 731458 731458 ...
+##  $ y           : num  4713836 4713836 4713836 4713836 4713836 ...
+##  $ HARV_DSMhill: num  -0.15567 0.00743 0.86989 0.9791 0.96283 ...</code></pre>
+<p>Now we can plot the hillshade data:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="geospatial-data-i-data-types-rasters.html#cb40-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb40-2"><a href="geospatial-data-i-data-types-rasters.html#cb40-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_hill_HARV_df,</span>
+<span id="cb40-3"><a href="geospatial-data-i-data-types-rasters.html#cb40-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">alpha =</span> HARV_DSMhill)) <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="geospatial-data-i-data-types-rasters.html#cb40-4" tabindex="-1"></a>  <span class="fu">scale_alpha</span>(<span class="at">range =</span>  <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.65</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) </span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/raster-hillshade-1.png" width="672" /></p>
+<p>We can layer another raster on top of our hillshade by adding another call to
+the <code>geom_raster()</code> function. Let’s overlay <code>DSM_HARV</code> on top of the <code>hill_HARV</code>.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="geospatial-data-i-data-types-rasters.html#cb41-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb41-2"><a href="geospatial-data-i-data-types-rasters.html#cb41-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_HARV_df , </span>
+<span id="cb41-3"><a href="geospatial-data-i-data-types-rasters.html#cb41-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb41-4"><a href="geospatial-data-i-data-types-rasters.html#cb41-4" tabindex="-1"></a>                  <span class="at">fill =</span> HARV_dsmCrop)) <span class="sc">+</span> </span>
+<span id="cb41-5"><a href="geospatial-data-i-data-types-rasters.html#cb41-5" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_hill_HARV_df, </span>
+<span id="cb41-6"><a href="geospatial-data-i-data-types-rasters.html#cb41-6" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb41-7"><a href="geospatial-data-i-data-types-rasters.html#cb41-7" tabindex="-1"></a>                  <span class="at">alpha =</span> HARV_DSMhill)) <span class="sc">+</span>  </span>
+<span id="cb41-8"><a href="geospatial-data-i-data-types-rasters.html#cb41-8" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span>  </span>
+<span id="cb41-9"><a href="geospatial-data-i-data-types-rasters.html#cb41-9" tabindex="-1"></a>  <span class="fu">scale_alpha</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.65</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb41-10"><a href="geospatial-data-i-data-types-rasters.html#cb41-10" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Elevation with hillshade&quot;</span>) </span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/overlay-hillshade-1.png" width="672" /></p>
+<p><strong>Reprojection</strong></p>
+<p>Sometimes we encounter raster datasets that do not “line up” when plotted or analyzed. Rasters that don’t line up are most often in different Coordinate Reference Systems (CRS). We will work through how to deal with rasters in different, known CRSs. It will walk though reprojecting rasters in R using
+the <code>project()</code> function in the <code>terra</code> package.</p>
+<p><strong>Raster Projection in R</strong></p>
+<p>We will read in the Harvard Forest Digital Terrain
+Model data. This differs from the surface model data we’ve been working with so far in that the digital surface model (DSM) includes the tops of trees, while the digital terrain model (DTM) shows the ground level.</p>
+<p>Here, we will create a map of the Harvard ForestDigital Terrain Model (<code>DTM_HARV</code>) layered on top of the hillshade
+(<code>DTM_hill_HARV</code>).</p>
+<p>First, we need to import the DTM and DTM hillshade data.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="geospatial-data-i-data-types-rasters.html#cb42-1" tabindex="-1"></a>DTM_HARV <span class="ot">&lt;-</span> </span>
+<span id="cb42-2"><a href="geospatial-data-i-data-types-rasters.html#cb42-2" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif&quot;</span>)</span>
+<span id="cb42-3"><a href="geospatial-data-i-data-types-rasters.html#cb42-3" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="geospatial-data-i-data-types-rasters.html#cb42-4" tabindex="-1"></a>DTM_hill_HARV <span class="ot">&lt;-</span> </span>
+<span id="cb42-5"><a href="geospatial-data-i-data-types-rasters.html#cb42-5" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif&quot;</span>)</span></code></pre></div>
+<p>Next, we will convert each of these datasets to a dataframe for
+plotting with <code>ggplot</code>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="geospatial-data-i-data-types-rasters.html#cb43-1" tabindex="-1"></a>DTM_HARV_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DTM_HARV, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb43-2"><a href="geospatial-data-i-data-types-rasters.html#cb43-2" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="geospatial-data-i-data-types-rasters.html#cb43-3" tabindex="-1"></a>DTM_hill_HARV_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DTM_hill_HARV, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now we can create a map of the DTM layered over the hillshade.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="geospatial-data-i-data-types-rasters.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb44-2"><a href="geospatial-data-i-data-types-rasters.html#cb44-2" tabindex="-1"></a>     <span class="fu">geom_raster</span>(<span class="at">data =</span> DTM_HARV_df , </span>
+<span id="cb44-3"><a href="geospatial-data-i-data-types-rasters.html#cb44-3" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb44-4"><a href="geospatial-data-i-data-types-rasters.html#cb44-4" tabindex="-1"></a>                  <span class="at">fill =</span> HARV_dtmCrop)) <span class="sc">+</span> </span>
+<span id="cb44-5"><a href="geospatial-data-i-data-types-rasters.html#cb44-5" tabindex="-1"></a>     <span class="fu">geom_raster</span>(<span class="at">data =</span> DTM_hill_HARV_df, </span>
+<span id="cb44-6"><a href="geospatial-data-i-data-types-rasters.html#cb44-6" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb44-7"><a href="geospatial-data-i-data-types-rasters.html#cb44-7" tabindex="-1"></a>                   <span class="at">alpha =</span> HARV_DTMhill_WGS84)) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="geospatial-data-i-data-types-rasters.html#cb44-8" tabindex="-1"></a>     <span class="fu">scale_fill_gradientn</span>(<span class="at">name =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="at">colors =</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)) </span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Our results are curious - neither the Digital Terrain Model (<code>DTM_HARV_df</code>)
+nor the DTM Hillshade (<code>DTM_hill_HARV_df</code>) plotted.
+Let’s try to plot the DTM on its own to make sure there are data there.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="geospatial-data-i-data-types-rasters.html#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb45-2"><a href="geospatial-data-i-data-types-rasters.html#cb45-2" tabindex="-1"></a><span class="fu">geom_raster</span>(<span class="at">data =</span> DTM_HARV_df,</span>
+<span id="cb45-3"><a href="geospatial-data-i-data-types-rasters.html#cb45-3" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y,</span>
+<span id="cb45-4"><a href="geospatial-data-i-data-types-rasters.html#cb45-4" tabindex="-1"></a>    <span class="at">fill =</span> HARV_dtmCrop)) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="geospatial-data-i-data-types-rasters.html#cb45-5" tabindex="-1"></a><span class="fu">scale_fill_gradientn</span>(<span class="at">name =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="at">colors =</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>))</span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/plot-DTM-1.png" width="672" /></p>
+<p>Our DTM seems to contain data and plots just fine.</p>
+<p>Next we plot the DTM Hillshade on its own to see whether everything is OK.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="geospatial-data-i-data-types-rasters.html#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb46-2"><a href="geospatial-data-i-data-types-rasters.html#cb46-2" tabindex="-1"></a><span class="fu">geom_raster</span>(<span class="at">data =</span> DTM_hill_HARV_df,</span>
+<span id="cb46-3"><a href="geospatial-data-i-data-types-rasters.html#cb46-3" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y,</span>
+<span id="cb46-4"><a href="geospatial-data-i-data-types-rasters.html#cb46-4" tabindex="-1"></a>    <span class="at">alpha =</span> HARV_DTMhill_WGS84))</span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/plot-DTM-hill-1.png" width="672" /></p>
+<p>If we look at the axes, we can see that the projections of the two rasters are different. When this is the case, <code>ggplot</code> won’t render the image. It won’t even throw an error message to tell you something has gone wrong. We can look at Coordinate Reference Systems (CRSs) of the DTM and the hillshade data to see how they
+differ.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="geospatial-data-i-data-types-rasters.html#cb47-1" tabindex="-1"></a><span class="co"># view crs for DTM</span></span>
+<span id="cb47-2"><a href="geospatial-data-i-data-types-rasters.html#cb47-2" tabindex="-1"></a><span class="fu">crs</span>(DTM_HARV, <span class="at">proj =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs&quot;</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="geospatial-data-i-data-types-rasters.html#cb49-1" tabindex="-1"></a><span class="co"># view crs for hillshade</span></span>
+<span id="cb49-2"><a href="geospatial-data-i-data-types-rasters.html#cb49-2" tabindex="-1"></a><span class="fu">crs</span>(DTM_hill_HARV, <span class="at">proj =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code></pre>
+<p><code>DTM_HARV</code> is in the UTM projection, with units of meters.
+<code>DTM_hill_HARV</code> is in <code>Geographic WGS84</code> - which is represented by latitude and longitude values.</p>
+<p>Because the two rasters are in different CRSs, they don’t line up when plotted in R. We need to reproject (or change the projection of) <code>DTM_hill_HARV</code> into the UTM CRS. Alternatively, we could reproject <code>DTM_HARV</code> into WGS84.</p>
+<p><strong>Reproject Rasters</strong></p>
+<p>We can use the <code>project()</code> function to reproject a raster into a new CRS.
+Keep in mind that reprojection only works when you first have a defined CRS for the raster object that you want to reproject. It cannot be used if no CRS is defined. Lucky for us, the <code>DTM_hill_HARV</code> has a defined CRS.</p>
+<p>When we reproject a raster, we move it from one “grid” to another. Thus, we are modifying the data! Keep this in mind as we work with raster data.</p>
+<p>To use the <code>project()</code> function, we need to define two things:</p>
+<ol style="list-style-type: decimal">
+<li>the object we want to reproject and</li>
+<li>the CRS that we want to reproject it to.</li>
+</ol>
+<p>The syntax is <code>project(RasterObject, crs)</code></p>
+<p>We want the CRS of our hillshade to match the <code>DTM_HARV</code> raster. We can thus assign the CRS of our <code>DTM_HARV</code> to our hillshade within the <code>project()</code> function as follows: <code>crs(DTM_HARV)</code>.
+Note that we are using the <code>project()</code> function on the raster object,
+not the <code>data.frame()</code> we use for plotting with <code>ggplot</code>.</p>
+<p>First we will reproject our <code>DTM_hill_HARV</code> raster data to match the <code>DTM_HARV</code> raster CRS:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="geospatial-data-i-data-types-rasters.html#cb51-1" tabindex="-1"></a>DTM_hill_UTMZ18N_HARV <span class="ot">&lt;-</span> <span class="fu">project</span>(DTM_hill_HARV,</span>
+<span id="cb51-2"><a href="geospatial-data-i-data-types-rasters.html#cb51-2" tabindex="-1"></a>                                 <span class="fu">crs</span>(DTM_HARV))</span></code></pre></div>
+<p>Now we can compare the CRS of our original DTM hillshade and our new DTM
+hillshade, to see how they are different.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="geospatial-data-i-data-types-rasters.html#cb52-1" tabindex="-1"></a><span class="fu">crs</span>(DTM_hill_UTMZ18N_HARV, <span class="at">proj =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs&quot;</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="geospatial-data-i-data-types-rasters.html#cb54-1" tabindex="-1"></a><span class="fu">crs</span>(DTM_HARV, <span class="at">proj =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=utm +zone=18 +datum=WGS84 +units=m +no_defs&quot;</code></pre>
+<p>We can also compare the extent of the two objects.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="geospatial-data-i-data-types-rasters.html#cb56-1" tabindex="-1"></a><span class="fu">ext</span>(DTM_hill_UTMZ18N_HARV)</span></code></pre></div>
+<pre><code>## SpatExtent : 731402.31567604, 733200.221994349, 4712407.19751409, 4713901.78222079 (xmin, xmax, ymin, ymax)</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="geospatial-data-i-data-types-rasters.html#cb58-1" tabindex="-1"></a><span class="fu">ext</span>(DTM_hill_HARV)</span></code></pre></div>
+<pre><code>## SpatExtent : -72.1819236223343, -72.1606102223342, 42.5294079700285, 42.5423355900285 (xmin, xmax, ymin, ymax)</code></pre>
+<p>Notice in the output above that the <code>crs()</code> of <code>DTM_hill_UTMZ18N_HARV</code> is now UTM. However, the extent values of <code>DTM_hillUTMZ18N_HARV</code> are different from <code>DTM_hill_HARV</code>.</p>
+</div>
+</div>
+<div id="in-class-challange-1-extent-change-with-crs-change" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> In class challange 1: Extent Change with CRS Change<a href="geospatial-data-i-data-types-rasters.html#in-class-challange-1-extent-change-with-crs-change" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Why do you think the two extents differ?</p>
+<p><strong>Answers</strong></p>
+<p>The extent for DTM_hill_UTMZ18N_HARV is in UTMs so the extent is in meters. The extent for DTM_hill_HARV is in lat/long so the extent is expressed in decimal degrees.</p>
+<p><strong>Deal with Raster Resolution</strong></p>
+<p>Let’s next have a look at the resolution of our reprojected hillshade versus our original data.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="geospatial-data-i-data-types-rasters.html#cb60-1" tabindex="-1"></a><span class="fu">res</span>(DTM_hill_UTMZ18N_HARV)</span></code></pre></div>
+<pre><code>## [1] 1.001061 1.001061</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="geospatial-data-i-data-types-rasters.html#cb62-1" tabindex="-1"></a><span class="fu">res</span>(DTM_HARV)</span></code></pre></div>
+<pre><code>## [1] 1 1</code></pre>
+<p>These two resolutions are different, but they’re representing the same data. We can tell R to force our newly reprojected raster to be 1m x 1m resolution by adding a line of code <code>res=1</code> within the <code>project()</code> function. In the example below, we ensure a resolution match by using <code>res(DTM_HARV)</code> as a variable.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="geospatial-data-i-data-types-rasters.html#cb64-1" tabindex="-1"></a>  DTM_hill_UTMZ18N_HARV <span class="ot">&lt;-</span> <span class="fu">project</span>(DTM_hill_HARV, </span>
+<span id="cb64-2"><a href="geospatial-data-i-data-types-rasters.html#cb64-2" tabindex="-1"></a>                                   <span class="fu">crs</span>(DTM_HARV), </span>
+<span id="cb64-3"><a href="geospatial-data-i-data-types-rasters.html#cb64-3" tabindex="-1"></a>                                   <span class="at">res =</span> <span class="fu">res</span>(DTM_HARV)) </span></code></pre></div>
+<p>Now both our resolutions and our CRSs match, so we can plot these two data sets together. Let’s double-check our resolution to be sure:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="geospatial-data-i-data-types-rasters.html#cb65-1" tabindex="-1"></a><span class="fu">res</span>(DTM_hill_UTMZ18N_HARV)</span></code></pre></div>
+<pre><code>## [1] 1 1</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="geospatial-data-i-data-types-rasters.html#cb67-1" tabindex="-1"></a><span class="fu">res</span>(DTM_HARV)</span></code></pre></div>
+<pre><code>## [1] 1 1</code></pre>
+<p>For plotting with <code>ggplot()</code>, we will need to create a dataframe from our newly reprojected raster.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="geospatial-data-i-data-types-rasters.html#cb69-1" tabindex="-1"></a>DTM_hill_HARV_2_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DTM_hill_UTMZ18N_HARV, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>We can now create a plot of this data.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="geospatial-data-i-data-types-rasters.html#cb70-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb70-2"><a href="geospatial-data-i-data-types-rasters.html#cb70-2" tabindex="-1"></a>     <span class="fu">geom_raster</span>(<span class="at">data =</span> DTM_HARV_df , </span>
+<span id="cb70-3"><a href="geospatial-data-i-data-types-rasters.html#cb70-3" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb70-4"><a href="geospatial-data-i-data-types-rasters.html#cb70-4" tabindex="-1"></a>                  <span class="at">fill =</span> HARV_dtmCrop)) <span class="sc">+</span> </span>
+<span id="cb70-5"><a href="geospatial-data-i-data-types-rasters.html#cb70-5" tabindex="-1"></a>     <span class="fu">geom_raster</span>(<span class="at">data =</span> DTM_hill_HARV_2_df, </span>
+<span id="cb70-6"><a href="geospatial-data-i-data-types-rasters.html#cb70-6" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb70-7"><a href="geospatial-data-i-data-types-rasters.html#cb70-7" tabindex="-1"></a>                   <span class="at">alpha =</span> HARV_DTMhill_WGS84)) <span class="sc">+</span></span>
+<span id="cb70-8"><a href="geospatial-data-i-data-types-rasters.html#cb70-8" tabindex="-1"></a>     <span class="fu">scale_fill_gradientn</span>(<span class="at">name =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="at">colors =</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>))</span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/plot-projected-raster-1.png" width="672" /></p>
+<p>We have now successfully draped the Digital Terrain Model on top of our
+hillshade to produce a nice looking, textured map!</p>
+</div>
+<div id="in-class-challenge-2-reproject-then-plot-a-digital-terrain-model" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> In class challenge 2: Reproject, then Plot a Digital Terrain Model<a href="geospatial-data-i-data-types-rasters.html#in-class-challenge-2-reproject-then-plot-a-digital-terrain-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Create a map of the
+<a href="https://www.neonscience.org/field-sites/field-sites-map/SJER">San Joaquin Experimental Range</a>
+field site using the <code>SJER_DSMhill_WGS84.tif</code> and <code>SJER_dsmCrop.tif</code> files.</p>
+<p>Reproject the data as necessary to make things line up!</p>
+<p><strong>Answers</strong></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="geospatial-data-i-data-types-rasters.html#cb71-1" tabindex="-1"></a><span class="co"># import DSM</span></span>
+<span id="cb71-2"><a href="geospatial-data-i-data-types-rasters.html#cb71-2" tabindex="-1"></a>DSM_SJER <span class="ot">&lt;-</span> </span>
+<span id="cb71-3"><a href="geospatial-data-i-data-types-rasters.html#cb71-3" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif&quot;</span>)</span>
+<span id="cb71-4"><a href="geospatial-data-i-data-types-rasters.html#cb71-4" tabindex="-1"></a><span class="co"># import DSM hillshade</span></span>
+<span id="cb71-5"><a href="geospatial-data-i-data-types-rasters.html#cb71-5" tabindex="-1"></a>DSM_hill_SJER_WGS <span class="ot">&lt;-</span></span>
+<span id="cb71-6"><a href="geospatial-data-i-data-types-rasters.html#cb71-6" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">&quot;data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif&quot;</span>)</span>
+<span id="cb71-7"><a href="geospatial-data-i-data-types-rasters.html#cb71-7" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="geospatial-data-i-data-types-rasters.html#cb71-8" tabindex="-1"></a><span class="co"># reproject raster</span></span>
+<span id="cb71-9"><a href="geospatial-data-i-data-types-rasters.html#cb71-9" tabindex="-1"></a>DSM_hill_UTMZ18N_SJER <span class="ot">&lt;-</span> <span class="fu">project</span>(DSM_hill_SJER_WGS,</span>
+<span id="cb71-10"><a href="geospatial-data-i-data-types-rasters.html#cb71-10" tabindex="-1"></a>                                 <span class="fu">crs</span>(DSM_SJER),</span>
+<span id="cb71-11"><a href="geospatial-data-i-data-types-rasters.html#cb71-11" tabindex="-1"></a>                                 <span class="at">res =</span> <span class="dv">1</span>)</span>
+<span id="cb71-12"><a href="geospatial-data-i-data-types-rasters.html#cb71-12" tabindex="-1"></a></span>
+<span id="cb71-13"><a href="geospatial-data-i-data-types-rasters.html#cb71-13" tabindex="-1"></a><span class="co"># convert to data.frames</span></span>
+<span id="cb71-14"><a href="geospatial-data-i-data-types-rasters.html#cb71-14" tabindex="-1"></a>DSM_SJER_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DSM_SJER, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb71-15"><a href="geospatial-data-i-data-types-rasters.html#cb71-15" tabindex="-1"></a></span>
+<span id="cb71-16"><a href="geospatial-data-i-data-types-rasters.html#cb71-16" tabindex="-1"></a>DSM_hill_SJER_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(DSM_hill_UTMZ18N_SJER, <span class="at">xy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb71-17"><a href="geospatial-data-i-data-types-rasters.html#cb71-17" tabindex="-1"></a></span>
+<span id="cb71-18"><a href="geospatial-data-i-data-types-rasters.html#cb71-18" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb71-19"><a href="geospatial-data-i-data-types-rasters.html#cb71-19" tabindex="-1"></a>     <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_hill_SJER_df, </span>
+<span id="cb71-20"><a href="geospatial-data-i-data-types-rasters.html#cb71-20" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb71-21"><a href="geospatial-data-i-data-types-rasters.html#cb71-21" tabindex="-1"></a>                   <span class="at">alpha =</span> SJER_DSMhill_WGS84)</span>
+<span id="cb71-22"><a href="geospatial-data-i-data-types-rasters.html#cb71-22" tabindex="-1"></a>                 ) <span class="sc">+</span></span>
+<span id="cb71-23"><a href="geospatial-data-i-data-types-rasters.html#cb71-23" tabindex="-1"></a>     <span class="fu">geom_raster</span>(<span class="at">data =</span> DSM_SJER_df, </span>
+<span id="cb71-24"><a href="geospatial-data-i-data-types-rasters.html#cb71-24" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, </span>
+<span id="cb71-25"><a href="geospatial-data-i-data-types-rasters.html#cb71-25" tabindex="-1"></a>                  <span class="at">fill =</span> SJER_dsmCrop,</span>
+<span id="cb71-26"><a href="geospatial-data-i-data-types-rasters.html#cb71-26" tabindex="-1"></a>                  <span class="at">alpha=</span><span class="fl">0.8</span>)</span>
+<span id="cb71-27"><a href="geospatial-data-i-data-types-rasters.html#cb71-27" tabindex="-1"></a>             ) <span class="sc">+</span> </span>
+<span id="cb71-28"><a href="geospatial-data-i-data-types-rasters.html#cb71-28" tabindex="-1"></a>     <span class="fu">scale_fill_gradientn</span>(<span class="at">name =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="at">colors =</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>))</span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/challenge-code-reprojection-1.png" width="672" /></p>
+<p><strong>Create A Histogram of Raster Values</strong></p>
+<p>We can explore the distribution of values contained within our raster using the <code>geom_histogram()</code> function which produces a histogram. Histograms are often useful in identifying outliers and bad data values in our raster data.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="geospatial-data-i-data-types-rasters.html#cb72-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb72-2"><a href="geospatial-data-i-data-types-rasters.html#cb72-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">data =</span> DSM_HARV_df, <span class="fu">aes</span>(HARV_dsmCrop), <span class="at">bins =</span> <span class="dv">40</span>)</span></code></pre></div>
+<p><img src="07-geospatial-I_files/figure-html/view-raster-histogram2-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ecological-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="string-processing-debugging.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

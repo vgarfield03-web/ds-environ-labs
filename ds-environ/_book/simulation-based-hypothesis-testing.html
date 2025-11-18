@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Simulation-based hypothesis testing | Data Science for the Environment — Lecture Notes &amp; Labs</title>
+  <meta name="description" content="5 Simulation-based hypothesis testing | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Simulation-based hypothesis testing | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Simulation-based hypothesis testing | Data Science for the Environment — Lecture Notes &amp; Labs" />
+  
+  
+  
+
+<meta name="author" content="Lauren Ponisio" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="using-the-tidyverse-for-data-manipulation-and-visualization.html"/>
+<link rel="next" href="version-control-and-collaboration-with-git-and-github.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknolwedgements"><i class="fa fa-check"></i><b>1.1</b> Acknolwedgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i><b>2</b> Syllabus</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="syllabus.html"><a href="syllabus.html#course-overview"><i class="fa fa-check"></i><b>2.1</b> Course Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="syllabus.html"><a href="syllabus.html#the-7-fundamentals-wilson"><i class="fa fa-check"></i><b>2.2</b> The 7 Fundamentals (Wilson)</a></li>
+<li class="chapter" data-level="2.3" data-path="syllabus.html"><a href="syllabus.html#coding-tools-and-practices"><i class="fa fa-check"></i><b>2.3</b> Coding Tools and Practices</a></li>
+<li class="chapter" data-level="2.4" data-path="syllabus.html"><a href="syllabus.html#weekly-topics-and-readings"><i class="fa fa-check"></i><b>2.4</b> Weekly Topics and Readings</a></li>
+<li class="chapter" data-level="2.5" data-path="syllabus.html"><a href="syllabus.html#assignments-and-grading"><i class="fa fa-check"></i><b>2.5</b> Assignments and Grading</a></li>
+<li class="chapter" data-level="2.6" data-path="syllabus.html"><a href="syllabus.html#policies"><i class="fa fa-check"></i><b>2.6</b> Policies</a></li>
+<li class="chapter" data-level="2.7" data-path="syllabus.html"><a href="syllabus.html#final-project"><i class="fa fa-check"></i><b>2.7</b> Final Project</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html"><i class="fa fa-check"></i><b>3</b> Key Programming Concepts</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lecture-summary"><i class="fa fa-check"></i><b>3.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#learning-objectives"><i class="fa fa-check"></i><b>3.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.1.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#why-programming-concepts-matter"><i class="fa fa-check"></i><b>3.1.2</b> Why programming concepts matter</a></li>
+<li class="chapter" data-level="3.1.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#objects-and-basic-types"><i class="fa fa-check"></i><b>3.1.3</b> Objects and basic types</a></li>
+<li class="chapter" data-level="3.1.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignments-vs.-expressions"><i class="fa fa-check"></i><b>3.1.4</b> Assignments vs. expressions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#functions-and-operators"><i class="fa fa-check"></i><b>3.1.5</b> Functions and operators</a></li>
+<li class="chapter" data-level="3.1.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#core-data-structures"><i class="fa fa-check"></i><b>3.1.6</b> Core data structures</a></li>
+<li class="chapter" data-level="3.1.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-boolean-logic"><i class="fa fa-check"></i><b>3.1.7</b> Comparisons and boolean logic</a></li>
+<li class="chapter" data-level="3.1.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-flow-if-and-for"><i class="fa fa-check"></i><b>3.1.8</b> Control flow: <code>if</code> and <code>for</code></a></li>
+<li class="chapter" data-level="3.1.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#the-apply-family-vectorized-repetition"><i class="fa fa-check"></i><b>3.1.9</b> The <em>apply</em> family (vectorized repetition)</a></li>
+<li class="chapter" data-level="3.1.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#writing-your-own-functions"><i class="fa fa-check"></i><b>3.1.10</b> Writing your own functions</a></li>
+<li class="chapter" data-level="3.1.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#combining-steps-with-pipes"><i class="fa fa-check"></i><b>3.1.11</b> Combining steps with pipes</a></li>
+<li class="chapter" data-level="3.1.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#r-vs.-python-a-quick-orientation"><i class="fa fa-check"></i><b>3.1.12</b> R vs. Python: a quick orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#demo-exponential-population-growth"><i class="fa fa-check"></i><b>3.2</b> Demo: Exponential Population Growth</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#exponential-population-growth-model"><i class="fa fa-check"></i><b>3.2.1</b> Exponential population growth model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-plot-a-single-scenario"><i class="fa fa-check"></i><b>3.2.2</b> Simulate &amp; plot a single scenario</a></li>
+<li class="chapter" data-level="3.2.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#compare-two-growth-rates"><i class="fa fa-check"></i><b>3.2.3</b> Compare two growth rates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#in-class-challenge"><i class="fa fa-check"></i><b>3.2.4</b> In class challenge</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#discussion-reflection-reproducible-research-alston-rick-2020"><i class="fa fa-check"></i><b>3.3</b> Discussion &amp; Reflection — Reproducible Research Alston &amp; Rick (2020)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#preclass-reflection-please-submit-short-answers-via-canvas"><i class="fa fa-check"></i><b>3.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#inclass-smallgroup-prompts"><i class="fa fa-check"></i><b>3.3.2</b> In‑class small‑group prompts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lab-programming-key-concepts"><i class="fa fa-check"></i><b>3.4</b> Lab: Programming Key Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#lesson-overview"><i class="fa fa-check"></i><b>3.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="3.4.2" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#review-the-seven-core-concepts"><i class="fa fa-check"></i><b>3.4.2</b> Review: The Seven Core Concepts</a></li>
+<li class="chapter" data-level="3.4.3" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#starting-with-rstudio"><i class="fa fa-check"></i><b>3.4.3</b> Starting with RStudio</a></li>
+<li class="chapter" data-level="3.4.4" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#individual-things"><i class="fa fa-check"></i><b>3.4.4</b> Individual things</a></li>
+<li class="chapter" data-level="3.4.5" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#assignment-statements"><i class="fa fa-check"></i><b>3.4.5</b> Assignment statements</a></li>
+<li class="chapter" data-level="3.4.6" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-1-population-dynamics"><i class="fa fa-check"></i><b>3.4.6</b> Question 1: Population dynamics</a></li>
+<li class="chapter" data-level="3.4.7" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#commands-that-operate-on-things"><i class="fa fa-check"></i><b>3.4.7</b> Commands that operate on things</a></li>
+<li class="chapter" data-level="3.4.8" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-2-using-operators-and-functions"><i class="fa fa-check"></i><b>3.4.8</b> Question 2: Using operators and functions</a></li>
+<li class="chapter" data-level="3.4.9" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#groups-of-things"><i class="fa fa-check"></i><b>3.4.9</b> Groups of things</a></li>
+<li class="chapter" data-level="3.4.10" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-3-storing-and-indexing-data"><i class="fa fa-check"></i><b>3.4.10</b> Question 3: Storing and indexing data</a></li>
+<li class="chapter" data-level="3.4.11" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#comparisons-and-booleans"><i class="fa fa-check"></i><b>3.4.11</b> Comparisons and Booleans</a></li>
+<li class="chapter" data-level="3.4.12" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-4-storing-data-and-logical-indexing"><i class="fa fa-check"></i><b>3.4.12</b> Question 4: Storing data and logical indexing</a></li>
+<li class="chapter" data-level="3.4.13" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---for-repeating-yourself"><i class="fa fa-check"></i><b>3.4.13</b> Control statements - for (repeating yourself)</a></li>
+<li class="chapter" data-level="3.4.14" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-5-using-loops-to-repeat-calculations"><i class="fa fa-check"></i><b>3.4.14</b> Question 5: Using loops to repeat calculations</a></li>
+<li class="chapter" data-level="3.4.15" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#control-statements---if-making-choices"><i class="fa fa-check"></i><b>3.4.15</b> Control statements - if (making choices)</a></li>
+<li class="chapter" data-level="3.4.16" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-6-making-the-model-stochastic-with-an-if-statement"><i class="fa fa-check"></i><b>3.4.16</b> Question 6: Making the model stochastic with an if statement</a></li>
+<li class="chapter" data-level="3.4.17" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#creating-chunks"><i class="fa fa-check"></i><b>3.4.17</b> Creating chunks</a></li>
+<li class="chapter" data-level="3.4.18" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-7-creating-a-logistic-growth-function"><i class="fa fa-check"></i><b>3.4.18</b> Question 7: Creating a logistic growth function</a></li>
+<li class="chapter" data-level="3.4.19" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#question-8-extra-credit-or-graduate-students"><i class="fa fa-check"></i><b>3.4.19</b> Question 8 (Extra credit or graduate students)</a></li>
+<li class="chapter" data-level="3.4.20" data-path="key-programming-concepts.html"><a href="key-programming-concepts.html#simulate-visualize-baseline"><i class="fa fa-check"></i><b>3.4.20</b> Simulate &amp; visualize (baseline)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html"><i class="fa fa-check"></i><b>4</b> Using “The Tidyverse” for data manipulation and visualization</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lecture-summary-1"><i class="fa fa-check"></i><b>4.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#learning-objectives-1"><i class="fa fa-check"></i><b>4.1.1</b> Learning Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-introduction-to-the-tidyverse"><i class="fa fa-check"></i><b>4.2</b> Demo: Introduction to the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-wrangling"><i class="fa fa-check"></i><b>4.2.1</b> Data wrangling</a></li>
+<li class="chapter" data-level="4.2.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#data-visualization"><i class="fa fa-check"></i><b>4.2.2</b> Data visualization</a></li>
+<li class="chapter" data-level="4.2.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#common-types-of-visualizations"><i class="fa fa-check"></i><b>4.2.3</b> Common types of visualizations</a></li>
+<li class="chapter" data-level="4.2.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#fun-graph-references"><i class="fa fa-check"></i><b>4.2.4</b> Fun graph references:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#discussion-reflection-coding-best-practices"><i class="fa fa-check"></i><b>4.3</b> Discussion &amp; Reflection — Coding Best Practices</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#why-these-practices"><i class="fa fa-check"></i><b>4.3.1</b> Why these practices</a></li>
+<li class="chapter" data-level="4.3.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#readability-and-clarity"><i class="fa fa-check"></i><b>4.3.2</b> Readability and Clarity</a></li>
+<li class="chapter" data-level="4.3.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#reproducibility"><i class="fa fa-check"></i><b>4.3.3</b> Reproducibility</a></li>
+<li class="chapter" data-level="4.3.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#modularity-and-reuse"><i class="fa fa-check"></i><b>4.3.4</b> Modularity and Reuse</a></li>
+<li class="chapter" data-level="4.3.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#documentation"><i class="fa fa-check"></i><b>4.3.5</b> Documentation</a></li>
+<li class="chapter" data-level="4.3.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#testing-and-validation"><i class="fa fa-check"></i><b>4.3.6</b> Testing and Validation</a></li>
+<li class="chapter" data-level="4.3.7" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#efficiency-after-correctness-and-clarity"><i class="fa fa-check"></i><b>4.3.7</b> Efficiency (after correctness and clarity)</a></li>
+<li class="chapter" data-level="4.3.8" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#quick-checklist"><i class="fa fa-check"></i><b>4.3.8</b> Quick Checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-data-manipulation-and-visualization-using-the-tidyverse-student-version"><i class="fa fa-check"></i><b>4.4</b> Lab: Data manipulation and visualization using the Tidyverse (Student Version)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lesson-overview-1"><i class="fa fa-check"></i><b>4.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="4.4.2" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-evidence-for-global-climate-change"><i class="fa fa-check"></i><b>4.4.2</b> Demo: Evidence for Global Climate Change</a></li>
+<li class="chapter" data-level="4.4.3" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#plotting-data-with-ggplot"><i class="fa fa-check"></i><b>4.4.3</b> Plotting Data with <code>ggplot</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#lab-2-questions-exploring-and-visualizing-more-data-realted-to-global-climate-change."><i class="fa fa-check"></i><b>4.4.4</b> Lab 2 Questions: Exploring and visualizing more data realted to global climate change.</a></li>
+<li class="chapter" data-level="4.4.5" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#demo-exploring-seasonal-oscillations"><i class="fa fa-check"></i><b>4.4.5</b> Demo: Exploring Seasonal Oscillations</a></li>
+<li class="chapter" data-level="4.4.6" data-path="using-the-tidyverse-for-data-manipulation-and-visualization.html"><a href="using-the-tidyverse-for-data-manipulation-and-visualization.html#question-9-gradaute-student-or-extra-credit-summarize-the-data-of-your-choice."><i class="fa fa-check"></i><b>4.4.6</b> Question 9 (Gradaute student or Extra credit) : Summarize the data of your choice.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Simulation-based hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lecture-summary-2"><i class="fa fa-check"></i><b>5.1</b> Lecture summary:</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#learning-objectives-2"><i class="fa fa-check"></i><b>5.1.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.1.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.1.2</b> Hypothesis testing</a></li>
+<li class="chapter" data-level="5.1.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#ab-testing"><i class="fa fa-check"></i><b>5.1.3</b> A/B testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="04-simulation-hypothesis-testing.html"><a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82"><i class="fa fa-check"></i><b>5.2</b> Demo: A/B Testing with Mauna Loa CO₂</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="04-simulation-hypothesis-testing.html"><a href="#import-co%E2%82%82-monthly-data"><i class="fa fa-check"></i><b>5.2.1</b> Import CO₂ monthly data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups"><i class="fa fa-check"></i><b>5.2.2</b> Create the outcome and define A/B groups</a></li>
+<li class="chapter" data-level="5.2.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means"><i class="fa fa-check"></i><b>5.2.3</b> Observed effect (difference in means)</a></li>
+<li class="chapter" data-level="5.2.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month"><i class="fa fa-check"></i><b>5.2.4</b> Permutation test (two‑sided), <strong>blocked by month</strong></a></li>
+<li class="chapter" data-level="5.2.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test"><i class="fa fa-check"></i><b>5.2.5</b> Challenge Problem — Seasonal amplitude A/B test</a></li>
+<li class="chapter" data-level="5.2.6" data-path="04-simulation-hypothesis-testing.html"><a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity"><i class="fa fa-check"></i><b>5.2.6</b> Biodiversity metrics: α, β, γ diversity</a></li>
+<li class="chapter" data-level="5.2.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits"><i class="fa fa-check"></i><b>5.2.7</b> Biotic homgenization and traits</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture"><i class="fa fa-check"></i><b>5.3</b> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2"><i class="fa fa-check"></i><b>5.3.1</b> Pre‑class reflection (please submit short answers via canvas)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4</b> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr"><i class="fa fa-check"></i><b>5.4.1</b> Question 1: Practicing the data subsetting tools from dplyr</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-joining-data"><i class="fa fa-check"></i><b>5.4.2</b> Demo: Joining data</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-2-1"><i class="fa fa-check"></i><b>5.4.3</b> Question 2</a></li>
+<li class="chapter" data-level="5.4.4" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-3"><i class="fa fa-check"></i><b>5.4.4</b> Lab Question 3</a></li>
+<li class="chapter" data-level="5.4.5" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits"><i class="fa fa-check"></i><b>5.4.5</b> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?</a></li>
+<li class="chapter" data-level="5.4.6" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#lab-question-4"><i class="fa fa-check"></i><b>5.4.6</b> Lab Question 4</a></li>
+<li class="chapter" data-level="5.4.7" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-5"><i class="fa fa-check"></i><b>5.4.7</b> Question 5</a></li>
+<li class="chapter" data-level="5.4.8" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results"><i class="fa fa-check"></i><b>5.4.8</b> Demo: Interpreting the results</a></li>
+<li class="chapter" data-level="5.4.9" data-path="simulation-based-hypothesis-testing.html"><a href="simulation-based-hypothesis-testing.html#question-6"><i class="fa fa-check"></i><b>5.4.9</b> Question 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html"><i class="fa fa-check"></i><b>6</b> Version control and collaboration with git and github</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lecture-summary-3"><i class="fa fa-check"></i><b>6.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#learning-objectives-3"><i class="fa fa-check"></i><b>6.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.1.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#hypothetical-paper-writing"><i class="fa fa-check"></i><b>6.1.2</b> Hypothetical: Paper Writing</a></li>
+<li class="chapter" data-level="6.1.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#solution"><i class="fa fa-check"></i><b>6.1.3</b> Solution</a></li>
+<li class="chapter" data-level="6.1.4" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#why-use-git-and-github"><i class="fa fa-check"></i><b>6.1.4</b> Why Use Git and GitHub?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#a-simple-two-person-workflow"><i class="fa fa-check"></i><b>6.1.5</b> A Simple Two-Person Workflow</a></li>
+<li class="chapter" data-level="6.1.6" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#five-essential-git-commands"><i class="fa fa-check"></i><b>6.1.6</b> Five Essential Git Commands</a></li>
+<li class="chapter" data-level="6.1.7" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-status"><i class="fa fa-check"></i><b>6.1.7</b> 1) <code>git status</code></a></li>
+<li class="chapter" data-level="6.1.8" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-add"><i class="fa fa-check"></i><b>6.1.8</b> 2) <code>git add</code></a></li>
+<li class="chapter" data-level="6.1.9" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-commit--m-message"><i class="fa fa-check"></i><b>6.1.9</b> 3) <code>git commit -m "message"</code></a></li>
+<li class="chapter" data-level="6.1.10" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-push"><i class="fa fa-check"></i><b>6.1.10</b> 4) <code>git push</code></a></li>
+<li class="chapter" data-level="6.1.11" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-pull"><i class="fa fa-check"></i><b>6.1.11</b> 5) <code>git pull</code></a></li>
+<li class="chapter" data-level="6.1.12" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#git-command-summary"><i class="fa fa-check"></i><b>6.1.12</b> git command summary</a></li>
+<li class="chapter" data-level="6.1.13" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#i-cannot-push-my-commit"><i class="fa fa-check"></i><b>6.1.13</b> I cannot push my commit!?</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-reflection-trisos-et-al.-2021-decoloniality-and-antioppressive-practices-for-a-more-ethical-ecology"><i class="fa fa-check"></i><b>6.2</b> ## Discussion &amp; Reflection: Trisos et al. (2021): Decoloniality and anti‑oppressive practices for a more ethical ecology</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#article-embedded"><i class="fa fa-check"></i><b>6.2.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#discussion-questions-week-2"><i class="fa fa-check"></i><b>6.2.2</b> Discussion Questions (Week 2)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#lab-5-question-1"><i class="fa fa-check"></i><b>6.3</b> Lab 5 Question 1</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2a-partners"><i class="fa fa-check"></i><b>6.3.1</b> Question 2a (partners)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="version-control-and-collaboration-with-git-and-github.html"><a href="version-control-and-collaboration-with-git-and-github.html#question-2b-solo-project"><i class="fa fa-check"></i><b>6.3.2</b> Question 2b (solo project)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ecological-networks.html"><a href="ecological-networks.html"><i class="fa fa-check"></i><b>7</b> Ecological networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lecture-summary-4"><i class="fa fa-check"></i><b>7.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="ecological-networks.html"><a href="ecological-networks.html#learning-objectives-4"><i class="fa fa-check"></i><b>7.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.1.2" data-path="ecological-networks.html"><a href="ecological-networks.html#linearalgebra-essentials-for-ecological-networks"><i class="fa fa-check"></i><b>7.1.2</b> Linear‑algebra essentials for ecological networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-challenge-matrix-vector-multiplication-with-plantpollinator-data"><i class="fa fa-check"></i><b>7.2</b> In-class challenge: Matrix &amp; vector multiplication with plant–pollinator data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ecological-networks.html"><a href="ecological-networks.html#from-data-to-networks"><i class="fa fa-check"></i><b>7.2.1</b> From data to networks</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ecological-networks.html"><a href="ecological-networks.html#core-network-properties-formulas-intuition-tools"><i class="fa fa-check"></i><b>7.2.2</b> Core network properties (formulas, intuition, tools)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-building-networks-and-characterizing-their-structure"><i class="fa fa-check"></i><b>7.2.3</b> Demo: Building networks and characterizing their structure</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ecological-networks.html"><a href="ecological-networks.html#null-models-for-fair-comparisons"><i class="fa fa-check"></i><b>7.2.4</b> Null models for fair comparisons</a></li>
+<li class="chapter" data-level="7.2.5" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-calculating-network-metrics-pollination"><i class="fa fa-check"></i><b>7.2.5</b> Demo: Calculating network metrics (pollination)</a></li>
+<li class="chapter" data-level="7.2.6" data-path="ecological-networks.html"><a href="ecological-networks.html#demo-create-a-graph-from-oba-data-visualize-it"><i class="fa fa-check"></i><b>7.2.6</b> Demo: Create a graph from OBA data, visualize it</a></li>
+<li class="chapter" data-level="7.2.7" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-1."><i class="fa fa-check"></i><b>7.2.7</b> In class: Visualization challange 1.</a></li>
+<li class="chapter" data-level="7.2.8" data-path="ecological-networks.html"><a href="ecological-networks.html#in-class-visualization-challange-2."><i class="fa fa-check"></i><b>7.2.8</b> In class: Visualization challange 2.</a></li>
+<li class="chapter" data-level="7.2.9" data-path="ecological-networks.html"><a href="ecological-networks.html#further-reading-software"><i class="fa fa-check"></i><b>7.2.9</b> Further reading &amp; software</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ecological-networks.html"><a href="ecological-networks.html#yeakel-et-al.-2014-collapse-of-an-ecological-network-in-ancient-egypt"><i class="fa fa-check"></i><b>7.3</b> Yeakel et al. (2014): Collapse of an ecological network in Ancient Egypt</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ecological-networks.html"><a href="ecological-networks.html#article-embedded-1"><i class="fa fa-check"></i><b>7.3.1</b> Article (embedded)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ecological-networks.html"><a href="ecological-networks.html#discussion-questions"><i class="fa fa-check"></i><b>7.3.2</b> Discussion Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-food-webs-network-measures-student-version"><i class="fa fa-check"></i><b>7.4</b> Lab — Food Webs &amp; Network Measures (Student Version)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ecological-networks.html"><a href="ecological-networks.html#lesson-overview-2"><i class="fa fa-check"></i><b>7.4.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-1-creating-our-foodwebs-based-on-body-sizes."><i class="fa fa-check"></i><b>7.4.2</b> Lab question 1: Creating our foodwebs based on body sizes.</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-2-breaking-the-networks-into-time-periods"><i class="fa fa-check"></i><b>7.4.3</b> Lab question 2: Breaking the networks into time periods</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ecological-networks.html"><a href="ecological-networks.html#lab-question-3-visualize-the-networks"><i class="fa fa-check"></i><b>7.4.4</b> Lab question 3: Visualize the networks</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ecological-networks.html"><a href="ecological-networks.html#references"><i class="fa fa-check"></i><b>7.4.5</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html"><i class="fa fa-check"></i><b>8</b> String Processing &amp; Debugging</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lecture-summary-5"><i class="fa fa-check"></i><b>8.1</b> Lecture summary</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.1.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-in-base-r"><i class="fa fa-check"></i><b>8.1.2</b> String manipulation in base R</a></li>
+<li class="chapter" data-level="8.1.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#string-manipulation-using-stringr"><i class="fa fa-check"></i><b>8.1.3</b> String manipulation using <em>stringr</em></a></li>
+<li class="chapter" data-level="8.1.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#regular-expressions-regexregexp"><i class="fa fa-check"></i><b>8.1.4</b> Regular expressions (regex/regexp)</a></li>
+<li class="chapter" data-level="8.1.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#general-principles-for-working-with-regex"><i class="fa fa-check"></i><b>8.1.5</b> General principles for working with regex</a></li>
+<li class="chapter" data-level="8.1.6" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#working-with-patterns"><i class="fa fa-check"></i><b>8.1.6</b> Working with patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-what-will-the-regular-expression-oorgani.eb-match"><i class="fa fa-check"></i><b>8.2</b> In class challenge: What will the regular expression <code>^[Oo]rgani.e\b</code> match?</a></li>
+<li class="chapter" data-level="8.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#in-class-challenge-2-how-would-i-extract-an-email-address-from-an-arbitrary-text-string"><i class="fa fa-check"></i><b>8.3</b> In class challenge 2: How would I extract an email address from an arbitrary text string?</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#groups"><i class="fa fa-check"></i><b>8.3.1</b> Groups</a></li>
+<li class="chapter" data-level="8.3.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#other-comments"><i class="fa fa-check"></i><b>8.3.2</b> Other comments</a></li>
+<li class="chapter" data-level="8.3.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#additional-resources"><i class="fa fa-check"></i><b>8.3.3</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#dicussion-reflection-debugging-in-r"><i class="fa fa-check"></i><b>8.4</b> Dicussion &amp; Reflection: Debugging in R</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#basic-debugging-strategies"><i class="fa fa-check"></i><b>8.4.1</b> 1) Basic debugging strategies</a></li>
+<li class="chapter" data-level="8.4.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#rs-interactive-debugging-tools"><i class="fa fa-check"></i><b>8.4.2</b> 2) R’s interactive debugging tools</a></li>
+<li class="chapter" data-level="8.4.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#some-common-causes-of-bugs"><i class="fa fa-check"></i><b>8.4.3</b> 3) Some common causes of bugs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#tips-for-avoiding-bugs-and-catching-errors"><i class="fa fa-check"></i><b>8.4.4</b> 4) Tips for avoiding bugs and catching errors</a></li>
+<li class="chapter" data-level="8.4.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#how-to-get-help-online"><i class="fa fa-check"></i><b>8.4.5</b> 5) How to get help online</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-regular-expressions-and-cleaning-oba-data-student-version"><i class="fa fa-check"></i><b>8.5</b> Lab — Regular expressions and cleaning OBA data (Student Version)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lesson-overview-3"><i class="fa fa-check"></i><b>8.5.1</b> Lesson Overview</a></li>
+<li class="chapter" data-level="8.5.2" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-1-oregon-bee-atlas-data-exploration"><i class="fa fa-check"></i><b>8.5.2</b> Lab question 1: Oregon bee atlas data exploration</a></li>
+<li class="chapter" data-level="8.5.3" data-path="string-processing-debugging.html"><a href="string-processing-debugging.html#lab-question-2-making-a-column-for-plant-resolution"><i class="fa fa-check"></i><b>8.5.3</b> Lab question 2: Making a column for plant resolution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-project-1.html"><a href="final-project-1.html"><i class="fa fa-check"></i><b>9</b> Final project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="final-project-1.html"><a href="final-project-1.html#final-project-objective"><i class="fa fa-check"></i><b>9.1</b> Final project objective</a></li>
+<li class="chapter" data-level="9.2" data-path="final-project-1.html"><a href="final-project-1.html#final-project-topic-selection-first-final-project-assignment"><i class="fa fa-check"></i><b>9.2</b> Final project topic selection (first final project assignment)</a></li>
+<li class="chapter" data-level="9.3" data-path="final-project-1.html"><a href="final-project-1.html#final-project-office-hours-discussion-second-final-project-assignment"><i class="fa fa-check"></i><b>9.3</b> Final project office hours discussion (second final project assignment)</a></li>
+<li class="chapter" data-level="9.4" data-path="final-project-1.html"><a href="final-project-1.html#final-project-annotated-bibliography-third-final-project-assignment"><i class="fa fa-check"></i><b>9.4</b> Final project annotated bibliography (third final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="final-project-1.html"><a href="final-project-1.html#overview"><i class="fa fa-check"></i><b>9.4.1</b> Overview</a></li>
+<li class="chapter" data-level="9.4.2" data-path="final-project-1.html"><a href="final-project-1.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.4.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.4.3" data-path="final-project-1.html"><a href="final-project-1.html#requirements"><i class="fa fa-check"></i><b>9.4.3</b> Requirements</a></li>
+<li class="chapter" data-level="9.4.4" data-path="final-project-1.html"><a href="final-project-1.html#how-to-search-effectively-google-scholar-tips"><i class="fa fa-check"></i><b>9.4.4</b> How to search effectively (Google Scholar tips)</a></li>
+<li class="chapter" data-level="9.4.5" data-path="final-project-1.html"><a href="final-project-1.html#recommended-workflow"><i class="fa fa-check"></i><b>9.4.5</b> Recommended workflow</a></li>
+<li class="chapter" data-level="9.4.6" data-path="final-project-1.html"><a href="final-project-1.html#what-each-entry-should-include"><i class="fa fa-check"></i><b>9.4.6</b> What each entry should include</a></li>
+<li class="chapter" data-level="9.4.7" data-path="final-project-1.html"><a href="final-project-1.html#template-copy-for-each-source"><i class="fa fa-check"></i><b>9.4.7</b> Template (copy for each source)</a></li>
+<li class="chapter" data-level="9.4.8" data-path="final-project-1.html"><a href="final-project-1.html#author-surname-et-al.-year.-title."><i class="fa fa-check"></i><b>9.4.8</b> Author Surname et al. (Year). <em>Title</em>.</a></li>
+<li class="chapter" data-level="9.4.9" data-path="final-project-1.html"><a href="final-project-1.html#example-of-intext-citation-references"><i class="fa fa-check"></i><b>9.4.9</b> Example of in‑text citation &amp; references</a></li>
+<li class="chapter" data-level="9.4.10" data-path="final-project-1.html"><a href="final-project-1.html#rubric"><i class="fa fa-check"></i><b>9.4.10</b> Rubric</a></li>
+<li class="chapter" data-level="9.4.11" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist"><i class="fa fa-check"></i><b>9.4.11</b> Submission checklist</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-and-workflow-plan-fourth-final-project-assignment"><i class="fa fa-check"></i><b>9.5</b> Literature review and workflow plan (fourth final project assignment)</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="final-project-1.html"><a href="final-project-1.html#literature-review-i.e.-the-introduction-section-of-your-final-project"><i class="fa fa-check"></i><b>9.5.1</b> Literature review (i.e., the introduction section of your final project)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="final-project-1.html"><a href="final-project-1.html#dataset-identification"><i class="fa fa-check"></i><b>9.5.2</b> Dataset identification</a></li>
+<li class="chapter" data-level="9.5.3" data-path="final-project-1.html"><a href="final-project-1.html#workflow-plan"><i class="fa fa-check"></i><b>9.5.3</b> Workflow plan</a></li>
+<li class="chapter" data-level="9.5.4" data-path="final-project-1.html"><a href="final-project-1.html#rubric-1"><i class="fa fa-check"></i><b>9.5.4</b> Rubric</a></li>
+<li class="chapter" data-level="9.5.5" data-path="final-project-1.html"><a href="final-project-1.html#submission-checklist-1"><i class="fa fa-check"></i><b>9.5.5</b> Submission Checklist</a></li>
+<li class="chapter" data-level="9.5.6" data-path="final-project-1.html"><a href="final-project-1.html#optional-scaffold-copy-into-your-working-doc"><i class="fa fa-check"></i><b>9.5.6</b> Optional scaffold (copy into your working doc)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="final-project-1.html"><a href="final-project-1.html#final-project-rubric-10-pts-total-1-pt-extra-credit"><i class="fa fa-check"></i><b>9.6</b> Final Project Rubric (10 pts total + 1 pt extra credit)</a></li>
+<li class="chapter" data-level="9.7" data-path="final-project-1.html"><a href="final-project-1.html#poster-presentation-rubric-10-pts-total"><i class="fa fa-check"></i><b>9.7</b> Poster Presentation Rubric (10 pts total)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for the Environment — Lecture Notes &amp; Labs</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simulation-based-hypothesis-testing" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Simulation-based hypothesis testing<a href="simulation-based-hypothesis-testing.html#simulation-based-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lecture-summary-2" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Lecture summary:<a href="simulation-based-hypothesis-testing.html#lecture-summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter introduces model-based hypothesis testing with null and alternative hypotheses, simulation (permutation) to obtain an empirical null distribution, and interpreting p‑values. We then apply this to an ecological case study on hedgerows and bee communities, with a focus on trait differences and biodiversity metrics (α, β, γ).</p>
+<div id="learning-objectives-2" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Learning Objectives<a href="simulation-based-hypothesis-testing.html#learning-objectives-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By the end, you should be able to:</p>
+<ul>
+<li>Explain the <strong>null</strong> vs <strong>alternative</strong> model and choose a suitable <strong>test statistic</strong>.</li>
+<li>Simulate a <strong>null distribution</strong> and compute an <strong>empirical p‑value</strong>.</li>
+<li>Run an <strong>A/B test</strong> comparing two groups via permutation.</li>
+<li>Define and compute <strong>alpha</strong>, <strong>beta</strong>, and <strong>gamma</strong> diversity from sample data.</li>
+<li>Interpret results in an applied ecology setting (hedgerows vs controls).</li>
+</ul>
+</div>
+<div id="hypothesis-testing" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Hypothesis testing<a href="simulation-based-hypothesis-testing.html#hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Models</strong> are sets of assumptions about data; the question is <strong>does the model fit?</strong></li>
+<li><strong>Null hypothesis</strong>: a well‑defined probabilistic model for how data were generated; we can simulate data <strong>under the null</strong> to understand expected variation.<br />
+</li>
+<li><strong>Alternative hypothesis</strong>: a different generative view; we choose a statistic whose large (or small) values favor the alternative.<br />
+</li>
+<li><strong>Assessing a model</strong>: (1) choose a statistic; (2) simulate the statistic under the null; (3) compare the observed statistic to the simulated distribution (histogram).<br />
+</li>
+<li><strong>Conclusion</strong>: If the observed statistic is inconsistent with the null distribution, the test <strong>rejects the null</strong> in favor of the alternative.<br />
+</li>
+<li><strong>p‑value</strong>: the chance, <strong>under the null</strong>, of seeing the observed statistic or something <strong>more extreme in the direction of the alternative</strong>.</li>
+</ul>
+</div>
+<div id="ab-testing" class="section level3 hasAnchor" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> A/B testing<a href="simulation-based-hypothesis-testing.html#ab-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>What is A/B testing?</strong><br />
+We compare outcomes between two conditions — <strong>A</strong> (control; e.g., unrestored field edges) and <strong>B</strong> (treatment; e.g., hedgerows) — to estimate a causal effect on a metric such as <strong>species richness</strong>.</p>
+<p><strong>Design &amp; notation.</strong> Let groups be <span class="math inline">\(g\in\{A,B\}\)</span>. For site <span class="math inline">\(i\)</span> in group <span class="math inline">\(g\)</span>, observe outcome <span class="math inline">\(Y_{ig}\)</span> (e.g., Shannon diversity). A simple test statistic is the <strong>difference in means</strong><br />
+<span class="math display">\[
+(T_{obs})= \bar{Y}_B - \bar{Y}_A
+\]</span></p>
+<p>(<span class="math inline">\(\bar{Y}\)</span> denotes average, pronouced y-bar)</p>
+<p><strong>Randomization/permutation test.</strong> To obtain a finite-sample null without distributional assumptions:</p>
+<ol style="list-style-type: decimal">
+<li><p>Compute the observed statistic (<span class="math inline">\(T_{obs}\)</span>)</p></li>
+<li><p><strong>Shuffle</strong> the group labels (respecting any blocks/years; see below) many times (e.g., 10,000 permutations).</p></li>
+<li><p>Recompute (<span class="math inline">\(t_{sim}\)</span>) for each shuffle to form the <strong>empirical null</strong>, <span class="math inline">\(T_{sim}\)</span></p></li>
+<li><p>The <strong>two-sided p-value</strong> is: <code>sum(abs(tsim) &gt;= abs(Tobs))/nsim</code> or equivalently <code>mean(abs(T_perm) &gt;= abs(T_obs))</code> (HINT: maybe it would be useful to write a function to use this euqation over and over again).</p></li>
+</ol>
+<p><strong>Blocking and paired designs.</strong> If sites are naturally paired (e.g., each hedgerow matched to a nearby control) or sampled across <strong>years</strong>, compute the statistic <strong>within block/year</strong>, then average across blocks. Permute <strong>within</strong> each block/year to preserve structure.</p>
+</div>
+</div>
+<div id="demo-ab-testing-with-mauna-loa-co₂" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Demo: A/B Testing with Mauna Loa CO₂<a href="#demo-ab-testing-with-mauna-loa-co%E2%82%82" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p><strong>Goal.</strong> Use the Mauna Loa monthly CO₂ record to run a two‑sided <strong>A/B test</strong> with a <strong>permutation (randomization)</strong> test.<br />
+<strong>A</strong> = 1960s, <strong>B</strong> = 2010s. Outcome: monthly change Δ ppm. We <strong>block by month‑of‑year</strong> to preserve seasonality.<br />
+Then tackle a <strong>an in class challenge</strong> on seasonal amplitude (per‑year max−min).</p>
+</blockquote>
+<div id="import-co₂-monthly-data" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Import CO₂ monthly data<a href="#import-co%E2%82%82-monthly-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The file is in <code>data/co2_mm_mlo.txt</code> (copied with this Rmd). We skip commented header lines and parse the monthly <strong>average</strong> and <strong>de‑seasonalized</strong> series. In this file, <code>-9.99</code> and <code>-0.99</code> flag missing metadata.</p>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   year = col_double(),
+##   month = col_double(),
+##   decimal_date = col_double(),
+##   average = col_double(),
+##   deseasonalized = col_double(),
+##   ndays = col_double(),
+##   stdev_days = col_double(),
+##   unc_month = col_double()
+## )</code></pre>
+<pre><code>## Rows: 809
+## Columns: 8
+## $ year           &lt;dbl&gt; 1958, 1958, 1958, 1958, 1958, 1958, 1958, 1958, 1958, 1…
+## $ month          &lt;dbl&gt; 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8…
+## $ decimal_date   &lt;dbl&gt; 1958.203, 1958.288, 1958.370, 1958.455, 1958.537, 1958.…
+## $ average        &lt;dbl&gt; 315.71, 317.45, 317.51, 317.27, 315.87, 314.93, 313.21,…
+## $ deseasonalized &lt;dbl&gt; 314.44, 315.16, 314.69, 315.15, 315.20, 316.21, 316.11,…
+## $ ndays          &lt;dbl&gt; -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,…
+## $ stdev_days     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ unc_month      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+</div>
+<div id="create-the-outcome-and-define-ab-groups" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Create the outcome and define A/B groups<a href="simulation-based-hypothesis-testing.html#create-the-outcome-and-define-ab-groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We compute <strong>Δ ppm</strong> month‑to‑month and subset to the <strong>1960s</strong> and <strong>2010s</strong>. We also keep <code>month_name</code> to block permutations by month (preserving seasonality).</p>
+<pre><code>## 
+## A_1960s B_2010s 
+##     120     120</code></pre>
+</div>
+<div id="observed-effect-difference-in-means" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Observed effect (difference in means)<a href="simulation-based-hypothesis-testing.html#observed-effect-difference-in-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Our statistic: <span class="math inline">\(\Delta = \bar{\Delta}_{2010s} - \bar{\Delta}_{1960s}\)</span>. Positive values imply faster month‑to‑month increases in the 2010s.</p>
+<pre><code>##   T_obs 
+## 0.13175</code></pre>
+</div>
+<div id="permutation-test-twosided-blocked-by-month" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Permutation test (two‑sided), <strong>blocked by month</strong><a href="simulation-based-hypothesis-testing.html#permutation-test-twosided-blocked-by-month" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We permute the <strong>group labels within each month-of-year</strong> to preserve seasonal structure while breaking any decade effect.</p>
+<pre><code>## [1] 0.0034</code></pre>
+<div id="visualize-the-permutation-null" class="section level4 hasAnchor" number="5.2.4.1">
+<h4><span class="header-section-number">5.2.4.1</span> Visualize the permutation null<a href="simulation-based-hypothesis-testing.html#visualize-the-permutation-null" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="04-simulation-hypothesis-testing_files/figure-html/perm-plot-1.png" width="672" />
+What is your conclusion?
+ANSWER…</p>
+</div>
+<div id="sanity-check-raw-δ-distributions" class="section level4 hasAnchor" number="5.2.4.2">
+<h4><span class="header-section-number">5.2.4.2</span> Sanity check: raw Δ distributions<a href="#sanity-check-raw-%CE%B4-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="04-simulation-hypothesis-testing_files/figure-html/delta-dists-1.png" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="challenge-problem-seasonal-amplitude-ab-test" class="section level3 hasAnchor" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> Challenge Problem — Seasonal amplitude A/B test<a href="simulation-based-hypothesis-testing.html#challenge-problem-seasonal-amplitude-ab-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Question.</strong> Is the <strong>seasonal amplitude</strong> (per‑year <code>max(average) − min(average)</code>) larger in the <strong>2010s</strong> than in the <strong>1960s</strong>?</p>
+<p><strong>First, make a plan:</strong>
+1) Compute yearly amplitudes.<br />
+2) Define A (1960s years) and B (2010s years).<br />
+3) Observed effect: mean(amplitude_B) − mean(amplitude_A).<br />
+4) Permutation test at the <strong>year level</strong> by randomly reassigning years to A/B (keeping counts fixed).</p>
+<pre><code>## T_obs_amp 
+##     0.425</code></pre>
+<pre><code>## [1] 0.04</code></pre>
+<p>What is your conclusion?
+ANSWER…</p>
+</div>
+<div id="biodiversity-metrics-α-β-γ-diversity" class="section level3 hasAnchor" number="5.2.6">
+<h3><span class="header-section-number">5.2.6</span> Biodiversity metrics: α, β, γ diversity<a href="#biodiversity-metrics-%CE%B1-%CE%B2-%CE%B3-diversity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Alpha (α) diversity</strong>: <strong>within‑site</strong> diversity (e.g., species richness per site). It captures local diversity at the sampling unit.</li>
+</ul>
+<p>Common indices: <strong>richness</strong> <span class="math inline">\(S\)</span>, <strong>Shannon</strong> <span class="math inline">\(H&#39;=-\sum_i p_i\ln p_i\)</span> <span class="citation">(<a href="#ref-Shannon1948">Shannon 1948</a>)</span>, <strong>Simpson</strong> <span class="math inline">\(1-\sum_i p_i^2\)</span> <span class="citation">(<a href="#ref-Simpson1949">Simpson 1949</a>)</span>, or <strong>Hill numbers</strong> <span class="math inline">\(^{q}\!D\)</span> <span class="citation">(<a href="#ref-Hill1973">Hill 1973</a>)</span>.</p>
+<ul>
+<li><strong>Beta (<span class="math inline">\(\beta\)</span>) diversity</strong>: <em>compositional variation among sites</em> (how different communities are). The <span class="math inline">\(\alpha\)</span>/<span class="math inline">\(\beta\)</span>/<span class="math inline">\(\gamma\)</span> framework was formalized by Whittaker <span class="citation">(<a href="#ref-Whittaker1972">Whittaker 1972</a>)</span>. Two complementary ways to quantify <span class="math inline">\(\beta\)</span>:</li>
+</ul>
+<p>Two equivalent views:
+1. <strong>Multiplicative</strong> (Whittaker): <span class="math inline">\(\beta_W = \dfrac{\gamma}{\bar{\alpha}}\)</span> (or additive: <span class="math inline">\(\gamma - \bar{\alpha}\)</span>).<br />
+2. <strong>Dissimilarity/dispersion</strong> <span class="citation">(<a href="#ref-Anderson2006">Anderson 2006</a>)</span></p>
+<ul>
+<li><p>Compute a site-by-site dissimilarity matrix</p></li>
+<li><p>Dissimilarity <span class="math inline">\(\to\)</span> ordination (e.g., PCoA),<br />
+</p></li>
+<li><p>Compute each site’s <strong>distance to its group centroid</strong>,<br />
+</p></li>
+<li><p>Compare mean distances between groups with permutations.</p></li>
+<li><p><strong>Gamma (γ) diversity</strong>: <strong>regional</strong> or pooled diversity across all sites in the study.</p></li>
+</ul>
+<p><strong>What’s a dissimilarly matrix?</strong>
+A <strong>dissimilarity matrix</strong> (aka distance matrix) stores <strong>pairwise differences</strong> among <em>n</em> sites. It is an <em>n × n</em> square matrix with:</p>
+<ul>
+<li><strong>Zero diagonal</strong>: distance of each site to itself is 0.<br />
+</li>
+<li><strong>Symmetry</strong>: <span class="math inline">\(d(i,j) = d(j,i)\)</span>.<br />
+</li>
+<li><strong>Scale</strong>: often in <span class="math inline">\([0,1]\)</span> for indices like <strong>Bray–Curtis</strong> (0 = identical, 1 = completely different).</li>
+</ul>
+<p>We measure abundance of three bee species at three sites:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Species</th>
+<th align="center">Site1</th>
+<th align="center">Site2</th>
+<th align="center">Site3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Bee_A</td>
+<td align="center">5</td>
+<td align="center">0</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center">Bee_B</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">Bee_C</td>
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="center">7</td>
+</tr>
+</tbody>
+</table>
+<p>We’ll use <strong>Bray–Curtis dissimilarity</strong> between two sites <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>:
+<span class="math display">\[
+\mathrm{BC}(x,y) \;=\; \frac{\sum_i |x_i - y_i|}{\sum_i (x_i + y_i)} \,.
+\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center">Site1</th>
+<th align="center">Site2</th>
+<th align="center">Site3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Site1</td>
+<td align="center">0</td>
+<td align="center">0.5</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="even">
+<td align="center">Site2</td>
+<td align="center">0.5</td>
+<td align="center">0</td>
+<td align="center">0.3</td>
+</tr>
+<tr class="odd">
+<td align="center">Site3</td>
+<td align="center">0.5</td>
+<td align="center">0.3</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>If you ever need to calculate dissimilarity in R, use the <code>vegdist</code> function in the package <code>vegan</code>.</p>
+<p><strong>When to use which dissimilarity?</strong></p>
+<ul>
+<li><strong>Bray–Curtis</strong> (abundances): robust, ignores joint absences, common for β‑diversity.<br />
+</li>
+<li><strong>Jaccard / Sørensen</strong> (presence–absence): use when only detection/non-detection is reliable.</li>
+</ul>
+</div>
+<div id="biotic-homgenization-and-traits" class="section level3 hasAnchor" number="5.2.7">
+<h3><span class="header-section-number">5.2.7</span> Biotic homgenization and traits<a href="simulation-based-hypothesis-testing.html#biotic-homgenization-and-traits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Biotic homogenization</strong> means communities become <strong>more similar</strong> over space or through time (i.e., <strong>β‑diversity decreases</strong>). In the hedgerow context, the hypothesis is that restoration <strong>counteracts homogenization</strong> by creating habitat heterogeneity that supports distinct species sets across sites.</p>
+<p><strong>Ecological (environmental) filtering</strong>: abiotic and biotic conditions of a habitat <em>select</em> species/traits that can persist, favoring some strategies and excluding others. Filtering helps explain shifts in community composition and trait distributions across environments (see general synthesis in <span class="citation">(<a href="#ref-Legendre2012">Legendre and Legendre 2012</a>)</span>).</p>
+<ul>
+<li>Ex: In conventional margins, frequent disturbance/resources may filter for <strong>small, generalist, ground‑nesting</strong> bees.<br />
+</li>
+<li>Restored <strong>hedgerows</strong> can <strong>relax</strong> filters, allowing a <em>wider trait set</em> and greater community heterogeneity.</li>
+</ul>
+<p><strong>Functional Traits &amp; Measures of Trait Diversity</strong></p>
+<p><strong>What is a functional trait?</strong>
+A measurable species life history or phenotypic characteristic that influences performance: <strong>body size</strong>, <strong>diet breadth/specialization</strong>, <strong>tongue length</strong>, <strong>phenology</strong>, <strong>nesting substrate</strong>, etc.</p>
+<p><strong>Common trait diversity metrics</strong></p>
+<ul>
+<li><strong>Functional richness (FRic)</strong> — volume of trait space occupied (convex hull) <span class="citation">(<a href="#ref-Villeger2008">Villéger, Mason, and Mouillot 2008</a>)</span>. Usually trivially related to species richness (<span class="math inline">\(\alpha\)</span> diversity).</li>
+<li><strong>Functional evenness (FEve)</strong> — how evenly abundances are distributed in trait space <span class="citation">(<a href="#ref-Villeger2008">Villéger, Mason, and Mouillot 2008</a>)</span>.<br />
+</li>
+<li><strong>Functional divergence (FDiv)</strong> — degree to which abundances lie toward trait extremes <span class="citation">(<a href="#ref-Villeger2008">Villéger, Mason, and Mouillot 2008</a>)</span>.<br />
+</li>
+<li><strong>Functional dispersion (FDis)</strong> / <strong>Rao’s Q</strong> — mean distance of individuals/species to the trait centroid <span class="citation">(<a href="#ref-Laliberte2010">Laliberté and Legendre 2010</a>; <a href="#ref-Rao1982">Rao 1982</a>)</span>. Can be thought of as Functional richness but standardized for species richness.</li>
+</ul>
+<p><strong>Interpretation guide</strong></p>
+<ul>
+<li>Higher <strong>FRic/FDis</strong>: broader strategies; potential for complementarity.</li>
+<li>Higher <strong>FEve</strong>: reduced dominance by a single strategy; balanced species functions.<br />
+</li>
+<li>Higher <strong>FDiv</strong>: niche differentiation; extremes well represented.</li>
+</ul>
+<p><strong>Traits as mechanisms.</strong> Certain habitat types may shift <strong>functional trait</strong> composition (e.g., body size, nesting substrate, diet breadth), increasing <strong>functional divergence</strong> and <strong>evenness</strong>, which can <strong>increase β</strong> by promoting niche differentiation.</p>
+<p><strong>Community Nestedness vs. Turnover (Replacement)</strong></p>
+<ul>
+<li><strong>Nestedness</strong>: communities with fewer species are <strong>subsets</strong> of richer ones (shared core + losses).
+<ul>
+<li>Metric: <strong>NODF</strong> — Nestedness based on Overlap and Decreasing Fill <span class="citation">(<a href="#ref-AlmeidaNeto2008">Almeida-Neto et al. 2008</a>)</span>.</li>
+</ul></li>
+<li><strong>Turnover (replacement)</strong>: differences across sites occur because <strong>species are replaced</strong>, not just lost.
+<ul>
+<li>Partitioning <span class="math inline">\(\beta\)</span> into <strong>turnover vs. nestedness</strong> components clarifies processes <span class="citation">(<a href="#ref-Baselga2010">Baselga 2010</a>)</span>.</li>
+</ul></li>
+</ul>
+<p><strong>Why it matters</strong><br />
+- If patterns are <strong>nested</strong>, filters or gradients produce orderly species loss.<br />
+- If patterns show <strong>turnover</strong>, environments/resources are heterogeneous; restoration may create distinct assemblages.<br />
+- Elevated β with little nestedness <span class="math inline">\(\Rightarrow\)</span> <strong>replacement</strong> is the dominant driver.</p>
+<hr />
+</div>
+</div>
+<div id="discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Discussion &amp; Reflection: Ponisio et al. (2016): On-farm habitat restoration counters biotic homogenization in intensively managed agriculture<a href="simulation-based-hypothesis-testing.html#discussion-reflection-ponisio-et-al.-2016-on-farm-habitat-restoration-counters-biotic-homogenization-in-intensively-managed-agriculture" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Ponisio2016.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+<div id="preclass-reflection-please-submit-short-answers-via-canvas-2" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Pre‑class reflection (please submit short answers via canvas)<a href="simulation-based-hypothesis-testing.html#preclass-reflection-please-submit-short-answers-via-canvas-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Use short, evidence-based answers linked to the paper. Where asked, reference the figure, method, or statistic that supports your claim. We will cover these same questions during our in class discussion.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Core claim in one sentence.</strong> In your own words, summarize the central finding about hedgerows and community heterogeneity (β-diversity). What <em>measure</em> of β-diversity did the study use, and why was a null-model correction necessary?</p></li>
+<li><p><strong>Trait perspective.</strong> Define <em>trait evenness, dispersion, divergence</em> and explain what it means that mature hedgerows increased all three relative to controls.</p></li>
+<li><p><strong>Ecological filter.</strong> What evidence suggests conventional field margins act as an ecological filter on bee traits (e.g., body size, specialization, nesting)? Give one concrete example reported in the paper.</p></li>
+<li><p><strong>Nestedness vs. replacement.</strong> What does it mean that communities were generally <em>not</em> nested (NODF), and why does this support species <strong>replacement</strong> as a source of β-diversity? How might a nested pattern have changed the interpretation?</p></li>
+<li><p><strong>Measurement choice.</strong> The paper uses an <strong>abundance-based dissimilarity</strong> estimator that accounts for unseen species and then computes <strong>multivariate dispersion</strong> (distance to group centroid) as β-diversity. Explain why naïvely comparing average pairwise dissimilarities could be misleading without these controls.</p></li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Lab: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?<a href="simulation-based-hypothesis-testing.html#lab-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our goal is to reproduce the analyses in Ponisio et al. 2016, On‐farm habitat restoration counters biotic homogenization in intensively managed agriculture, <a href="https://doi.org/10.1111/gcb.13117">Ponisio et al. 2016</a></p>
+<p>Specifically, we are going to reproduce Figure 4 panels a-b, where we examine whether the bees at hedgerows (restored habitat) and controls (weedy field margins that would have a hedgerow) are random subset of the species pool.</p>
+<p><strong>Conservation/ecology Topics</strong></p>
+<ul>
+<li>Become familiar with different metrics of biodiversity, including trait diversity.<br />
+</li>
+<li>Become familiar with the concept of biotic homogenization.</li>
+</ul>
+<p><strong>Computational Topics</strong></p>
+<ul>
+<li>Join data</li>
+<li>Make histograms</li>
+<li>Subsetting, reshaping data using dplyr (more practice)</li>
+<li>Use logical indexing to subset data (more practice)</li>
+<li>Write functions (more practice)</li>
+<li>Write for loops (more practice)</li>
+</ul>
+<p><strong>Statistical Topics</strong></p>
+<ul>
+<li>AB testing, simulating the null hypothesis</li>
+<li>Calculate empirical p-values</li>
+<li>Hypothesis testings: reject or accept our null hypothesis</li>
+</ul>
+<hr />
+<pre><code>## &#39;data.frame&#39;:    186842 obs. of  40 variables:
+##  $ UniqueID      : chr  &quot;M2007SR1Barger_001&quot; &quot;M2007SR1Barger_002&quot; &quot;M2007SR1Barger_003&quot; &quot;M2007SR1Barger_004&quot; ...
+##  $ TempID        : int  17590 17591 17598 17599 17600 17601 17602 17603 17604 17605 ...
+##  $ Sex           : chr  &quot;m&quot; &quot;f&quot; &quot;m&quot; &quot;f&quot; ...
+##  $ Determiner    : chr  &quot;M. Hauser&quot; &quot;R. Thorp&quot; &quot;R. Thorp&quot; &quot;R. Thorp&quot; ...
+##  $ DateDetermined: chr  &quot;4/12/11&quot; &quot;7/2/08&quot; &quot;7/2/08&quot; &quot;7/2/08&quot; ...
+##  $ Collector     : chr  &quot;K. Ullmann&quot; &quot;K. Ullmann&quot; &quot;K. Ullmann&quot; &quot;K. Ullmann&quot; ...
+##  $ NetNumber     : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Notes         : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+##  $ BeeNonbee     : chr  &quot;non-bee&quot; &quot;bee&quot; &quot;bee&quot; &quot;bee&quot; ...
+##  $ Order         : chr  &quot;Diptera&quot; &quot;Hymenoptera&quot; &quot;Hymenoptera&quot; &quot;Hymenoptera&quot; ...
+##  $ Family        : chr  &quot;Syrphidae&quot; &quot;Halictidae&quot; &quot;Megachilidae&quot; &quot;Apidae&quot; ...
+##  $ Genus         : chr  &quot;Eupeodes&quot; &quot;Lasioglossum&quot; &quot;Megachile&quot; &quot;Ceratina&quot; ...
+##  $ SubGenus      : chr  &quot;&quot; &quot;(Dialictus)&quot; &quot;&quot; &quot;&quot; ...
+##  $ Species       : chr  &quot;fumipennis&quot; &quot;incompletum&quot; &quot;gentilis&quot; &quot;acantha&quot; ...
+##  $ SubSpecies    : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+##  $ PlantGenus    : chr  &quot;Brassica&quot; &quot;Brassica&quot; &quot;Marrubium&quot; &quot;Marrubium&quot; ...
+##  $ PlantSpecies  : chr  &quot;sp.&quot; &quot;sp.&quot; &quot;vulgare&quot; &quot;vulgare&quot; ...
+##  $ Date          : chr  &quot;4/24/07&quot; &quot;4/24/07&quot; &quot;4/24/07&quot; &quot;4/24/07&quot; ...
+##  $ SampleRound   : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ SiteStatus    : chr  &quot;control&quot; &quot;control&quot; &quot;control&quot; &quot;control&quot; ...
+##  $ NetPan        : chr  &quot;net&quot; &quot;net&quot; &quot;net&quot; &quot;net&quot; ...
+##  $ StartTime     : chr  &quot;15:14:00&quot; &quot;15:14:00&quot; &quot;15:14:00&quot; &quot;15:14:00&quot; ...
+##  $ EndTime       : chr  &quot;17:21:00&quot; &quot;17:21:00&quot; &quot;17:21:00&quot; &quot;17:21:00&quot; ...
+##  $ TempStart     : num  26.4 26.4 26.4 26.4 26.4 ...
+##  $ TempEnd       : num  24.9 24.9 24.9 24.9 24.9 ...
+##  $ WindStart     : num  1 1 1 1 1 1 1 1 1 1 ...
+##  $ WindEnd       : num  1.7 1.7 1.7 1.7 1.7 1.7 1.7 1.7 1.7 1.7 ...
+##  $ SkyStart      : chr  &quot;clear&quot; &quot;clear&quot; &quot;clear&quot; &quot;clear&quot; ...
+##  $ SkyEnd        : chr  &quot;clear&quot; &quot;clear&quot; &quot;clear&quot; &quot;clear&quot; ...
+##  $ WeatherNotes  : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+##  $ Site          : chr  &quot;Barger&quot; &quot;Barger&quot; &quot;Barger&quot; &quot;Barger&quot; ...
+##  $ Country       : chr  &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; &quot;USA&quot; ...
+##  $ State         : chr  &quot;CA&quot; &quot;CA&quot; &quot;CA&quot; &quot;CA&quot; ...
+##  $ County        : chr  &quot;Yolo&quot; &quot;Yolo&quot; &quot;Yolo&quot; &quot;Yolo&quot; ...
+##  $ GPS           : chr  &quot;N38 34.575 W121 49.834&quot; &quot;N38 34.575 W121 49.834&quot; &quot;N38 34.575 W121 49.834&quot; &quot;N38 34.575 W121 49.834&quot; ...
+##  $ Year          : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
+##  $ JulianDate    : int  114 114 114 114 114 114 114 114 114 114 ...
+##  $ GenusSpecies  : chr  &quot;Eupeodes fumipennis&quot; &quot;Lasioglossum (Dialictus) incompletum&quot; &quot;Megachile gentilis&quot; &quot;Ceratina acantha&quot; ...
+##  $ SiteStatusBACI: chr  &quot;hedgerow&quot; &quot;hedgerow&quot; &quot;hedgerow&quot; &quot;hedgerow&quot; ...
+##  $ ypr           : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<p>Each row is a uniquely identified insect specimen and all of it’s attributes. If we explore the species ID-related columns in more depth, we can see that there are many different types of insects in addition to bees. There are also some specimens that have never been IDed (missed data is a blank cell in these case).</p>
+<pre><code>##  [1] &quot;Diptera&quot;     &quot;Hymenoptera&quot; &quot;Coleoptera&quot;  &quot;Hemiptera&quot;   &quot;Lepidoptera&quot;
+##  [6] &quot;&quot;            &quot;Araneae&quot;     &quot;Orthoptera&quot;  &quot;Odonata&quot;     &quot;Homoptera&quot;  
+## [11] &quot;Mantodea&quot;</code></pre>
+<pre><code>##  [1] &quot;Syrphidae&quot;    &quot;Halictidae&quot;   &quot;Megachilidae&quot; &quot;Apidae&quot;       &quot;&quot;            
+##  [6] &quot;Pieridae&quot;     &quot;Lycaenidae&quot;   &quot;Colletidae&quot;   &quot;Vespidae&quot;     &quot;Nymphalidae&quot; 
+## [11] &quot;Chrysididae&quot;  &quot;Andrenidae&quot;   &quot;Hesperiidae&quot;  &quot;Formicidae&quot;   &quot;Crabronidae&quot; 
+## [16] &quot;Tachinidae&quot;   &quot;Sphecidae&quot;    &quot;Conopidae&quot;    &quot;Ulidiidae&quot;    &quot;Cicadellidae&quot;
+## [21] &quot;Chloropidae&quot;  &quot;Simuliidae&quot;   &quot;Melittidae&quot;   &quot;Pipunculidae&quot; &quot;Papilionidae&quot;</code></pre>
+<pre><code>##   [1] &quot;&quot;                                         
+##   [2] &quot;Agapostemon texanus&quot;                      
+##   [3] &quot;Allograpta exotica&quot;                       
+##   [4] &quot;Allograpta micrura&quot;                       
+##   [5] &quot;Allograpta obliqua&quot;                       
+##   [6] &quot;Anasimyia lunulatus&quot;                      
+##   [7] &quot;Ancistrocerus catskill&quot;                   
+##   [8] &quot;Ancistrocerus lineativentris&quot;             
+##   [9] &quot;Ancistrocerus spilogaster&quot;                
+##  [10] &quot;Andrena angustitarsata&quot;                   
+##  [11] &quot;Andrena astragali&quot;                        
+##  [12] &quot;Andrena auricoma&quot;                         
+##  [13] &quot;Andrena caerulea&quot;                         
+##  [14] &quot;Andrena candida&quot;                          
+##  [15] &quot;Andrena cerasifolii&quot;                      
+##  [16] &quot;Andrena cercocarpi&quot;                       
+##  [17] &quot;Andrena chlorogaster&quot;                     
+##  [18] &quot;Andrena chlorura&quot;                         
+##  [19] &quot;Andrena cressonii infasciata&quot;             
+##  [20] &quot;Andrena knuthiana&quot;                        
+##  [21] &quot;Andrena melanochroa&quot;                      
+##  [22] &quot;Andrena microchlora&quot;                      
+##  [23] &quot;Andrena misella&quot;                          
+##  [24] &quot;Andrena nigrocaerulea&quot;                    
+##  [25] &quot;Andrena orthocarpi&quot;                       
+##  [26] &quot;Andrena piperi&quot;                           
+##  [27] &quot;Andrena scurra&quot;                           
+##  [28] &quot;Andrena semipunctata&quot;                     
+##  [29] &quot;Andrena sp.&quot;                              
+##  [30] &quot;Andrena subaustralis&quot;                     
+##  [31] &quot;Andrena subchalybea&quot;                      
+##  [32] &quot;Andrena submoesta&quot;                        
+##  [33] &quot;Andrena w-scripta&quot;                        
+##  [34] &quot;Anthidiellum notatum robertsoni&quot;          
+##  [35] &quot;Anthidium illustre&quot;                       
+##  [36] &quot;Anthidium illustre robertsoni&quot;            
+##  [37] &quot;Anthidium manicatum&quot;                      
+##  [38] &quot;Anthidium utahense&quot;                       
+##  [39] &quot;Anthidium utahense robertsoni&quot;            
+##  [40] &quot;Anthophora curta&quot;                         
+##  [41] &quot;Anthophora edwardsii&quot;                     
+##  [42] &quot;Anthophora urbana&quot;                        
+##  [43] &quot;Anthophorula chionura&quot;                    
+##  [44] &quot;Aporinellus fasciatus&quot;                    
+##  [45] &quot;Asemosyrphus polygrammus&quot;                 
+##  [46] &quot;Ashmeadiella aridula&quot;                     
+##  [47] &quot;Ashmeadiella aridula astragali&quot;           
+##  [48] &quot;Ashmeadiella bucconis denticulata&quot;        
+##  [49] &quot;Ashmeadiella cactorum basalis&quot;            
+##  [50] &quot;Ashmeadiella californica&quot;                 
+##  [51] &quot;Ashmeadiella gilletti&quot;                    
+##  [52] &quot;Ashmeadiella salviae basalis&quot;             
+##  [53] &quot;Ashmeadiella timberlakei&quot;                 
+##  [54] &quot;Ashmeadiella timberlakei solida&quot;          
+##  [55] &quot;Atalopedes campestris&quot;                    
+##  [56] &quot;Atilides halesus&quot;                         
+##  [57] &quot;Battus philenor&quot;                          
+##  [58] &quot;Belomicrus sericeum&quot;                      
+##  [59] &quot;Bembix americana&quot;                         
+##  [60] &quot;Bombus&quot;                                   
+##  [61] &quot;Bombus californicus&quot;                      
+##  [62] &quot;Bombus crotchii&quot;                          
+##  [63] &quot;Bombus melanopygus&quot;                       
+##  [64] &quot;Bombus vandykei&quot;                          
+##  [65] &quot;Bombus vosnesenskii&quot;                      
+##  [66] &quot;Brephidium exilis&quot;                        
+##  [67] &quot;Calliopsis boharti&quot;                       
+##  [68] &quot;Calliopsis fracta&quot;                        
+##  [69] &quot;Calliopsis hesperia equina&quot;               
+##  [70] &quot;Calliopsis scitula&quot;                       
+##  [71] &quot;Calliopsis scutellaris&quot;                   
+##  [72] &quot;Callophrys augustinus&quot;                    
+##  [73] &quot;Ceratina acantha&quot;                         
+##  [74] &quot;Ceratina arizonensis&quot;                     
+##  [75] &quot;Ceratina dallatorreana&quot;                   
+##  [76] &quot;Ceratina nanula&quot;                          
+##  [77] &quot;Ceratina punctigena&quot;                      
+##  [78] &quot;Ceratina sequoiae&quot;                        
+##  [79] &quot;Ceratina timberlakei&quot;                     
+##  [80] &quot;Ceriana tridens&quot;                          
+##  [81] &quot;Chalybion californicum&quot;                   
+##  [82] &quot;Chelostoma phaceliae&quot;                     
+##  [83] &quot;Chlorion aerarium&quot;                        
+##  [84] &quot;Chrysis amala&quot;                            
+##  [85] &quot;Chrysis scitule&quot;                          
+##  [86] &quot;Chrysura inusitata&quot;                       
+##  [87] &quot;Chrysura pacifica&quot;                        
+##  [88] &quot;Chrysura sagmatis&quot;                        
+##  [89] &quot;Coelioxys apacheorum&quot;                     
+##  [90] &quot;Coelioxys gilensis&quot;                       
+##  [91] &quot;Coelioxys novomexicanus&quot;                  
+##  [92] &quot;Coelioxys octodentatus&quot;                   
+##  [93] &quot;Coenonympha tullia&quot;                       
+##  [94] &quot;Colias eurytheme&quot;                         
+##  [95] &quot;Colletes fulgidus&quot;                        
+##  [96] &quot;Colletes hyalinus&quot;                        
+##  [97] &quot;Colletes hyalinus gaudialis&quot;              
+##  [98] &quot;Copestylum mexicanum&quot;                     
+##  [99] &quot;Cupido amyntula&quot;                          
+## [100] &quot;Cylindromyia&quot;                             
+## [101] &quot;Diadasia australis&quot;                       
+## [102] &quot;Diadasia bituberculata&quot;                   
+## [103] &quot;Diadasia chionura&quot;                        
+## [104] &quot;Diadasia consociata&quot;                      
+## [105] &quot;Diadasia diminuta&quot;                        
+## [106] &quot;Diadasia enavata&quot;                         
+## [107] &quot;Diadasia nigrifrons&quot;                      
+## [108] &quot;Diadasia ochracea&quot;                        
+## [109] &quot;Diadasia rinconis&quot;                        
+## [110] &quot;Dianthidium pudicum&quot;                      
+## [111] &quot;Dianthidium ulkei&quot;                        
+## [112] &quot;Dufourea sp.&quot;                             
+## [113] &quot;Dufourea sp. 1&quot;                           
+## [114] &quot;Ectemnius areuatus&quot;                       
+## [115] &quot;Ectemnius spinifer&quot;                       
+## [116] &quot;Eristalinus aeneus&quot;                       
+## [117] &quot;Eristalis arbustorum&quot;                     
+## [118] &quot;Eristalis hirta&quot;                          
+## [119] &quot;Eristalis stipator&quot;                       
+## [120] &quot;Eristalis tenax&quot;                          
+## [121] &quot;Erynnis funeralis&quot;                        
+## [122] &quot;Eucera actuosa&quot;                           
+## [123] &quot;Eucera dorsata&quot;                           
+## [124] &quot;Eucera edwardsii&quot;                         
+## [125] &quot;Eucera frater&quot;                            
+## [126] &quot;Eucera frater albopilosa&quot;                 
+## [127] &quot;Eucera sp.&quot;                               
+## [128] &quot;Eucera virgata&quot;                           
+## [129] &quot;Eumenes crucifera&quot;                        
+## [130] &quot;Eumerus&quot;                                  
+## [131] &quot;Eumerus strigatus&quot;                        
+## [132] &quot;Euodynerus annulatus&quot;                     
+## [133] &quot;Euodynerus foraminatus&quot;                   
+## [134] &quot;Euodynerus hidalgo&quot;                       
+## [135] &quot;Eupeodes fumipennis&quot;                      
+## [136] &quot;Eupeodes volucris&quot;                        
+## [137] &quot;Euxesta&quot;                                  
+## [138] &quot;Ferdinandea&quot;                              
+## [139] &quot;Gymnosoma&quot;                                
+## [140] &quot;Gymnosomam&quot;                               
+## [141] &quot;Habropoda tristissima&quot;                    
+## [142] &quot;Halictus farinosus&quot;                       
+## [143] &quot;Halictus ligatus&quot;                         
+## [144] &quot;Halictus tripartitus&quot;                     
+## [145] &quot;Hedychridium paulum&quot;                      
+## [146] &quot;Hedychridium soliarellae&quot;                 
+## [147] &quot;Helophilus latifrons&quot;                     
+## [148] &quot;Heriades occidentalis&quot;                    
+## [149] &quot;Hesperapis ilicifoliae&quot;                   
+## [150] &quot;Hesperapis regularis&quot;                     
+## [151] &quot;Hoplitis albifrons&quot;                       
+## [152] &quot;Hoplitis albifrons maura&quot;                 
+## [153] &quot;Hoplitis grinnelli&quot;                       
+## [154] &quot;Hoplitis producta gracilis&quot;               
+## [155] &quot;Hoplitis sambuci&quot;                         
+## [156] &quot;Hylaeus&quot;                                  
+## [157] &quot;Hylaeus calvus&quot;                           
+## [158] &quot;Hylaeus conspicuus&quot;                       
+## [159] &quot;Hylaeus episcopalis&quot;                      
+## [160] &quot;Hylaeus leptocephalus&quot;                    
+## [161] &quot;Hylaeus mesillae&quot;                         
+## [162] &quot;Hylaeus rudbeckiae&quot;                       
+## [163] &quot;Hylaeus sp.&quot;                              
+## [164] &quot;Hylaeus verticalis&quot;                       
+## [165] &quot;Isodontia elegans&quot;                        
+## [166] &quot;Junonia coenia&quot;                           
+## [167] &quot;Lapposyrphus lapponicus&quot;                  
+## [168] &quot;Lasioglossum (Dialictus)&quot;                 
+## [169] &quot;Lasioglossum (Dialictus) brunneiventre&quot;   
+## [170] &quot;Lasioglossum (Dialictus) diversopunctatum&quot;
+## [171] &quot;Lasioglossum (Dialictus) impavidum&quot;       
+## [172] &quot;Lasioglossum (Dialictus) incompletum&quot;     
+## [173] &quot;Lasioglossum (Dialictus) knereri&quot;         
+## [174] &quot;Lasioglossum (Dialictus) punctatoventre&quot;  
+## [175] &quot;Lasioglossum (Dialictus) sp.&quot;             
+## [176] &quot;Lasioglossum (Dialictus) sp. BM&quot;          
+## [177] &quot;Lasioglossum (Dialictus) tegulare group&quot;  
+## [178] &quot;Lasioglossum (Evylaeus)&quot;                  
+## [179] &quot;Lasioglossum (Evylaeus) diatretum&quot;        
+## [180] &quot;Lasioglossum (Evylaeus) granosum&quot;         
+## [181] &quot;Lasioglossum (Evylaeus) kincaidii&quot;        
+## [182] &quot;Lasioglossum (Evylaeus) nigrescens&quot;       
+## [183] &quot;Lasioglossum (Evylaeus) sp.&quot;              
+## [184] &quot;Lasioglossum (Evylaeus) sp. 3M&quot;           
+## [185] &quot;Lasioglossum (Evylaeus) sp. 4&quot;            
+## [186] &quot;Lasioglossum (Evylaeus) sp. B&quot;            
+## [187] &quot;Lasioglossum (Evylaeus) sp. I&quot;            
+## [188] &quot;Lasioglossum (Evylaeus) sp. P&quot;            
+## [189] &quot;Lasioglossum diversopunctatum&quot;            
+## [190] &quot;Lasioglossum mellipes&quot;                    
+## [191] &quot;Lasioglossum olympiae&quot;                    
+## [192] &quot;Lasioglossum ovaliceps&quot;                   
+## [193] &quot;Lasioglossum punctatoventre&quot;              
+## [194] &quot;Lasioglossum sisymbrii&quot;                   
+## [195] &quot;Lasioglossum titusi&quot;                      
+## [196] &quot;Leptochilus irwini&quot;                       
+## [197] &quot;Leptochilus rufinodus&quot;                    
+## [198] &quot;Lerodea eufala&quot;                           
+## [199] &quot;Limentis lorquini&quot;                        
+## [200] &quot;Lycaena helloides&quot;                        
+## [201] &quot;Mallota sackeni&quot;                          
+## [202] &quot;Megachile&quot;                                
+## [203] &quot;Megachile angelarum&quot;                      
+## [204] &quot;Megachile apicalis&quot;                       
+## [205] &quot;Megachile brevis&quot;                         
+## [206] &quot;Megachile coquilletti&quot;                    
+## [207] &quot;Megachile fidelis&quot;                        
+## [208] &quot;Megachile frugalis&quot;                       
+## [209] &quot;Megachile gentilis&quot;                       
+## [210] &quot;Megachile lippiae&quot;                        
+## [211] &quot;Megachile montivaga&quot;                      
+## [212] &quot;Megachile occidentalis&quot;                   
+## [213] &quot;Megachile onobrychidis&quot;                   
+## [214] &quot;Megachile parallela&quot;                      
+## [215] &quot;Megachile prosopidis&quot;                     
+## [216] &quot;Megachile rotundata&quot;                      
+## [217] &quot;Megachile texana&quot;                         
+## [218] &quot;Melissodes agilis&quot;                        
+## [219] &quot;Melissodes communis alopex&quot;               
+## [220] &quot;Melissodes lupinus&quot;                       
+## [221] &quot;Melissodes robustior&quot;                     
+## [222] &quot;Melissodes stearnsi&quot;                      
+## [223] &quot;Melissodes tepida timberlakei&quot;            
+## [224] &quot;Myathropa florea&quot;                         
+## [225] &quot;Neocnemodon&quot;                              
+## [226] &quot;Neocnemodon sp&quot;                           
+## [227] &quot;Nomada hesperia&quot;                          
+## [228] &quot;Nomada sp. 3&quot;                             
+## [229] &quot;Nomada sp. 3M&quot;                            
+## [230] &quot;Nomada sp. 5&quot;                             
+## [231] &quot;Nomada sp. A&quot;                             
+## [232] &quot;Nomada sp. AM&quot;                            
+## [233] &quot;Nomada sp. CK-1&quot;                          
+## [234] &quot;Nomada sp. CK-1M&quot;                         
+## [235] &quot;Nomada sp. CK-2M&quot;                         
+## [236] &quot;Nomada sp. CKM-2&quot;                         
+## [237] &quot;Nomada sp. HS-Y-1&quot;                        
+## [238] &quot;Odontomyia sp&quot;                            
+## [239] &quot;Osmia&quot;                                    
+## [240] &quot;Osmia aglaia&quot;                             
+## [241] &quot;Osmia atrocyanea&quot;                         
+## [242] &quot;Osmia brevis&quot;                             
+## [243] &quot;Osmia californica&quot;                        
+## [244] &quot;Osmia cara&quot;                               
+## [245] &quot;Osmia coloradensis&quot;                       
+## [246] &quot;Osmia cyanella&quot;                           
+## [247] &quot;Osmia densa&quot;                              
+## [248] &quot;Osmia gabrielis&quot;                          
+## [249] &quot;Osmia gaudiosa&quot;                           
+## [250] &quot;Osmia glauca&quot;                             
+## [251] &quot;Osmia granulosa&quot;                          
+## [252] &quot;Osmia laeta&quot;                              
+## [253] &quot;Osmia lignaria propinqua&quot;                 
+## [254] &quot;Osmia nemoris&quot;                            
+## [255] &quot;Osmia odontogaster&quot;                       
+## [256] &quot;Osmia pusilla&quot;                            
+## [257] &quot;Osmia regulina&quot;                           
+## [258] &quot;Osmia sp. CK-BR&quot;                          
+## [259] &quot;Osmia sp. MB&quot;                             
+## [260] &quot;Osmia sp. MD&quot;                             
+## [261] &quot;Osmia sp. MG&quot;                             
+## [262] &quot;Osmia sp. MJ&quot;                             
+## [263] &quot;Osmia texana&quot;                             
+## [264] &quot;Osmia trevoris&quot;                           
+## [265] &quot;Palpada alhambra&quot;                         
+## [266] &quot;Panurginus&quot;                               
+## [267] &quot;Panurginus nigrellus&quot;                     
+## [268] &quot;Panurginus sp.&quot;                           
+## [269] &quot;Papilio rutulus&quot;                          
+## [270] &quot;Paragus&quot;                                  
+## [271] &quot;Paragus haemorrhous&quot;                      
+## [272] &quot;Paragus longistylus&quot;                      
+## [273] &quot;Parhelophilus laetus&quot;                     
+## [274] &quot;Peponapis pruinosa&quot;                       
+## [275] &quot;Perdita salicis tristis&quot;                  
+## [276] &quot;Pholisora catullus&quot;                       
+## [277] &quot;Phyciodes mylitta&quot;                        
+## [278] &quot;Pieris rapae&quot;                             
+## [279] &quot;Pipiza&quot;                                   
+## [280] &quot;Platycheirus&quot;                             
+## [281] &quot;Platycheirus quadratus&quot;                   
+## [282] &quot;Platycheirus stegnus&quot;                     
+## [283] &quot;Platycheirus trichopus&quot;                   
+## [284] &quot;Plebejus acmon&quot;                           
+## [285] &quot;Poanes melane&quot;                            
+## [286] &quot;Polistes aurifer&quot;                         
+## [287] &quot;Polistes dominula&quot;                        
+## [288] &quot;Polistes dorsalis&quot;                        
+## [289] &quot;Pontia protodice&quot;                         
+## [290] &quot;Prionyx attratus&quot;                         
+## [291] &quot;Prionyx parkeri&quot;                          
+## [292] &quot;Prionyx thomae&quot;                           
+## [293] &quot;Protosmia rubifloris&quot;                     
+## [294] &quot;Pyrgus communis&quot;                          
+## [295] &quot;Pyrgus scriptura&quot;                         
+## [296] &quot;Scaeva affinis&quot;                           
+## [297] &quot;Sceliphron caementarium&quot;                  
+## [298] &quot;Sphaerophoria contigua&quot;                   
+## [299] &quot;Sphaerophoria pyrrhina&quot;                   
+## [300] &quot;Sphaerophoria sulphuripes&quot;                
+## [301] &quot;Sphecodes&quot;                                
+## [302] &quot;Sphecodes sp.&quot;                            
+## [303] &quot;Sphecodes sp. 1&quot;                          
+## [304] &quot;Sphecodes sp. 1M&quot;                         
+## [305] &quot;Sphecodes sp. AM&quot;                         
+## [306] &quot;Sphecodes sp. B&quot;                          
+## [307] &quot;Sphecodes sp. D&quot;                          
+## [308] &quot;Sphecodes sp. GM&quot;                         
+## [309] &quot;Sphex pensylvanicus&quot;                      
+## [310] &quot;Stelis laticincta&quot;                        
+## [311] &quot;Stelis montana&quot;                           
+## [312] &quot;Stenodynerus blandus&quot;                     
+## [313] &quot;Stenodynerus claremontensis&quot;              
+## [314] &quot;Stenodynerus cochisensis&quot;                 
+## [315] &quot;Strymon melinus&quot;                          
+## [316] &quot;Svastra obliqua expurgata&quot;                
+## [317] &quot;Syritta flaviventris&quot;                     
+## [318] &quot;Syritta pipiens&quot;                          
+## [319] &quot;Syrphus opinator&quot;                         
+## [320] &quot;Syrphus torvus&quot;                           
+## [321] &quot;Tachytes distinctus&quot;                      
+## [322] &quot;Tetraloniella pomonae&quot;                    
+## [323] &quot;Thecophora&quot;                               
+## [324] &quot;Toxomerus marginatus&quot;                     
+## [325] &quot;Toxomerus occidentalis&quot;                   
+## [326] &quot;Trichopoda&quot;                               
+## [327] &quot;Triepeolus concavus&quot;                      
+## [328] &quot;Triepeolus heterurus&quot;                     
+## [329] &quot;Triepeolus melanarius&quot;                    
+## [330] &quot;Triepeolus sp. 1&quot;                         
+## [331] &quot;Triepeolus sp. 1M&quot;                        
+## [332] &quot;Triepeolus sp. 2M&quot;                        
+## [333] &quot;Triepeolus sp. A&quot;                         
+## [334] &quot;Triepeolus sp. CK-1&quot;                      
+## [335] &quot;Triepeolus sp. D&quot;                         
+## [336] &quot;Triepeolus sp. EM&quot;                        
+## [337] &quot;Triepeolus sp. FM&quot;                        
+## [338] &quot;Triepeolus sp. GM&quot;                        
+## [339] &quot;Triepeolus sp. nr. lestes&quot;                
+## [340] &quot;Triepeolus subnitens&quot;                     
+## [341] &quot;Triepeolus timberlakei&quot;                   
+## [342] &quot;Triepeolus utahensis&quot;                     
+## [343] &quot;Tropidia quadrata&quot;                        
+## [344] &quot;Vanessa cardui&quot;                           
+## [345] &quot;Xeromelecta californica&quot;                  
+## [346] &quot;Xylocopa&quot;                                 
+## [347] &quot;Xylocopa sonorina&quot;                        
+## [348] &quot;Xylocopa tabaniformis orpifex&quot;</code></pre>
+<div id="question-1-practicing-the-data-subsetting-tools-from-dplyr" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Question 1: Practicing the data subsetting tools from dplyr<a href="simulation-based-hypothesis-testing.html#question-1-practicing-the-data-subsetting-tools-from-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>1a. Thinking back to the dplyr tools you learned last week, subset the data to only bees. The families of bees are “Halictidae”, “Megachilidae”, “Apidae”, “Colletidae”, “Andrenidae” and “Melittidae”. In addition, drop all rows without anything in the ‘Species’ column, otherwise we could end up with specimens only identified to Genus.</li>
+</ul>
+<p>Keep the data object named spec (i.e., don’t create a new name for the subsetted data.)</p>
+<p>HINT: %in% maybe useful, or remember how to string together Booleans in ‘dplyr’.</p>
+<ul>
+<li>1b. Now take a look at the site statuses, or the site “treatments”,</li>
+</ul>
+<p>This data include many more site treatments than we need to reproduce the publication because it includes all of the sites ever surveyed in this landscape. We don’t really care about the restored sites (that is the year the hedgerow was planted so they are between a hedgerow and a control). We don’t have many “natural” sites (we couldn’t find any). Forbs are hedgerows with additional forb plantings, also not what we need.</p>
+<ul>
+<li>1c. Subset only to mature hedgerows and controls (weedy field margins). We also only care about the “hand-netted” data (the column ‘NetPan’) and female bees (‘Sex’) (male bees don’t collect pollen). Do all of this subsetting in one call to filter (you will need to combine your comparisons using &amp; or |.</li>
+</ul>
+<p>Similar to before keep the name of the data the same. The publication also includes the maturing sites, but we are going to make our lives a little easier by keeping our analysis to two treatments.</p>
+<ul>
+<li>1d. Lastly, drop all the random columns we don’t care about. All we want to keep are “UniqueID”, “GenusSpecies”, “Site”, “SiteStatus” and “Year”.</li>
+</ul>
+</div>
+<div id="demo-joining-data" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Demo: Joining data<a href="simulation-based-hypothesis-testing.html#demo-joining-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next, we want to add in species traits.</p>
+<p>We will often find ourselves in a situation where we want to combine two datasets by some shared column. In dyplyr, mutating joins add columns from y to x, matching observations based on the keys. There are four mutating joins: the inner join, and the three outer joins.</p>
+<ul>
+<li>Inner join: An inner_join() only keeps observations from x that have a matching key in y. The most important property of an inner join is that unmatched rows in either input are not included in the result, so data is dropped.</li>
+</ul>
+<pre><code>##    x y
+## 1  1 2
+## 2  2 2
+## 3  3 2
+## 4  4 2
+## 5 NA 2</code></pre>
+<pre><code>##   x z
+## 1 1 3
+## 2 2 3</code></pre>
+<pre><code>## Joining with `by = join_by(x)`</code></pre>
+<pre><code>## [1] 2 3</code></pre>
+<pre><code>##   x y z
+## 1 1 2 3
+## 2 2 2 3</code></pre>
+<ul>
+<li><p>Outer joins: The three outer joins keep observations that appear in at least one of the data frames:</p></li>
+<li><p>A left_join() keeps all observations in x.</p></li>
+</ul>
+<pre><code>##   x y
+## 1 1 2
+## 2 2 2
+## 3 3 2
+## 4 4 2
+## 5 5 2
+## 6 6 2</code></pre>
+<pre><code>##   x z
+## 1 1 3
+## 2 2 3
+## 3 3 3
+## 4 4 3
+## 5 5 3
+## 6 6 3</code></pre>
+<pre><code>## Joining with `by = join_by(x)`</code></pre>
+<pre><code>## [1] 100   3</code></pre>
+<pre><code>##   x y z
+## 1 1 2 3
+## 2 2 2 3
+## 3 3 2 3
+## 4 4 2 3
+## 5 5 2 3
+## 6 6 2 3</code></pre>
+<ul>
+<li>A right_join() keeps all observations in y.</li>
+</ul>
+<pre><code>##   x y
+## 1 1 2
+## 2 2 2
+## 3 3 2
+## 4 4 2
+## 5 5 2
+## 6 6 2</code></pre>
+<pre><code>##   x z
+## 1 1 3
+## 2 2 3
+## 3 3 3
+## 4 4 3
+## 5 5 3
+## 6 6 3</code></pre>
+<pre><code>## Joining with `by = join_by(x)`</code></pre>
+<pre><code>## [1] 10  3</code></pre>
+<pre><code>##   x y z
+## 1 1 2 3
+## 2 2 2 3
+## 3 3 2 3
+## 4 4 2 3
+## 5 5 2 3
+## 6 6 2 3</code></pre>
+<ul>
+<li>A full_join() keeps all observations in x and y.</li>
+</ul>
+<pre><code>##       x y
+## 1     1 2
+## 2     2 2
+## 3     3 2
+## 4     4 2
+## 5     5 2
+## 6     6 2
+## 7     7 2
+## 8     8 2
+## 9     9 2
+## 10   10 2
+## 11   11 2
+## 12   12 2
+## 13   13 2
+## 14   14 2
+## 15   15 2
+## 16   16 2
+## 17   17 2
+## 18   18 2
+## 19   19 2
+## 20   20 2
+## 21   21 2
+## 22   22 2
+## 23   23 2
+## 24   24 2
+## 25   25 2
+## 26   26 2
+## 27   27 2
+## 28   28 2
+## 29   29 2
+## 30   30 2
+## 31   31 2
+## 32   32 2
+## 33   33 2
+## 34   34 2
+## 35   35 2
+## 36   36 2
+## 37   37 2
+## 38   38 2
+## 39   39 2
+## 40   40 2
+## 41   41 2
+## 42   42 2
+## 43   43 2
+## 44   44 2
+## 45   45 2
+## 46   46 2
+## 47   47 2
+## 48   48 2
+## 49   49 2
+## 50   50 2
+## 51   51 2
+## 52   52 2
+## 53   53 2
+## 54   54 2
+## 55   55 2
+## 56   56 2
+## 57   57 2
+## 58   58 2
+## 59   59 2
+## 60   60 2
+## 61   61 2
+## 62   62 2
+## 63   63 2
+## 64   64 2
+## 65   65 2
+## 66   66 2
+## 67   67 2
+## 68   68 2
+## 69   69 2
+## 70   70 2
+## 71   71 2
+## 72   72 2
+## 73   73 2
+## 74   74 2
+## 75   75 2
+## 76   76 2
+## 77   77 2
+## 78   78 2
+## 79   79 2
+## 80   80 2
+## 81   81 2
+## 82   82 2
+## 83   83 2
+## 84   84 2
+## 85   85 2
+## 86   86 2
+## 87   87 2
+## 88   88 2
+## 89   89 2
+## 90   90 2
+## 91   91 2
+## 92   92 2
+## 93   93 2
+## 94   94 2
+## 95   95 2
+## 96   96 2
+## 97   97 2
+## 98   98 2
+## 99   99 2
+## 100 100 2</code></pre>
+<pre><code>##       x z
+## 1     1 3
+## 2     2 3
+## 3     3 3
+## 4     4 3
+## 5     5 3
+## 6     6 3
+## 7     7 3
+## 8     8 3
+## 9     9 3
+## 10   10 3
+## 11  100 3
+## 12  101 3
+## 13  102 3
+## 14  103 3
+## 15  104 3
+## 16  105 3
+## 17  106 3
+## 18  107 3
+## 19  108 3
+## 20  109 3
+## 21  110 3
+## 22  111 3
+## 23  112 3
+## 24  113 3
+## 25  114 3
+## 26  115 3
+## 27  116 3
+## 28  117 3
+## 29  118 3
+## 30  119 3
+## 31  120 3
+## 32  121 3
+## 33  122 3
+## 34  123 3
+## 35  124 3
+## 36  125 3
+## 37  126 3
+## 38  127 3
+## 39  128 3
+## 40  129 3
+## 41  130 3
+## 42  131 3
+## 43  132 3
+## 44  133 3
+## 45  134 3
+## 46  135 3
+## 47  136 3
+## 48  137 3
+## 49  138 3
+## 50  139 3
+## 51  140 3
+## 52  141 3
+## 53  142 3
+## 54  143 3
+## 55  144 3
+## 56  145 3
+## 57  146 3
+## 58  147 3
+## 59  148 3
+## 60  149 3
+## 61  150 3
+## 62  151 3
+## 63  152 3
+## 64  153 3
+## 65  154 3
+## 66  155 3
+## 67  156 3
+## 68  157 3
+## 69  158 3
+## 70  159 3
+## 71  160 3
+## 72  161 3
+## 73  162 3
+## 74  163 3
+## 75  164 3
+## 76  165 3
+## 77  166 3
+## 78  167 3
+## 79  168 3
+## 80  169 3
+## 81  170 3
+## 82  171 3
+## 83  172 3
+## 84  173 3
+## 85  174 3
+## 86  175 3
+## 87  176 3
+## 88  177 3
+## 89  178 3
+## 90  179 3
+## 91  180 3
+## 92  181 3
+## 93  182 3
+## 94  183 3
+## 95  184 3
+## 96  185 3
+## 97  186 3
+## 98  187 3
+## 99  188 3
+## 100 189 3
+## 101 190 3
+## 102 191 3
+## 103 192 3
+## 104 193 3
+## 105 194 3
+## 106 195 3
+## 107 196 3
+## 108 197 3
+## 109 198 3
+## 110 199 3
+## 111 200 3</code></pre>
+<pre><code>## Joining with `by = join_by(x)`</code></pre>
+<pre><code>## [1] 200   3</code></pre>
+<pre><code>##   x y z
+## 1 1 2 3
+## 2 2 2 3
+## 3 3 2 3
+## 4 4 2 3
+## 5 5 2 3
+## 6 6 2 3</code></pre>
+<p>Class discussion: What type of join do we want to use to to combine the individual bee data with their traits?</p>
+</div>
+<div id="question-2-1" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Question 2<a href="simulation-based-hypothesis-testing.html#question-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>2a. Join the trait data to the individual bee data. Before joining the data, subset the trait to only the bee IDs (‘GenusSpecies’), body size (‘MeanITD’), floral specialization (‘d’). Call the joined data spec.traits</p></li>
+<li><p>2b. How many specimens are missing body size data?
+HINT: the function ‘is.na()’ may be useful.
+EXTRA HINT: Remember the TRUEs are counted as 1s in R.</p></li>
+<li><p>2c. What are the unique species names missing body size data.</p></li>
+<li><p>2d. These were relatively rare species that didn’t have enough individuals to accurately estimate body size. Since we cannot do much with them, go ahead and drop them. Keep the data named spec.traits. You can use the tools we have learned in dyplyr, or just clever indexing.</p></li>
+</ul>
+<p>HINT: There are several ways you can drop the rows without body size data, try to avoid hard coding by copy pasting the names above. What if you added new data and wanted to re-run the code? You might miss some species if you remove them “by hand”.
+EXTRA HINT: Remember that ! reverses TRUEs and FALSEs (so TRUE because FALSE and vice versa).</p>
+<p>EXTRA EXTRA HINT: If you decide to use indexing, remember that when we index a 2D object we need to specify the indexes of the rows and columns.</p>
+</div>
+<div id="lab-question-3" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Lab Question 3<a href="simulation-based-hypothesis-testing.html#lab-question-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>3a. Use ‘group_by’ and ‘summarize’ to calculate the average body size and specialization for each site, year, site status combination. Create a new object called sys.traits</p></li>
+<li><p>3b. Visualize this data with a histograms for each trait.
+HINT: ‘geom_histogram()’ is the function that makes histograms, and it only needs an x aesthetic.</p></li>
+<li><p>3c. Describe what you see.
+– ANSWER:</p></li>
+</ul>
+</div>
+<div id="demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits" class="section level3 hasAnchor" number="5.4.5">
+<h3><span class="header-section-number">5.4.5</span> Demo: Do the bees at hedgerows and weedy field margins (controls) have the same distribution of traits?<a href="simulation-based-hypothesis-testing.html#demo-do-the-bees-at-hedgerows-and-weedy-field-margins-controls-have-the-same-distribution-of-traits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Null hypothesis: Mature hedgerows and weedy field margins (controls) support bees with similar traits, so the average trait values at hedgerows and controls is similar.</li>
+<li>Alternative hypothesis: The traits at mature hedgerows and controls are not the same.</li>
+</ul>
+<ol style="list-style-type: lower-alpha">
+<li>Mature hedgerows have large bees and more specialized bees than would be expected if we were sampling randomly from the regional species pool.</li>
+<li>Controls have smaller bees and more generalized bees than would be expected if we were sampling randomly from the regional species pool.</li>
+</ol>
+<p>In the study, we tested the hypothesis above by creating a null distribution of average trait values by shuffling individuals across sites within a year. This enabled us to constrain species abundance and richness at a site while changing the identity of the individuals. Creating this type of custom null model is a bit out of the scope of what we know how to do at this point in the class, so instead we will simplify our problem by shuffling the treatment columns (mature hedgerow vs. control) across sites within a year. We will then take the average trait value for the randomized data to calculate the null expectation of controls b</p>
+<p><strong>Step 0</strong>: Let’s first try to do our randomization with 1 year of data then work out way up.</p>
+<p><strong>Step 1:</strong>Shuffle the treatment column</p>
+<p><strong>Step 2:</strong> Add the shuffled column back on to the table</p>
+<p><strong>Step 3:</strong> Take the mean of the simulated data.</p>
+</div>
+<div id="lab-question-4" class="section level3 hasAnchor" number="5.4.6">
+<h3><span class="header-section-number">5.4.6</span> Lab Question 4<a href="simulation-based-hypothesis-testing.html#lab-question-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>4a. Combine Steps 1-3 into a function: Now that we have worked through all the steps with one year, write a function that takes yr and sys.traits. Don’t forget to add a nice annotation in the first few line describing what the function does. Call your function ‘randomizeTraits’</p></li>
+<li><p>4b. Test out your function on a 2013. Run your function a few times. Do the mean values for the traits change? Why?</p></li>
+</ul>
+<p>– ANSWER:</p>
+</div>
+<div id="question-5" class="section level3 hasAnchor" number="5.4.7">
+<h3><span class="header-section-number">5.4.7</span> Question 5<a href="simulation-based-hypothesis-testing.html#question-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now we want to use our function on each year of data and save our results. The perfect situation for a for loop!</p>
+<ul>
+<li><p>5a. We will want to loop over the different years in the data. Start by creating a vector of the unique year values, call it ‘years’. It would be nice to sort that vector as well so that the years are in order.</p></li>
+<li><p>5b. We will do this together in class, but first try to think it through.</p></li>
+</ul>
+<p>The next step was a bit tricky. Unlike before in class (lab 1), where we saved the calculations from our function into a vector, we have a dataframe I found that the easiest way to get the column names right was to start to the first year of data, then rbind() (row bind) that to the previous year. Call your randomized data random.traits</p>
+<p>HINT: If you do as I suggested above, you will not want to include year one in your for loop. If you have a vector x, x[-1] will drop the first element of that vector.</p>
+<ul>
+<li><p>5c. Take the mean body size and specialization for each site status across years of that simulated full dataset, call it mean.years</p></li>
+<li><p>5d. Now combine all the steps above into a single function called repRandomComm that:</p></li>
+<li><p>shuffles year 1 using the randomizeTraits function</p></li>
+<li><p>loops over the remaining years, row binding the data to prior year each time</p></li>
+<li><p>takes the mean of the traits across years, and returns that value.</p></li>
+</ul>
+<p>It should have two arguments years and sys.traits</p>
+<p>NOTE: It isn’t A+ to have argument names be the same as objects in your Global Environment (can you think of why?), but sometimes argument names can just too silly if you keep trying to tweak them. Let’s just be kinda A- with our naming to avoid confusion.</p>
+<p>Try out your function!</p>
+<ul>
+<li>5d. Last step! Run your randomization 100 times using a for loop. Similar to our above for loop, it was helpful to run the randomization once to get the format of the dataframe correct, then just rbind the rest of the iterations onto that.</li>
+</ul>
+</div>
+<div id="demo-interpreting-the-results" class="section level3 hasAnchor" number="5.4.8">
+<h3><span class="header-section-number">5.4.8</span> Demo: Interpreting the results<a href="simulation-based-hypothesis-testing.html#demo-interpreting-the-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To determine whether our randomized communities have similar trait values as our observed communities, we will calculate an empirical p-value.</p>
+<p>Empirical p-value is calculated as the number of permutation tests with a ‘more extreme’ (larger or smaller, depending on the null hypothesis) observed test statistic.</p>
+<p>In our case, our test statistic is the mean body size (MeanITD) and mean specialization (d).</p>
+<p>We will start by calculating our observed test statistic for both traits.</p>
+<p>To visualize our observed data in relation to our randomized data, we will plot a histogram of our simulated data and add a vertical line for our observed data.</p>
+<p>Our observed data looks quite different than our randomized data!</p>
+<p>If our null hypothesis that bees at mature hedgerows and controls have similar traits is true what is the probability we get bees as small as we did at the controls? Let’s calculate that probability. We need to calculate how many times we got values equal to or more extreme than our observed value when we randomized the treatments (mature hedgerow, control) in the data.</p>
+<p>Remember that we can sum the TRUEs.</p>
+<p>This is our empirical p-value. That is a pretty low probability that we would get our observed statistic if the null hypothesis (the traits in mature and control communities the same) was true.</p>
+<p>We generally reject our null hypothesis if our p-value is less than 0.05. We can therefore reject our null hypothesis.</p>
+<p>Now for the mature communities:</p>
+<p>Again, that is a pretty low probability that we would get our observed statistic if the null hypothesis (the traits in mature and control communities the same) was true. Our p value is again less than 0.03. We can therefore reject our null hypothesis.</p>
+</div>
+<div id="question-6" class="section level3 hasAnchor" number="5.4.9">
+<h3><span class="header-section-number">5.4.9</span> Question 6<a href="simulation-based-hypothesis-testing.html#question-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Follow the same steps for the specialization (d)
+- 6a. Make a histogram with the randomized and observed values.</p>
+<ul>
+<li><p>6b. What is the probability that bees at controls are as generalized (so small values of d) as what we observed, given then null hypothesis is true?</p></li>
+<li><p>6c. Do we accept or reject our null hypothesis?
+– ANSWER:</p></li>
+<li><p>6d. What is the probability that bees at mature hedgerows are as specialized (so large values of d) as what we observed, given then null hypothesis is true?</p></li>
+<li><p>6f. Do we accept or reject our null hypothesis?</p></li>
+</ul>
+<p>– ANSWER:</p>
+<p>With these analyses we have approximated the analysis of Ponisio et al. 2016. Congratulations :)</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-AlmeidaNeto2008" class="csl-entry">
+Almeida-Neto, Mário, Paulo R. Guimarães Jr, Paulo Guimarães, Rafael D. Loyola, and Werner Ulrich. 2008. <span>“A Consistent Metric for Nestedness Analysis in Ecological Systems: Reconciling Concept and Measurement.”</span> <em>Oikos</em> 117 (8): 1227–39. <a href="https://doi.org/10.1111/j.0030-1299.2008.16644.x">https://doi.org/10.1111/j.0030-1299.2008.16644.x</a>.
+</div>
+<div id="ref-Anderson2006" class="csl-entry">
+Anderson, Marti J. 2006. <span>“Distance-Based Tests for Homogeneity of Multivariate Dispersions.”</span> <em>Ecology Letters</em> 9 (6): 683–93. <a href="https://doi.org/10.1111/j.1461-0248.2006.00926.x">https://doi.org/10.1111/j.1461-0248.2006.00926.x</a>.
+</div>
+<div id="ref-Baselga2010" class="csl-entry">
+Baselga, Andrés. 2010. <span>“Partitioning the Turnover and Nestedness Components of Beta Diversity.”</span> <em>Global Ecology and Biogeography</em> 19 (1): 134–43. <a href="https://doi.org/10.1111/j.1466-8238.2009.00490.x">https://doi.org/10.1111/j.1466-8238.2009.00490.x</a>.
+</div>
+<div id="ref-Hill1973" class="csl-entry">
+Hill, Mark O. 1973. <span>“Diversity and Evenness: A Unifying Notation and Its Consequences.”</span> <em>Ecology</em> 54 (2): 427–32. <a href="https://doi.org/10.2307/1934352">https://doi.org/10.2307/1934352</a>.
+</div>
+<div id="ref-Laliberte2010" class="csl-entry">
+Laliberté, Etienne, and Pierre Legendre. 2010. <span>“A Distance-Based Framework for Measuring Functional Diversity from Multiple Traits.”</span> <em>Ecology</em> 91 (1): 299–305. <a href="https://doi.org/10.1890/08-2244.1">https://doi.org/10.1890/08-2244.1</a>.
+</div>
+<div id="ref-Legendre2012" class="csl-entry">
+Legendre, Pierre, and Louis Legendre. 2012. <em>Numerical Ecology</em>. 3rd English ed. Amsterdam: Elsevier.
+</div>
+<div id="ref-Rao1982" class="csl-entry">
+Rao, C. Radhakrishna. 1982. <span>“Diversity and Dissimilarity Coefficients: A Unified Approach.”</span> <em>Theoretical Population Biology</em> 21 (1): 24–43. <a href="https://doi.org/10.1016/0040-5809(82)90004-1">https://doi.org/10.1016/0040-5809(82)90004-1</a>.
+</div>
+<div id="ref-Shannon1948" class="csl-entry">
+Shannon, Claude E. 1948. <span>“A Mathematical Theory of Communication.”</span> <em>Bell System Technical Journal</em> 27: 379–423, 623–56. <a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">https://doi.org/10.1002/j.1538-7305.1948.tb01338.x</a>.
+</div>
+<div id="ref-Simpson1949" class="csl-entry">
+Simpson, Edward H. 1949. <span>“Measurement of Diversity.”</span> <em>Nature</em> 163: 688. <a href="https://doi.org/10.1038/163688a0">https://doi.org/10.1038/163688a0</a>.
+</div>
+<div id="ref-Villeger2008" class="csl-entry">
+Villéger, Sébastien, Norman W. H. Mason, and David Mouillot. 2008. <span>“New Multidimensional Functional Diversity Indices for a Multifaceted Framework in Functional Ecology.”</span> <em>Ecology</em> 89 (8): 2290–2301. <a href="https://doi.org/10.1890/07-1206.1">https://doi.org/10.1890/07-1206.1</a>.
+</div>
+<div id="ref-Whittaker1972" class="csl-entry">
+Whittaker, Robert H. 1972. <span>“Evolution and Measurement of Species Diversity.”</span> <em>Taxon</em> 21 (2/3): 213–51. <a href="https://doi.org/10.2307/1218190">https://doi.org/10.2307/1218190</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="using-the-tidyverse-for-data-manipulation-and-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="version-control-and-collaboration-with-git-and-github.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+## Demo: A/B Testing with Mauna Loa CO₂
+
+> **Goal.** Use the Mauna Loa monthly CO₂ record to run a two‑sided **A/B test** with a **permutation (randomization)** test.  
+> **A** = 1960s, **B** = 2010s. Outcome: monthly change Δ ppm. We **block by month‑of‑year** to preserve seasonality.  
+> Then tackle a **an in class challenge** on seasonal amplitude (per‑year max−min).
+
+```{r setup, message=FALSE, warning=FALSE}
+library("tidyverse", quietly = TRUE)
+
+# Helper: data path inside project
+path_data <- function(...) file.path("data", ...)
+
+# Set a seed for reproducibility of permutations
+set.seed(1)
+```
+
+### Import CO₂ monthly data
+
+The file is in `data/co2_mm_mlo.txt` (copied with this Rmd). We skip commented header lines and parse the monthly **average** and **de‑seasonalized** series. In this file, `-9.99` and `-0.99` flag missing metadata.
+
+```{r import}
+co2 <- readr::read_table(
+    file = path_data("co2_mm_mlo.txt"),
+    comment = "#",
+    col_names = c("year","month","decimal_date","average","deseasonalized",
+                  "ndays","stdev_days","unc_month"),
+    na = c("-9.99","-0.99")
+  )
+
+glimpse(co2)
+```
+
+### Create the outcome and define A/B groups
+
+We compute **Δ ppm** month‑to‑month and subset to the **1960s** and **2010s**. We also keep `month_name` to block permutations by month (preserving seasonality).
+
+```{r construct-ab}
+library(dplyr)
+co2_delta <- co2 %>%
+    arrange(year, month) %>%
+    mutate(
+      delta = average - dplyr::lag(average),
+      decade = floor(year / 10) * 10,
+      month_name = month.abb[month]
+    )
+glimpse(co2_delta)
+```
+
+
+```{r construct-ab2}
+### subset to the decades of interest (use filter? base R?) 
+
+co2_ab <- co2_delta %>%
+  filter(decade == 2010 | decade == 1960) 
+
+## There should only be two, 2010 and 1960
+length(unique(co2_ab$decade)) == 2
+
+co2_ab$group <- ifelse(co2_ab$decade == 1960, "A_1960s", "B_2010s")
+
+table(co2_ab$group)
+
+```
+
+### Observed effect (difference in means)
+
+Our statistic: \(\Delta = \bar{\Delta}_{2010s} - \bar{\Delta}_{1960s}\). Positive values imply faster month‑to‑month increases in the 2010s.
+
+```{r observed-effect}
+## calculate the mean delta by group
+obs_means <- co2_ab %>%
+  group_by(group) %>%
+  summarize(T_obs = mean(delta))
+
+T_obs <- obs_means$T_obs[obs_means$group == "B_2010s"] - obs_means$T_obs[obs_means$group == "A_1960s"]
+                         
+names(T_obs) <- "T_obs"
+T_obs
+```
+
+### Permutation test (two‑sided), **blocked by month**
+
+We permute the **group labels within each month-of-year** to preserve seasonal structure while breaking any decade effect.
+
+```{r perm-test}
+perm_once_blocked <- function(df) {
+  gp <- df$group
+  for (m in unique(df$month_name)) {
+    idx <- which(df$month_name == m)
+    gp[idx] <- sample(gp[idx], replace = FALSE)
+  }
+  mean(df$delta[gp == "B_2010s"]) - mean(df$delta[gp == "A_1960s"])
+}
+
+nnull <- 5000
+T_star <- replicate(nnull, perm_once_blocked(co2_ab))
+
+# Two-sided permutation p-value
+p_perm <- mean(abs(T_star) >= abs(T_obs))
+p_perm
+```
+
+#### Visualize the permutation null
+
+```{r perm-plot, fig.height=4, fig.width=7, message=FALSE, warning=FALSE}
+tibble(T_star = T_star) %>%
+    ggplot(aes(x = T_star)) +
+    geom_histogram(bins = 40, alpha = 0.7) +
+    geom_vline(xintercept = T_obs, linetype = 2) +
+    geom_vline(xintercept = -T_obs, linetype = 2) +
+    labs(title = "Permutation null for Δ (2010s − 1960s), blocked by month",
+         x = "Permuted Δ", y = "Count") +
+    theme_minimal()
+
+```
+What is your conclusion? 
+ANSWER... 
+
+
+#### Sanity check: raw Δ distributions
+
+```{r delta-dists, fig.height=4, fig.width=7, message=FALSE, warning=FALSE}
+
+ggplot(subset(co2_ab, !is.na(delta)), aes(x = delta, fill = group)) +
+    geom_histogram(position = "identity", alpha = 0.5, bins = 30) +
+    labs(x = "Monthly change Δ ppm", y = "Count",
+         title = "Monthly CO₂ growth: 1960s vs 2010s") +
+    theme_minimal()
+
+```
+
+---
+
+### Challenge Problem — Seasonal amplitude A/B test
+
+**Question.** Is the **seasonal amplitude** (per‑year `max(average) − min(average)`) larger in the **2010s** than in the **1960s**?
+
+**First, make a plan:**
+1) Compute yearly amplitudes.  
+2) Define A (1960s years) and B (2010s years).  
+3) Observed effect: mean(amplitude\_B) − mean(amplitude\_A).  
+4) Permutation test at the **year level** by randomly reassigning years to A/B (keeping counts fixed).
+
+```{r challenge}
+# Build yearly amplitudes
+```
+
+
+```{r challenge}
+# Observed effect
+```
+
+
+```{r challenge}
+# Year-level permutation (keeps A/B year counts fixed)
+
+```
+
+What is your conclusion? 
+ANSWER... 

@@ -1,0 +1,216 @@
+# Ecological networks
+
+```{r demo_setup, include=FALSE}
+knitr::opts_chunk$set(error = TRUE, warning = TRUE, message = TRUE)
+suppressPackageStartupMessages({
+  if (requireNamespace("tidyverse", quietly = TRUE)) library(tidyverse)
+  if (requireNamespace("igraph", quietly = TRUE)) library(igraph)
+   if (requireNamespace("bipartite", quietly = TRUE)) library(bipartite)
+   if (requireNamespace("vegan", quietly = TRUE)) library(vegan)
+   if (requireNamespace("networkD3", quietly = TRUE)) library(networkD3)
+})
+
+net_data <- function(...) file.path("data", ...)
+```
+
+## Lecture summary
+
+### Learning objectives
+By the end of this chapter you will be able to:
+
+- Explain how empirical interaction data become network (matrix) representations.
+- Define key linear‐algebra concepts (vectors, matrices) and compute matrix and vector–matrix products.
+- Distinguish common ecological network types (e.g., food webs, host–parasitoid, plant–pollinator; uni‑ vs. bipartite; weighted vs. binary; directed vs. undirected).
+- Describe how networks also arise from dynamic systems models (e.g., generalized Lotka–Volterra), and how Jacobians encode interaction strengths 
+- Summarize important network‑level properties (size, connectance, nestedness NODF, modularity \(Q\), specialization \(H_2'\), redundancy, complementarity).
+- Compare null‑model families (equiprobable/probabilistic vs. constrained marginals) and explain why they are needed for cross‑network standardization 
+- Quantify species roles using centrality (degree, betweenness, closeness, eigenvector), species strength, and specialization \(d'\)
+
+
+### From data to networks
+
+**Empirical construction**
+
+1. **Define nodes and edges**: species (or morphospecies) are nodes; an edge represents a recorded interaction (e.g., visit, predation event, parasitism).  
+2. **Sampling design**: standardized time/area, repeated censuses to reduce detection bias; record identity and (ideally) frequency/weight of interactions [@delmas2019].  
+3. **Matrix assembly**: unipartite (e.g., predator–prey, directed) or bipartite (e.g., plant–pollinator). Binary vs. quantitative matrices.  
+4. **Data sources**: curated repositories (e.g., **Web of Life**, **Mangal**) provide matrices + metadata and programmatic access [@weboflife; @rmangal2019].
+
+**Common network types**
+
+- **Food webs (trophic)**: unipartite, directed edges from resource \(\to\) consumer [@pascualdunne2006; @may1972].
+- **Mutualisms** (pollination, seed dispersal): bipartite, typically undirected and weighted [@bascompte2003; @delmas2019].
+- **Antagonistic bipartite**: host–parasitoid, plant–herbivore.  
+- **Parasite–host, disease**: may be multilayer (hosts–vectors–pathogens).
+- **Multilayer/temporal**: replicate layers across sites/seasons.
+
+**Networks from dynamic systems models**
+
+Many community models define **interaction strengths** explicitly. In **generalized Lotka–Volterra (GLV)** models,
+\[\frac{dN_i}{dt} = r_i N_i + \sum_{j} \alpha_{ij} N_i N_j,\]
+where \(\alpha_{ij}\) is the per‑capita effect of species \(j\) on \(i\). The **Jacobian** at equilibrium,
+\(\mathbf{J} = [\partial f_i / \partial N_j]\), encodes local stability and can be interpreted as a **weighted, signed network** [@may1972; @allesina2012].
+
+- **Food webs**: \(\alpha_{ij}<0\) if \(j\) consumes \(i\); \(\alpha_{ji}>0\) for the consumer’s gain.  
+- **Mutualisms**: \(\alpha_{ij},\alpha_{ji}>0\) (can be saturating).  
+- **Competition**: \(\alpha_{ij},\alpha_{ji}<0\).
+
+Stability depends on **size**, **connectance**, **mean/variance** of \(\alpha_{ij}\), and the **sign structure** (e.g., predator–prey increases stability relative to random interactions) [@may1972; @allesina2012].
+
+---
+
+## Linear‑algebra essentials for ecological networks
+
+**Vectors** are ordered lists of numbers. We write a row vector as
+\(\mathbf{x} = (x_1, x_2, \dots, x_S)\) and a column vector as
+\(\mathbf{x} = (x_1, x_2, \dots, x_S)^\top\).
+
+**Matrices** are rectangular arrays of numbers with \(S\) rows and \(T\) columns, e.g., an interaction (adjacency) matrix \(\mathbf{A} = [a_{ij}]\).
+Typical encodings:
+
+- **Binary**: \(a_{ij}\in\{0,1\}\) indicates presence/absence of an interaction.
+- **Weighted**: \(a_{ij}\ge 0\) is an interaction frequency or strength.
+
+**Matrix multiplication** \( \mathbf{A}_{S\times T}\mathbf{B}_{T\times U} \to \mathbf{C}_{S\times U} \)
+
+**Goal:** compute \( \mathbf{C} = \mathbf{A}\mathbf{B} \).  
+**Shape check:** inner dimensions must match (here both are \(T\)). Result has shape \(S\times U\).
+
+**Recipe (for one entry \(c_{iu}\)):**
+
+1. Pick **row \(i\)** from \(\mathbf{A}\).
+2. Pick **column \(u\)** from \(\mathbf{B}\).
+3. Multiply entries **pairwise** across the \(T\) positions.
+4. **Sum** those \(T\) products:  
+   \[
+   c_{iu} = \sum_{j=1}^{T} a_{ij}\, b_{ju}.
+   \]
+5. Repeat for all rows \(i=1,\dots,S\) and columns \(u=1,\dots,U\).
+
+**Interpretation:**
+
+- Column view: each column of \(\mathbf{C}\) is a **linear combination of the columns of \(\mathbf{A}\)** with weights from the corresponding column of \(\mathbf{B}\).  
+  \(\ \ \ \ \ \ \ \ \ \ \ \ \ \mathbf{C}_{\cdot u} = \mathbf{A}\, \mathbf{b}_{\cdot u}\).
+- Row view: each row of \(\mathbf{C}\) is a **linear combination of the rows of \(\mathbf{B}\)** with weights from the corresponding row of \(\mathbf{A}\).  
+  \(\ \ \ \ \ \ \ \ \ \ \ \ \ \mathbf{C}_{i \cdot} = \mathbf{a}_{i \cdot}\, \mathbf{B}\).
+
+**Worked example (tiny):**
+
+\[
+\mathbf{A}=
+\begin{bmatrix}
+1 & 2 & 0\\
+3 & -1 & 4
+\end{bmatrix}_{2\times 3},\quad
+\mathbf{B}=
+\begin{bmatrix}
+2 & 1\\
+0 & -1\\
+5 & 2
+\end{bmatrix}_{3\times 2}.
+\]
+
+Compute \( \mathbf{C}=\mathbf{A}\mathbf{B} \) (result is \(2\times 2\)):
+
+- \(c_{11} = 1\cdot 2 + 2\cdot 0 + 0\cdot 5 = 2\)  
+- \(c_{12} = 1\cdot 1 + 2\cdot(-1) + 0\cdot 2 = -1\)  
+- \(c_{21} = 3\cdot 2 + (-1)\cdot 0 + 4\cdot 5 = 26\)  
+- \(c_{22} = 3\cdot 1 + (-1)\cdot(-1) + 4\cdot 2 = 12\)
+
+\[
+\Rightarrow\ 
+\mathbf{C}=
+\begin{bmatrix}
+2 & -1\\
+26 & 12
+\end{bmatrix}.
+\]
+
+```{r child="demos/06-1-demo-networks.Rmd", echo=FALSE, error=TRUE}
+```
+---
+
+## Core network properties (formulas, intuition, tools)
+
+Let \(S\) be number of species (nodes) and \(L\) number of realized links.
+
+- **Size & density**: In bipartite networks with \(S_\mathrm{plants}\times S_\mathrm{animals}\) possible links, **connectance**
+  \(C = L/(S_\mathrm{plants}\,S_\mathrm{animals})\). In directed unipartite graphs, \(C = L/[S(S-1)]\) [@may1972].
+- **Degree distributions**: number of partners per species; in bipartite networks these are “generality” (rows) and “vulnerability” (cols) [@dormann2009].
+- **Weighted counterparts**: **species strength** is the sum of a species’ dependence across partners; a meaningful complexity measure in mutualistic webs [@bascompte2006science].
+- **Nestedness (NODF)**: specialists interact with subsets of generalists’ partners; computed via NODF (based on overlap and decreasing fill) [@almeidaneto2008; @ulrich2009].
+- **Modularity (\(Q\))**: extent to which species form groups (modules) with dense internal links and sparse external links [@newman2006; @olesen2007].
+- **Specialization \(H_2'\)** (network‑level): standardized interaction diversity; robust to unequal sampling [@bluthgen2006].
+- **Redundancy & complementarity**: complementary pollinators visit **different** plants (functional complementarity), while redundancy captures **overlap** among species' functions; both relate to stability of ecosystem functions [@devoto2012; @magrach2021; @ponisio2020].
+
+**Nestedness (NODF)**
+
+NODF combines **paired overlap** and **decreasing fill** across ordered rows/columns [@almeidaneto2008]. Values range 0–100. Implementations: `bipartite::nested(web, method = "NODF"), `vegan::nestedtemp`.
+
+**Modularity \(Q\)**
+
+For a given partition of nodes into modules, modularity compares within‑module weight to a randomized expectation [@newman2006]:
+\[ Q = \frac{1}{2m}\sum_{ij} \left(A_{ij} - \frac{k_i k_j}{2m}\right)\delta(g_i,g_j),\]
+with \(m=\) total weight, \(k_i=\) node strength, and \(\delta\) equal to 1 if \(i\) and \(j\) share a module.
+Pollination networks are often modular [@olesen2007]. Tools: `bipartite::computeModules`, `igraph::cluster_*`.
+
+**Specialization \(H_2'\) (network) and \(d'\) (species)**
+
+Information‑theoretic indices that standardize interaction diversity against marginals [@bluthgen2006]. In `bipartite`: `H2fun`
+
+**Connectance**
+
+\(C = L/M\) where \(M\) is the maximum possible links (see above). High \(C\) indicates dense interaction structure [@may1972]. Scales with network size (number of species) so can be easily misinterpreted when comparing the connectance of networks of different sizes. 
+
+**Species roles**
+
+- **Degree centrality**: number of unique partners
+- **Betweenness centrality**: fraction of shortest paths that pass through a species (potential “bridges”) [@freeman1979].
+- **Closeness centrality**: inverse of distances to all others (fast access) [@freeman1979].
+- **Eigenvector centrality**: high if connected to other central species.
+- **Species strength** (weighted degree by dependence) gauges importance as a mutualistic provider/consumer [@bascompte2006science].
+**d'** recipocal specialization, similar to H2 but for a species [@bluthgen2006]. 
+
+`bipartite::specieslevel`  can calculate about every metric you can imagine,  see `?bipartite::specieslevel`. 
+
+**Null models for fair comparisons**
+
+Because many metrics scale with **network size**, **fill**, and **sampling**, compare observed metrics to **null expectations** generated by randomization [@dormann2009; @ulrich2009].
+
+**Families of null models**
+
+1. **Equiprobable / probabilistic**: each cell has the same probability of being 1 (binary) or a probability proportional to row/column totals. Good for testing strong structure but can inflate Type I error (probability of false positives) with heterogeneous marginals [@gotelli2000].
+2. **Constrained marginals**: preserve row and/or column totals to mimic sampling and abundance effects.
+   - **Fixed–Fixed (FF)**: preserve both row and column sums via **swap**, **trial‑swap**, **curveball** algorithms [@miklos2004; @strona2014].  
+   - **Fixed–Equiprobable (FE)** / **Equiprobable–Fixed (EF)**: preserve one margin, randomize the other [@ulrich2007].
+   
+In general with ecological networks we want to use **Constrained marginals** or **Equiprobable / probabilistic**.
+Report **z‑scores** or **p‑values** based on the null distribution; when comparing many networks, use the same null model family for consistency [@dormann2009].
+
+
+```{r child="demos/06-2-demo-networks-nulls.Rmd", echo=FALSE, error=TRUE}
+```
+---
+
+## Network visualization
+
+```{r child="demos/06-3-demo-networks-vis.Rmd", echo=FALSE, error=TRUE}
+```
+
+---
+
+### Further reading & software
+
+- **Reviews/guides**: @delmas2019; @bascompte2007; @landi2018.  
+- **R packages**: *bipartite* [@dormann2009; @bipartite2025], *igraph* [@igraph2025], *vegan* for null models [@vegan2025].  
+- **Data portals**: Web of Life [@weboflife], Mangal [@rmangal2019].
+
+
+```{r child="readings/06-reading.Rmd", echo=FALSE, error=TRUE}
+```
+
+
+```{r child="labs/06-lab-foodwebs_student.Rmd", echo=FALSE, error=TRUE}
+```
+
+### References

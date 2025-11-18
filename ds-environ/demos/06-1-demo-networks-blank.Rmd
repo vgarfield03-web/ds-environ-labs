@@ -1,0 +1,204 @@
+## Demo: Linear algebra for networks
+
+
+**Matrix multiplication in R**
+```{r}
+A <- matrix(c(1,2,0,
+              3,-1,4), nrow = 2, byrow = TRUE)
+B <- matrix(c(2,1,
+              0,-1,
+              5,2), nrow = 3, byrow = TRUE)
+A %*% B
+
+```
+
+
+**Using matrix multiple or `sweep()` for fast row/column operations**
+
+Another common need is to multiple a matrix by a vector, for example a species occurrence matrix with a vector that weights the species in some way. We can do this three ways: 1) create a matrix from the vector of the correct dimensions and do matrix multiplication, 2) matrix-vector multiplication with "recycling", 3) or use R's function `sweep(x, MARGIN, STATS, FUN)` to the setup and multiplication for us. 
+
+`sweep(x, MARGIN, STATS, FUN)` applies a vector (`STATS`) across **rows** (`MARGIN = 1`) or **columns** (`MARGIN = 2`) of a matrix/data frame using a function (`FUN`, default `"-"`).
+
+We’ll use a mini **site × species** abundance table:
+
+```{r}
+
+# Mini site × species abundance matrix
+X <- matrix(c(
+  5, 3, 2, 0,   # Site 1
+  0, 4, 6, 1,   # Site 2
+  2, 1, 7, 3    # Site 3
+), nrow = 3, byrow = TRUE,
+dimnames = list(paste0("Site", 1:3),
+                c("Bee_A","Bee_B","Bee_C","Bee_D")))
+X
+```
+**Column operations (species across sites)**
+
+Let's standardize (x -mean/sd) our matrix of site occurrences. 
+
+```{r}
+## Option 1: Matrix-matrix multiplication 
+col_means <- colMeans(X)
+col_sds   <- apply(X, 2, sd)
+
+# 1) Center columns: X - 1_n %*% t(col_means)
+ones <- matrix(1, nrow(X), 1)                      # n×1 vector of ones
+ones
+X_col_centered_mm <- X - ones %*% t(col_means)     # n×p - (n×1)(1×p)
+
+# 2) Z-score columns: (X - mean) %*% diag(1/sd)
+Dinv <- diag(1 / col_sds)                          # p×p diagonal with 1/sd
+Dinv
+X_z_mm <- X_col_centered_mm %*% Dinv               # n×p %*% p×p
+
+X_col_centered_mm
+
+dimnames(X_z_mm) <- dimnames(X)
+X_z_mm
+
+```
+
+
+```{r}
+## Option 2:  Matrix-vector multiplication
+
+## Set up dimensions
+n <- nrow(X); p <- ncol(X)
+
+## create a matrix with repeates
+reped_mat <- rep(col_means, each = n)
+col_means
+reped_mat
+
+X_col_centered_vec <- X - reped_mat
+X_z_vec            <- (X - rep(col_means, each = n)) / rep(col_sds, each = n)
+dimnames(X_z_vec) <- dimnames(X)
+X_z_vec
+```
+
+```{r}
+# Option 3: Using sweep instead 
+
+# Z-score columns: (X - mean) / sd
+X_z <- sweep(X, 2, col_means, "-")
+X_z <- sweep(X_z, 2, col_sds, "/")
+X_z
+
+# sanity check against your matrix multiplication-based results above:
+all.equal(X_z_mm, X_z)                        # should be TRUE (up to tolerance)
+all.equal(X_z, X_z_vec) 
+```
+
+**Row operations (sites across species)**
+```{r}
+row_means <- rowMeans(X)
+row_sums  <- rowSums(X)
+
+# Center rows: subtract each site’s mean abundance
+X_row_centered <- sweep(X, MARGIN = 1, STATS = row_means, FUN = "-")
+
+# Row proportions: divide each row by its row sum (compositional)
+# will only with safe if no zero-sum rows)
+
+X_prop <- sweep(X, MARGIN = 1, STATS = row_sums, FUN = "/")
+X_prop
+
+## You could also write your own function and pop it in... :o
+```
+
+**Column weights example (apply species weights to each row)**
+```{r}
+w <- c(Bee_A = 1.0, Bee_B = 0.5, Bee_C = 1.5, Bee_D = 2.0)
+X_weighted <- sweep(X, MARGIN = 2, STATS = w, FUN = "*")
+row_scores <- rowSums(X_weighted)
+
+X_weighted
+row_scores
+```
+
+**Other examples in networks:**
+
+- Multiplying an **adjacency matrix** \(\mathbf{A}\) by a vector of **species abundances** \(\mathbf{N}\) yields linear combinations of partner contributions.
+- \(\mathbf{A}\mathbf{1}\) (where \(\mathbf{1}\) is a vector of ones) gives **row sums** (e.g., consumer breadth “generality”), and \(\mathbf{1}^\top\mathbf{A}\) gives **column sums** (resource breadth “vulnerability”) in bipartite mutualisms [@dormann2009].
+- The **two‑step reach** between nodes is encoded by \(\mathbf{A}^2\) (paths of length 2).
+- In our lab we will multiple occurrence body sizes and occurrence matrices to build foodwebs for different time periods. 
+
+### In-class challenge: Matrix & vector multiplication with plant–pollinator data
+
+We'll use a **plant × pollinator** visitation matrix `V` (rows = plants, columns = pollinators). You'll compute:
+
+- a matrix–vector product (expected seeds per plant)
+- row/column reweighting via diagonal matrices
+- plant–plant and pollinator–pollinator overlaps via matrix–matrix products
+- effectiveness-weighted visits.
+
+We will use real data on pollination efficiency of sunflower @parker1981efficient.
+
+```{r challenge-mv-setup}
+# Data: counts of visits observed during a standardized survey period 
+plants      <- c("Lupine","Sunflower","Sage")
+pollinators <- c("Bombus","Melissodes","Apis","Andrena")
+
+V <- matrix(c(
+  12,  7,  3,  4,   # Lupine
+   5, 19,  8,  2,   # Sunflower
+   9,  4, 11,  6    # Sage
+), nrow = length(plants), byrow = TRUE,
+dimnames = list(plants, pollinators))
+
+# Per-visit pollination effectiveness (relative seeds per visit) for each pollinator based on sunflower
+a <- c(Bombus = 0.8, Melissodes = 27.80, Apis = 2.5, Andrena = 12.60)
+
+# Row multipliers: change in floral display/attractiveness for each plant (next day)
+row_mult <- c(Lupine = 1.10, Sunflower = 0.90, Sage = 1.00)
+
+# Column multipliers: change in pollinator activity (next day)
+col_mult <- c(Bombus = 0.80, Melissodes = 2.20, Apis = 3.00, Osmia = 1.10)
+
+V
+a
+row_mult
+col_mult
+```
+
+**Q1. Dimensions & conformability (1 min)**
+
+- What are the dimensions of `V`?  
+- What are the dimensions of `a` (treat it as a **column** vector)?  
+- Is `V %*% a` conformable? What will be the shape of the result?
+
+*Hint:* \((S\times T)(T\times 1) \to (S\times 1)\).
+
+```{r challenge-mv-q1, eval=FALSE}
+
+```
+
+---
+
+**Q2. Expected seeds per plant (matrix–vector product) (5 min)**
+
+Assume **linearity** of contributions by visits:
+\[\mathbf{s} \;=\; V \, \mathbf{a},\]
+where \(V\) is plants×pollinators and \(\mathbf{a}\) is per-visit effectiveness (pollinators×1).
+
+```{r challenge-mv-q2, eval=FALSE}
+# Ensure 'a' is aligned to V's columns by name
+
+
+# Which pollinator contributes most to Sunflower’s expected seeds?
+
+```
+
+**Q3. Plant co-visitation overlap (matrix–matrix product) (5 min)**
+
+Compute **plant × plant** overlap:
+\[\,
+\mathbf{C}_{\text{plants}} \;=\; V\,V^\top.
+\]
+Entry \(c_{ij}\) is the total number of visits that plants \(i\) and \(j\) share across pollinators (diagonal = total visits per plant).
+
+```{r challenge-mv-q3a, eval=FALSE}
+
+# Which plant pair shares the most pollinator effort (largest off-diagonal)?
+```

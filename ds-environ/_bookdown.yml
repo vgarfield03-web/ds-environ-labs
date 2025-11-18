@@ -1,0 +1,19 @@
+book_filename: data-science-for-environment
+rmd_files:
+- index.Rmd
+- 01-syllabus.Rmd
+- 02-key-programming-concepts.Rmd
+- 03-tidyverse-intro.Rmd
+- 04-simulation-hypothesis-testing.Rmd
+- 05-git-github-collab.Rmd
+- 06-networks.Rmd
+- 07-geospatial-I.Rmd
+- 08-geospatial-II.Rmd
+- 09-string-processing-and-debugging.Rmd
+- 10-finalproject.Rmd
+language:
+  ui:
+    chapter_name: ''
+delete_merged_file: true
+new_session: true
+output_dir: "docs"

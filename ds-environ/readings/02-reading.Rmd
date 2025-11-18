@@ -1,0 +1,42 @@
+
+##  Discussion & Reflection — Reproducible Research Alston & Rick (2020)
+
+**Reading:** Alston, J.M. & Rick, J.A. (2020). *A Beginner’s Guide to Conducting Reproducible Research*. **Bulletin of the Ecological Society of America**, 102(2): e01801. https://doi.org/10.1002/bes2.1801
+
+<div style="margin: 1rem 0;">
+<embed src="readings/reading-Alston2020.pdf" type="application/pdf" width="100%" height="800px" />
+</div>
+
+---
+
+### Pre‑class reflection (please submit short answers via canvas)
+
+1. In your own words, what does **computational reproducibility** mean? Give one concrete example from your work or coursework where results would *not* be reproducible without extra effort.
+2. List **two benefits to you** (the analyst) and **two benefits to the community** of making your work reproducible.
+3. Which barrier feels most real for you right now: **complexity**, **technological change**, **human error**, or **intellectual property**? Explain with a 2–3 sentence example.
+4. Commit to **one specific step** you will implement in your current/future research (student thesis, etc.) (e.g., a file‑naming scheme, a README template, version control, dynamic documents). Why this step?
+
+---
+
+### In‑class small‑group prompts
+
+*Before analysis:* data storage & organization:
+
+- Sketch a **project folder layout** for the current/next lab (e.g., `data-raw/`, `data/`, `R/`, `figs/`, `doc/`).  
+- Decide what belongs in **raw** vs **clean** data; outline a **metadata** plan (variables, units, data provenance).  
+- Propose a **backup strategy** (locations, frequency) and a **file‑naming convention** that encodes version/date.
+
+**Human error scenarios**
+Consider: a collaborator overwrites a cleaned dataset; a figure is updated but not the manuscript numbers; code runs only on one laptop.  
+
+- For **each**, describe how a reproducible workflow would **prevent or catch** the issue.
+
+**Reproducibility checklist**
+
+- Draft a **reproducibility checklist** (6–10 items) tailored to the current lab or for this class's final project. 
+
+**Final thoughts** 
+
+- One **question** you still have.  
+
+

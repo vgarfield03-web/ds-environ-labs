@@ -1,0 +1,553 @@
+## Demo: Programming Key Concepts part 1 (week 1)
+
+### Starting with RStudio
+
+To open RStudio, click on the RStudio icon in the Applications (if you
+are on a Mac) or in your Programs if you are on Windows.
+
+There are four windows in RStudio that we will refer to throughout the
+workshop
+
+1. *The R Script*: Typically the upper left hand corner of RSutdio.
+   This is where you write R code that you can save and reuse later.
+2. *The R Console*: Typically in the lower left hand corner. This is
+   where you execute R code.
+3. *The R Environment*: Typically in the upper right hand corner. This
+   is where you can see defined variables.
+4. *R "Information"*: Typically in the lower right hand corner. This
+   is where you see plots, help and other R information.
+
+For all the work in this class we will be typing code in the R
+script and then executing it in the R console.  For simple commands
+(e.g. `2 + 2`) this may seem over the top, but writing in a script will help all of your work be reproducible! Think of the script as your lab
+notebook.
+
+**TIP**: Some helpful R studio shortcuts
+1. Run the current line of selection
+   - Windows: `Ctrl-Enter`
+   - Mac: `Command-Enter`
+2. Source the entire script
+  - Windows: `Ctrl-Shift-Enter`
+  - Mac: `Command-Shift-Enter`
+
+###  Individual things
+
+The most basic component of any programming language are "things",
+also called variables or objects.
+
+The most common basic "things" in R are numerics, characters,
+logicals, and some special objects of various types (e.g. lists,
+dataframes, etc.). We'll meet many of these as we go through the
+lesson.
+
+```{r}
+# A numeric
+
+
+# A character
+
+```
+
+###  Assignment statements 
+Things can be stored as variables using `<-`.  `=` also works, but R
+programmers are picky about `<-` sometimes called "carrot". 
+
+```{r}
+# Numeric
+
+# Character
+
+# Boolean (This is case sensitive)
+
+
+# Print the different variables
+
+```
+
+We can figure out the type of these things using the `class` function
+```{r}
+
+```
+    
+###  Commands that operate on things
+
+Just storing data in variables isn't much use to us. Right away, we'd like to start performing operations and manipulations on data and variables.
+
+There are three very common means of performing an operation on a
+thing.
+
+**Use an operator** 
+
+All of the basic math operators work like you think they should for
+numbers. They can also do some useful operations on other things, like characters.
+
+```{r}
+# Standard math operators work as expected on numbers
+a <- 2
+b <- 3
+# Addition
+
+# Multiplication
+
+# Powers
+
+# Division
+
+## A sequence
+
+```
+
+**Use a function**
+
+A function is a block of code with a specific input(s) and output. There are thousands of functions that operate on things.
+```{r}
+# Check the class
+
+# Round a number
+
+# Round a number by converting it to an integer
+
+# Paste together characters and integers
+
+```
+
+To find out what a function does, type the `?` before the function
+name.
+
+```{r}
+
+```
+
+> **Tip**: Sometimes the R help can be pretty unhelpful.  The best
+> option then (or maybe before you even use the R help, is to Google
+> it!). Here are a list of sites that we find very helpful:
+
+> 
+>   1. [Stack Overflow](http://stackoverflow.com/)
+>   2. [R for Data Science](http://r4ds.had.co.nz/)
+
+Many useful functions are in external packages and you need to install
+them and load them into the R environment.  For example, what if we
+wanted to figure out how to do a negative binomial regression in R?
+
+```{r}
+# ?glmer.nb
+
+```
+
+Hmmm, that probably didn't work for you because the function lives in an external package called `lme4`.  We need to install package and then load the package.
+
+```{r}
+install.packages("lme4")
+?glmer.nb
+```
+
+There are thousands of R packages with many useful functions and
+datasets!  That is one of the huge advantages of R, everyone can
+contribute.
+
+###  Groups of things
+**Vectors 1D** 
+We can create groups of things with functions. A simple group is a vector, similar to a column of data.
+
+```{r}
+week.days <- c("Monday", "Tuesday", 11) 
+week.days
+
+test.scores <- c(100, 99.8, 101)
+test.scores
+
+test.scores*10
+
+```
+
+**Matrices 2D**
+
+All elements must be the same class. Matrices are great for storing the results of simulations (like what we will be doing today).
+
+```{r}
+parasite.screenings <- matrix(sample(0:1, 100, replace=TRUE), ncol=10)
+parasite.screenings[1,] <- 10
+```
+
+**Dataframes 2D**
+
+Dataframes can have columns of different classes. We will not be using dataframes today, but most data is stored in dataframes because data for a project is not either all numeric or characters.
+
+```{r}
+# data frames
+bee.surveys <- data.frame(species = c("Bombus occidentalis", 
+                                      "Apis mellifera"),
+                          ORNative = c(TRUE, FALSE),
+                          bodysize = c(1.4, 1.0)
+                          )
+
+# Access a specific column using $
+bee.surveys$ORNative
+
+# Check the class of a specific column
+class(bee.surveys$ORNative)
+
+# Access a specific column using [] (called indexing)
+
+bee.surveys[1,1]
+bee.surveys$species[1]
+
+```
+
+**Lists, N-dimensional**
+
+Lists can have components of different dimensions and classes. Dataframes are special lists where all the components are vectors with the same length. We will not be using these today but they may be relevant for your final projects because they are so flexible. 
+
+```{r}
+# lists 
+all.bee.data <- list(parasite.screenings= parasite.screenings,
+                      bee.surveys = bee.surveys)
+
+# Access a specific element using $
+all.bee.data$bee.surveys
+all.bee.data[[2]]
+
+```
+
+You can create an empty vector with `vector()`. (By default the mode
+is `logical`, but that can be changed to any class of thing you need). 
+
+```{r}
+# Empty vector with a type and length
+
+a <- vector(mode="numeric", length=100)
+```
+
+You can add elements to vectors as well using `c()`
+
+```{r}
+# Make an empty vector
+
+x <- c(a, 10)
+
+# Add 2 to x
+x + 2
+
+# Make a numeric vector with numbers 1 - 10
+y <- 1:10
+
+
+# Add y to x
+
+x + y
+
+```
+    
+You can then look at specific things in the vector by specifying the *index*
+
+```{r}
+# Look at the first thing. Index 1
+
+
+# Look at the 2-5 things. Indices 2 - 5
+
+
+# Look at the last thing. Index 11
+
+```
+
+You can also make vectors of number sequences
+
+```{r}
+# Sequence of 1 through 10
+# a <-
+
+# Sequence from 0 to 10 with 25 equally spaced elements
+# b <-
+```
+
+###  Comparisons and Booleans
+**Comparison operators** 
+Comparison (also called logical) operators compare two things. This amounts to asking R a question
+
+1. `x > y`: R, is x greater than y?
+2. `x == y`: R, is x the same as y?
+3. `x <= y`: R, is x less than or equal to y?
+4. `x & y`: R, are both x and y `TRUE`?
+5. `x | y`: R, is either x or y `TRUE`?
+
+R will either answer `TRUE` or `FALSE`
+
+```{r}
+# is 1 greater than 3
+
+1 > 3
+
+# assign a to is 1 greater than 3
+
+a <- 1 > 3
+
+a
+
+# is 3 equal to 3
+
+ 3 == 3
+
+# assign b to is 3 equal to 3
+ 
+b <- 3 == 3
+
+## what is the class of a and b
+ 
+class(a)
+class(b)
+
+# adding questions together using & and |
+
+a & b
+
+a | b
+```
+
+You can also use comparisons to subset vectors or matrices. This is called logical indexing.  For example, let's get an vector that only contains values greater than 2
+
+```{r}
+# Vector logical indexing 
+
+z <- 1:4
+
+# Matrix logical indexing
+
+x <- z[z > 2]
+x
+```
+
+**Aggregating comparisons**
+
+```{r}
+# What elements of the first row of parasite.screenings is equal to 1? 
+
+parasite.screenings[2,] == 1
+
+# How many elements of the first row of parasite.screenings are equal to 1? 
+
+sum(parasite.screenings[2,] == 1)
+
+```
+
+### Control statements - for (repeating yourself)
+
+In this section and the next, we really start to take advantage of the power of programming languages to do things for us automatically.
+
+We start here with ways to repeat yourself. For loops in R are useful when you want to cycle over all of the items in a collection (such as all of the elements of a vector). 
+
+```{r}
+word <- c("o", "x", "y", "g", "e", "n")
+
+## print each character followed by a *
+
+for(char in word){
+  print(char)
+}
+```
+
+What is the value of char?
+
+```{r}
+# char
+```
+
+You can sum a collection of numbers with a loop (though this could be more quickly done using a `sum()`, but just for example purposes.
+
+```{r}
+# Sum all of the values in a collection using a for loop
+numlist <- 1:100
+total <- 0
+for(num in numlist){
+  total <- total + numlist
+}
+
+
+```
+    
+We often want to loop over indexes of collections
+
+```{r}
+wordlist <- c('hi', 'hello', 'bye')
+wordrange <- 1:length(wordlist)
+
+# For each index of wordrange, print the corresponding word in the list
+for(i in wordrange){
+  print(wordlist[i])
+}
+
+```
+    
+Once we start looping through large numbers of values it is often better to plot the data.  We will cover this in much more detail next week, but here is a quick example.
+
+```{r}
+x <- 1:100
+y <- x^2
+
+### column bind the two vectors together
+z <- cbind(x, y)
+
+### More on plotting in two weeks :) 
+library(ggplot2)
+ggplot(z, aes(x=x, y=y)) + geom_line()
+
+```
+
+### Control statements - if (making choices)
+Often we want to check if a condition is `TRUE` and take one action if it is, and another action if the condition is `FALSE`. We can achieve this in R with an if statement.
+
+You can use any expression that returns a boolean value (`TRUE` or `FALSE`) in an if statement. 
+
+**if and else** 
+```{r}
+num <- 110101010
+# if num is greater than 100, print greater, else print not greater, then print done. 
+if(num > 100){
+  print("greater")
+} else{
+  print("not greater")
+}
+print("done")
+
+```
+
+Conditional statements don’t have to include an else. If there isn’t one, R simply does nothing if the test is FALSE. 
+
+```{r}
+num <- 107
+print('before conditional...')
+if(num > 100){
+    print(paste(num,' is greater than 100'))
+}
+print('...after conditional')
+```
+
+We can also chain several tests together using else if{}
+The following R code uses else if to print the sign of a number.
+
+```{r}
+num <- 0
+
+# if the number is greater than zero, print "is positive", else if the number if equal to zero print "is zero" else print is negative (only remaining option). Then print "all done"
+
+if(num > 0){
+  print("is positive")
+} else if( num == 0){
+  print("is zero")
+} else{
+  "is negative"
+}
+
+```
+
+We can also combine tests using and and (&) or (|). and is only true if both Questions are TRUE:
+
+```{r}
+# if num1 is greater than 0 AND num2 is greater than or equal to 0, print "Both questions are true", else print "at least one question is false"
+
+num1 <- -1 
+num2 <- 0
+
+if(num1 > 0 & num2 >= 0){
+  print(paste0(num1, "Both question are true"))
+} else {
+ print("at least one question is false")
+}
+
+```
+
+Or TRUE if one or the other Question is TRUE:
+
+```{r}
+# if num1 is greater than 0 OR num 2 is greater than or equal to 0, print "at least one questions is true", else print "both questions are false"
+
+if(num1 > 0 | num2 >= 0){
+  print("at least one is true")
+} else{
+  print("both quetions are false")
+}
+
+```
+
+###  Creating chunks
+**Writing functions**
+One way to write a program is to simply string together commands, like the ones described above, in a long file, and then to run that file to generate your results. This may work, but it can be cognitively difficult to follow the logic of programs written in this style. Also, it does not allow you to reuse your code easily - for example, what if we wanted to run our logistic growth model for several different choices of initial parameters?
+
+The most important ways to "chunk" code into more manageable pieces is to create functions and then to gather these functions into modules, and eventually packages The R packages that you download from CRAN essentially contain collections of functions, though they also contain datasets and high level chunks called objects. Below we will discuss how to create functions in R. Functions are good for making code more **reusable**, **readable**, and **maintainable**.
+
+We can create a function to do whatever we like. We need to give it a same, define its inputs (arguments) and its outputs (return expression). 
+
+```{r}
+# make a function called spread that subtracts the min from the max for a numeric vector
+
+spread <- function(values){
+  ## This function calculates the spread of a vector of numerics
+  return(max(values) - min(values))
+}
+
+spread(seq(1:100))
+
+```
+
+Another example: 
+```{r}
+# make a function called convert_fahr_to_celsius that takes fahr_temp and subtracts 32 then multiplies (5/9). Call the output cel_temp
+
+convert_fahr_to_celsius <- function(temp_fahr){
+  ## Converts a numeric scalar or vector in fahr into degrees Celsius 
+  temp_cel <- (temp_fahr - 32)*(5/9)
+  return(temp_cel)
+}
+
+convert_fahr_to_celsius(c(32, 212))
+```
+
+A function has a few crucial parts:
+
+1. A name (`convert_fahr_to_celsius`)
+2. Arguments (`fahr_temp`)
+3. A return value (`cel_temp`).  One feature unique to R is that the return statement is not required. R automatically returns whichever variable is on the last line of the body of the function. But, is it makes it much easier to understand a function if a return statement is defined explicitly so its best practice to include one.
+
+Next, we get to use the function. You pass in *arguments* to the function. 
+    
+```{r}
+# Freezing point of water
+#convert_fahr_to_celsius(32)
+
+# Boiling point of water
+#convert_fahr_to_celsius(212)
+```
+
+You **always** want to document your function to describe what it does.  You can do that with comments. Use full sentences and describe the inputs and outputs.
+
+```{r}
+
+```
+
+Functions can also have default parameters, which don't need to be passed as arguments when the function is called. Beginning with a function with no defaults:
+
+```{r}
+## a function called say_hello that takes two arguments, time and people. The function pastes the string "Good" then time, then people together. 
+
+# say_hello('afternoon', 'friends')
+```
+
+What happens when you try this
+
+```{r}
+# forget the second argument
+# say_hello('afternoon')
+```
+
+You must pass in two arguments because that is how you defined the function! If we were writing a function many people might use, we would want to check the inputs were correct (known as "defensive programming") instead of letting R throw an error. 
+Let's now give `people` a default value.  In the example below, people will now have the value of `world` unless we explicitly specify otherwise.
+
+```{r}
+# say_hello <- 
+
+# Default is returned
+# say_hello('afternoon')
+
+# say_hello('afternoon', 'students')
+```
