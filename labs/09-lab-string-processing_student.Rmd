@@ -25,11 +25,18 @@ Import the OBA data using your favorite parsing function, name the data oba.
 -1a. 
 ```{r}
 ## your code here
-
+oba <- read.csv("~/Downloads/ds-environ-main/labs/data/OBA_2018-2023.csv")
 ```
 
 
 -1b. Examine the unique entries of 'Associated.plant' using any function you find useful. What are at least 10 patterns in the associated taxa string what should be removed if we want consistent plant names? (Make a list together as a class). Only print the first 10 here to avoid having a giant output. 
+```{r}
+glimpse(oba)
+```
+
+```{r}
+unique(oba$Associated.plant)[1:10]
+```
 
 1. ...
 
@@ -43,13 +50,12 @@ Hint: You must \ any special characters. For example to use \s (matches any spac
 
 ```{r, eval=FALSE}
 
-###  # Remove the special character
+# removing special character
 oba$Associated.plant <- str_replace_all(oba$Associated.plant, "\x92", "")
-
-###  # To check that it worked
+# checking to see if it works 
 sort(unique(oba$Associated.plant))[1:10]
 
-###   Removing common names in ()
+# Removing common names 
 oba$Associated.plant <- gsub("\\s*\\(.*?\\)", "", oba$Associated.plant)
 
 ###   3. Removing lists
@@ -78,8 +84,6 @@ oba$Plant.resolution <- sapply(oba$Associated.plant, function(x) {
 })
 
 
-
-
 ```
 
 ### Lab question 2: Making a column for plant resolution
@@ -93,7 +97,14 @@ First use regular expressions to count up the number of words in each element of
 Hint: `str_count` may be useful. 
 
 ```{r}
-## your code here
+## new column name 
+oba <- oba %>% 
+  mutate(
+    plantwordcount = str_count(Associated.plant, "\\S+")
+  )
+
+oba$plantwordcount[1:50]
+
 ```
 
 -2b. Write a for loop to assigned each entry of the column plantResolution to be "family", "genus" or "species". `table()` the final result. 
@@ -102,7 +113,11 @@ Hint hint: The function `ifelse` returns one value if a TRUE and another if FALS
 Hint hint hint: `grepl` will return or TRUE or FALSE depending on whether it finds the pattern. Be careful with periods in patterns because alone they are a wild card character.  
 
 ```{r}
+oba$Plant.resolution <- NA
 
+for(i in 1:nrow(oba)){
+  words <- 
+}
 ```
 
 -2c. For those that are identified to genus but are lacking an sp., add that now so that they will not be treated as separate plant species (i.e., Rosa vs Rosa sp.). You can do this with a regular expression and using 'gsub' or 'string_replace_all' or by counting up the number of words in Associated.plant. 

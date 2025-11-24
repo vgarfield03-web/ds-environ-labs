@@ -1,0 +1,125 @@
+## Lab: Spatial data 2: Working with OBA data (Student Version)
+
+
+**Conservation/ecology Topics** 
+
+- Species distributions 
+
+**Computational Topics**
+-  Convert a data frame to a spatial object.
+-  Plot multiple spatial layers.
+
+```{r load-libraries-lab, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+library(terra)
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(ggspatial)
+```
+
+**Lab part 1: Oregon bee atlas data exploration** 
+
+- 1a. Import the OBA data. (remember it's in the main data folder of the book and not in the labs folder, so you have to move back a folder)
+```{r}
+
+```
+
+- 1b. Find the columns related to genus and species and paste them together (with a space between) using the function paste(). Name the new column GenusSpecies.
+```{r}
+
+```
+
+- 1c. Use `sort()` and `unique()` to print the unique values of GenusSpecies in alphabetical order.  How many species are there? 
+
+```{r}
+
+```
+
+Some specimens are not identified to species, only genus. How is this reflected in the data? 
+
+- 1d. So many bees, so little time. Count up the occurrences of each bee species, and subset the data to bees that have been seen at least two times. 
+You can use the tidyverse or any other functions in R that you like. How many "species" are there? 
+
+```{r}
+
+```
+
+- 1e. Google a few bee names (that have been seen > 2 times) and find one with an a look that resonates with you.
+
+What is the name of your bee? 
+
+Import the photos into Rmarkdown below (hint: googling bee name "discover life" or "inat" can often get you a photo. Many bees will no have any photos :(  use the format ![](fig/***.png){alt='My spirt bee: ****'}
+
+**Lab part 2: Plotting the distribution of your spirit bee.** 
+
+How that have chosen your spirit bee, we would like to plot it's distribution. What is the crs of the data? Annoyingly it is not described anywhere in the spreadsheet (always list your crs in your data) but it is the same as what inat uses because all bees have a georeferenced plant host. If the data is in lat long, it is "unprojected" so only a datum will be listed. 
+DATUM: WGS84, unprojected lat long. EPSG code: 4326. 
+
+
+```{r}
+crs("EPSG:4326")
+```
+
+- 2a. Extract the X and Y locations for your species only from the data and create a spatial object. Don't forget to set the CRS! 
+Hint 1: consider what other data you would like to keep as attributes, for example what flower they were foraging on. Hint 2: Remember the lat is y and long is x. 
+Hint 3: You may want to rename the column names you can use, `colnames()` or `rename()` from dplyr and reassign the names. This is only if you don't love the names they already have. 
+
+```{r}
+
+
+```
+
+- 2b. Plot your exciting bee data!
+
+```{r plot-data-points-lab}
+
+```
+
+Not so exciting without some kind of background... 
+
+Luckily we can download basemaps into R using the map_data function in ggplot (among many others). There is an example for retrieving the Oregon county polygons. 
+
+```{r plot-or}
+or <- map_data("county", "oregon") %>% 
+  select(lon = long, lat, group, id = subregion)
+
+```
+
+- 2c. Add your species's points to your choice or an Oregon basemap. 
+
+```{r plot-data-points-basemap-lab}
+
+
+
+```
+
+**Lab part 3: Cartography**
+
+- 3a. Here is your moment to explore your cartographic skills. 
+
+1. Add the ecoregion shape file (in data/OR-ecoregions) and tweek the Oregon map in anyway that is useful/visually appealing. You may need to crop that layer to the extent of your species's distribution if it is only in a few ecoregions. 
+2. Color your points according to some data attribute and add a legend (month collected, county, collector, associated plant, whatever you think is interesting). You may need to circle back to 2.1 to save additional attributes when you converted the dataframe to a spatial object. 
+3. Fine-tune your map: add a title, make sure the legend label makes sense, add a scale bar (google "add scale bar map ggplot" and choose your favorite package). All maps must always have a scale bar. You can add a N arrow as well, though some cartographers argue that is only necessary if N isn't at the top of the map.
+4. Write a figure caption for your map explaining any interesting trends you see. 
+5. Export your cropped layer to a .shp so you can use it again for your final project.
+
+```{r plot-creative-lab}
+
+
+```
+
+We are looking forward to seeing the maps you create! 
+
+**Lab part 4: Spatial summary statistics**
+ For your final projects, you will likely need to come up with summary statistics that describes the areas around where bees are captured. 
+
+- 4a. Using the distribution of your chosen bee and the a raster spatial layer from [Oregon Geohub](https://geohub.oregon.gov/), extract a meaningful summary statistics from your spatial layer within a buffer of 500, 750 1000 m.
+
+- 4b. Create a plot that illustrates this summary data (box plot, barplot, scatter plot, historgram). 
+
+- 4c. Create a map of your cropped spatial data.
+
+```{r}
+
+
+```

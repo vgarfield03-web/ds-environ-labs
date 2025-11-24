@@ -1,0 +1,291 @@
+## Lab: Spatial data 2: Working with OBA data (Student Version)
+
+
+**Conservation/ecology Topics** 
+
+- Species distributions 
+
+**Computational Topics**
+-  Convert a data frame to a spatial object.
+-  Plot multiple spatial layers.
+
+```{r load-libraries-lab, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+library(terra)
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(ggspatial)
+```
+
+**Lab part 1: Oregon bee atlas data exploration** 
+
+- 1a. Import the OBA data. (remember it's in the main data folder of the book and not in the labs folder, so you have to move back a folder)
+```{r}
+oba <- read.csv("~/Downloads/ds-environ-main/labs/data/OBA_2018-2024.csv")
+```
+
+- 1b. Find the columns related to genus and species and paste them together (with a space between) using the function paste(). Name the new column GenusSpecies.
+```{r}
+oba$GenusSpecies <- paste(oba$genus, oba$specificEpithet)
+head(oba$GenusSpecies)
+```
+
+- 1c. Use `sort()` and `unique()` to print the unique values of GenusSpecies in alphabetical order.  How many species are there? 
+ANSWER: says there are 586 species according to this set 
+
+```{r}
+sort(unique(oba$GenusSpecies))
+```
+
+Some specimens are not identified to species, only genus. How is this reflected in the data? 
+
+- 1d. So many bees, so little time. Count up the occurrences of each bee species, and subset the data to bees that have been seen at least two times. 
+You can use the tidyverse or any other functions in R that you like. How many "species" are there? 
+
+```{r}
+oba_counts <- oba %>% 
+  group_by(GenusSpecies) %>%
+  summarise(count = n()) %>%
+  filter(count >= 2)
+
+glimpse(oba_counts)
+```
+
+- 1e. Google a few bee names (that have been seen > 2 times) and find one with an a look that resonates with you.
+
+What is the name of your bee? 
+- Osmia proxima 
+
+Import the photos into Rmarkdown below (hint: googling bee name "discover life" or "inat" can often get you a photo. Many bees will no have any photos :(  use the format ![](fig/***.png){alt='My spirt bee: ****'}
+
+![](fig/Osmia-similima-F-400x155.jpg){alt='My spirit bee: Osmia proxima'}
+
+
+
+**Lab part 2: Plotting the distribution of your spirit bee.** 
+
+Now that have chosen your spirit bee, we would like to plot it's distribution. What is the crs of the data? Annoyingly it is not described anywhere in the spreadsheet (always list your crs in your data) but it is the same as what inat uses because all bees have a georeferenced plant host. If the data is in lat long, it is "unprojected" so only a datum will be listed. 
+DATUM: WGS84, unprojected lat long. EPSG code: 4326. 
+
+
+```{r}
+crs("EPSG:4326")
+st_crs(4326)
+```
+
+- 2a. Extract the X and Y locations for your species only from the data and create a spatial object. Don't forget to set the CRS! 
+Hint 1: consider what other data you would like to keep as attributes, for example what flower they were foraging on. Hint 2: Remember the lat is y and long is x. 
+Hint 3: You may want to rename the column names you can use, `colnames()` or `rename()` from dplyr and reassign the names. This is only if you don't love the names they already have. 
+
+```{r}
+osmiaproxima_df <- oba %>% 
+  filter(GenusSpecies == "Osmia proxima") %>% 
+  select(GenusSpecies, speciesPlant, locality, decimalLongitude, decimalLatitude)
+
+
+osmiaproxima_df <- osmiaproxima_df  %>%
+  rename(
+    long = decimalLongitude,
+    lat = decimalLatitude,
+    flower = speciesPlant
+  )
+
+osmiaproxima_sf <- st_as_sf(osmiaproxima_df, 
+                           coords = c("long", "lat"),
+                           crs = 4326)
+
+glimpse(osmiaproxima_so)
+```
+
+- 2b. Plot your exciting bee data!
+
+```{r plot-data-points-lab}
+ggplot() +
+  geom_sf(data = osmiaproxima_sf,
+          color = "blue") + 
+  theme_classic() + 
+  labs(title = "osmia Proxima observations", 
+       x = "Longitude", y = "Latitude")
+```
+
+Not so exciting without some kind of background... 
+
+Luckily we can download basemaps into R using the map_data function in ggplot (among many others). There is an example for retrieving the Oregon county polygons. 
+
+```{r plot-or}
+or <- map_data("county", "oregon") %>% 
+  select(lon = long, lat, group, id = subregion)
+
+```
+
+- 2c. Add your species's points to your choice or an Oregon basemap. 
+
+```{r plot-data-points-basemap-lab}
+# Bee data as sf object
+osmiaproxima_sf <- oba %>%
+  filter(GenusSpecies == "Osmia proxima") %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = 4326)
+
+# Plot
+ggplot() + 
+  geom_polygon(data = or, aes(x = lon, y = lat, group = group),
+               fill = "darkgreen", color = "gray") +
+  geom_sf(data = osmiaproxima_sf, color = "skyblue") +
+  labs(title = "Osmia proxima in OR", x = "Longitude", y = "Latitude") +
+  theme_classic()
+```
+
+**Lab part 3: Cartography**
+
+- 3a. Here is your moment to explore your cartographic skills. 
+
+1. Add the ecoregion shape file (in data/OR-ecoregions) and tweek the Oregon map in anyway that is useful/visually appealing. You may need to crop that layer to the extent of your species's distribution if it is only in a few ecoregions. 
+2. Color your points according to some data attribute and add a legend (month collected, county, collector, associated plant, whatever you think is interesting). You may need to circle back to 2.1 to save additional attributes when you converted the dataframe to a spatial object. 
+3. Fine-tune your map: add a title, make sure the legend label makes sense, add a scale bar (google "add scale bar map ggplot" and choose your favorite package). All maps must always have a scale bar. You can add a N arrow as well, though some cartographers argue that is only necessary if N isn't at the top of the map.
+
+```{r}
+ecoregions <- st_read( "~/Downloads/ds-environ-main/labs/data/OR-ecoregions/Ecoregions_OregonConservationStrategy.shp")
+
+osmiaproxima_sf <- oba %>%
+  filter(GenusSpecies == "Osmia proxima") %>%
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), crs = 4326) %>%
+  select(GenusSpecies, speciesPlant,locality)
+# cropping eco regions to match CRS, also looked this up
+ecoregions <- st_transform(ecoregions, st_crs(osmiaproxima_sf))
+
+
+## croppping, didnt know how to do this, so I looked it up.
+bbox <- st_bbox(osmiaproxima_sf) 
+ecoregions_crop <- st_crop(ecoregions, bbox)
+ 
+#graphing
+ggplot() + 
+  geom_sf(data = ecoregions_crop, fill = "cornflowerblue", color = "darkseagreen") + 
+  geom_sf(data = osmiaproxima_sf, aes(color = speciesPlant), size = 2) +  # fixed parentheses
+  labs(title = "Osmia proxima", x = "Longitude", y = "Latitude", color = "Plant Visited") +
+  theme_classic() +
+  # scale bar at bottom left
+  annotation_scale(location = "bl", width_hint = 0.3) +
+  annotation_north_arrow(location = "tl", style = north_arrow_fancy_orienteering())
+```
+
+4. Write a figure caption for your map explaining any interesting trends you see. 
+This graph abocve is the ditribution of osmia Proxima across oregon. Points shown are colored by plant species. Most of these observations are based in the western part of Oregon, where in the eastern part of oregon we see a decrease in osmia proxima. This could be because of an abundance of identifiers in this area of Oregon, or habitat avilability in this area. We have a map that includes ecoregios, a scale bar and a northern arrow for spatial assesmen. 
+
+5. Export your cropped layer to a .shp so you can use it again for your final project.
+
+```{r plot-creative-lab}
+# Save the cropped ecoregions for future use
+st_write(ecoregions_crop, "data/OR-ecoregions-cropped-v2.shp", append = TRUE)
+
+```
+
+We are looking forward to seeing the maps you create! 
+
+**Lab part 4: Spatial summary statistics**
+ For your final projects, you will likely need to come up with summary statistics that describes the areas around where bees are captured. 
+
+- 4a. Using the distribution of your chosen bee and the a raster spatial layer from [Oregon Geohub](https://geohub.oregon.gov/), extract a meaningful summary statistics from your spatial layer within a buffer of 500, 750 1000 m.
+
+- 4b. Create a plot that illustrates this summary data (box plot, barplot, scatter plot, historgram). 
+
+- 4c. Create a map of your cropped spatial data.
+
+```{r}
+raster_layer <- rast(" ~/Downloads/ds-environ-main/labs/data/Annual_NLCD_LndCov_2020_CU_C1V1.tif")
+
+buffers <- c(500,750,1000)
+
+osmiaproxima_sf <- st_transform(osmiaproxima_sf, crs = crs(raster_layer))
+
+buffers <- bind_rows(
+  st_buffer(osmiaproxima_sf, dist = 500)  %>% mutate(buffer_size = 500),
+  st_buffer(osmiaproxima_sf, dist = 750)  %>% mutate(buffer_size = 750),
+  st_buffer(osmiaproxima_sf, dist = 1000) %>% mutate(buffer_size = 1000)
+)
+
+raster_values <- extract(raster_layer, vect(buffers), fun = mean, na.rm = TRUE)
+
+
+
+buffers <- osmiaproxima_sf %>%
+  st_buffer(dist = 500) %>% 
+  mutate(buffer_size = 500) %>%
+  rbind(
+    st_buffer(osmiaproxima_sf, dist = 750) %>% mutate(buffer_size = 750),
+    st_buffer(osmiaproxima_sf, dist = 1000) %>% mutate(buffer_size = 1000)
+  )
+
+buffers_summary <- bind_cols(buffers, raster_values)
+
+head(buffers_summary)
+
+names(raster_layer)
+
+raster_values <- extract(raster_layer, vect(buffers), fun = mean, na.rm = TRUE)
+buffers_summary <- cbind(buffers, raster_values)
+
+head(buffers_summary)
+
+ggplot(buffers_summary, aes(x = factor(buffer_size), y = Annual_NLCD_LndCov_2020_CU_C1V1
+)) + 
+  geom_boxplot() + 
+  labs(
+    x = "buffer radius (m)", 
+    y = "mean NLCD vale", 
+    title = "mean land cover in buffers around Osmia Proxima"
+  ) + 
+  theme_classic()
+
+bbox <- st_bbox(osmiaproxima_sf)
+raster_crop <- crop(raster_layer, bbox)
+```
+
+4c. 
+```{r}
+bbox <- st_bbox(osmiaproxima_sf)
+raster_crop <- crop(raster_layer, bbox)
+
+
+
+#. raster to dataframe so i can ggplot
+raster_df <- as.data.frame(raster_crop, xy = TRUE)
+colnames(raster_df) <- c("x", "y", "value")
+
+
+```
+```{r}
+# had to recreate raster_df as coordinate
+raster_df <- as.data.frame(raster_crop, xy = TRUE, na.rm = TRUE)
+colnames(raster_df) <- c("x", "y", "value")
+```
+
+
+
+
+
+```{r}
+ggplot() +
+  geom_raster(data = raster_df, aes(x = x, y = y, fill = value)) +
+  scale_fill_viridis_c(name = "NLCD") +
+  geom_sf(data = osmiaproxima_sf, color = "chocolate4", size = 1) +
+  labs(
+    title = "Cropped NLCD Raster with *Osmia proxima* Distribution",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal() +
+  annotation_scale(location = "bl", width_hint = 0.3) +
+  annotation_north_arrow(
+    location = "tl", 
+    style = north_arrow_fancy_orienteering()
+  )
+
+```
+
+
+
+
+
+
+

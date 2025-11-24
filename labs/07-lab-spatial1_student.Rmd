@@ -81,13 +81,15 @@ HINT HINT: Remember to check the labels of the data values to be able to set the
 
 ```{r}
 ## dataframes for burns 
-holiday_df <- rast_to_df(holiday_clean)
-beachie_df <- rast_to_df(beachie_clean)
-terwilliger_df <- rast_to_df(terwilliger_clean)
+holiday_df <- rast_to_df(holiday_rast)
+beachie_df <- rast_to_df(beachie_rast)
+terwilliger_df <- rast_to_df(terwilliger_rast)
 
 holiday_rast_df <- as.data.frame(holiday_rast, xy = TRUE)
 beachie_rast_df <- as.data.frame(beachie_rast, xy = TRUE)
 terwilliger_rast_df <- as.data.frame(terwilliger_rast, xy = TRUE)
+
+
 holiday_rast_df$Layer_1 <- as.factor(holiday_rast_df$Layer_1)
 beachie_rast_df$Layer_1 <- as.factor(beachie_rast_df$Layer_1)
 terwilliger_rast_df$SoilBurnSe <- as.factor(terwilliger_rast_df$SoilBurnSe)
@@ -144,9 +146,16 @@ holiday had moderate-high severity. beachie has low to mod
 
 ```{r}
 crs(holiday_rast)
-crs(beachie_rast)
-crs(ter_rast)
 ```
+```{r}
+crs(beachie_rast)
+
+```
+
+```{r}
+crs(terwilliger_rast)
+```
+
 
 - ANSWER crs: Holiday: 26910 Beachie:8827 Terwilliger:9001
 - ANSWER units: Holiday:metre Beachie:metre Terwilliger:metre
@@ -157,7 +166,7 @@ crs(ter_rast)
 ```{r, resolution}
 res(holiday_rast)
 res(beachie_rast)
-res(ter_rast)
+res(terwilliger_rast)
 ```
 
 - ANSWER resolution: Holiday: 20 Beachie: 20 Terwilliger:30
@@ -168,7 +177,7 @@ res(ter_rast)
 ```{r, minmax}
 minmax(holiday_rast)
 minmax(beachie_rast)
-minmax(ter_rast)
+minmax(terwilliger_rast)
 ```
 - ANSWER minmax: Holiday:1/127 Beachie:1/127 Terwilliger:1/4
 - ANSWER the same? : teri. is lower max
@@ -229,24 +238,20 @@ beachie_df$severity <- as.factor(beachie_df$Layer_1)
 terwilliger_df$severity <- as.factor(terwilliger_df$Layer_1)
 
 holiday_df$fire <- "holiday farm"
-beachie_df$fire <- "beachie fire"
-terwilliger_df$fire <- "terwilliger fire"
+beachie_rast_df$fire <- "beachie fire"
+terwilliger_rast_df$fire <- "terwilliger fire"
 
 all_fires_df <- rbind(holiday_df, beachie_df, terwilliger_df)
 
 ggplot(all_fires_df, aes(x = x, y = y, fill = severity)) +
-  geom_raster() +
+  geom_tile() +
   coord_equal() +
 scale_fill_brewer(palette = "Spectral, direction = -1") +
-  facet_wrap(~ fire) + 
    labs(
       title = "Burn Severity across Holiday, Beachie, Terwilliger", 
       fill = "Severity"
     ) + 
     theme_minimal()
-
-
-
 ```
 
 Well that's annoying. It appears as though in 2018 the makers of these data decided to give 1,2,3,4 categorical names which are being interpreted as two different scales. If we look at the terwilliger_rast values we can see that in min max. 
@@ -263,13 +268,31 @@ Somethings you will need to be careful of:
 - We will eventually want the data to be factors again so it will match up with the other rasters. So lastly, convert the data to a factor (using as.factor()). 
 
 ```{r}
+class(terwilliger_rast_df$SoilBurnSe)
+terwilliger_df$severity <- as.character(terwilliger_df$severity)
+
+terwilliger_df$severity[terwilliger_df$severity == "Unburned"] <- "1"
+terwilliger_df$severity[terwilliger_df$severity == "Low"]      <- "2"
+terwilliger_df$severity[terwilliger_df$severity == "Moderate"] <- "3"
+terwilliger_df$severity[terwilliger_df$severity == "High"]     <- "4"
+
+terwilliger_df$severity <- as.factor(terwilliger_df$severity)
 
 ```
 
 - 3e. Try plotting again. 
 
 ```{r plot-projected-raster2}
-
+ggplot(all_fires_df, aes(x = x, y = y, fill = severity)) +
+  geom_tile() +
+  coord_equal() +
+scale_fill_brewer(palette = "Spectral, direction = -1") +
+  facet_wrap(~ fire) + 
+   labs(
+      title = "Burn Severity across Holiday, Beachie, Terwilliger", 
+      fill = "Severity"
+    ) + 
+    theme_minimal()
 ```
 The scale bar make sense! It would be nice to have a baselayer map to see where is Oregon these fires are.
 
@@ -280,18 +303,42 @@ I found a nice ecoregion map on the OR spatial data website. https://spatialdata
 - 4a. Load the data into R, it is in the OR-ecoregions folder.
 
 ```{r oreco}
+oreco <- st_read("~/Downloads/ds-environ-main/ds-environ/labs/data/OR-ecoregions/Ecoregions_OregonConservationStrategy.shp")
 
 ```
 - 4b. Check the projection and re-project if needed. We did not cover this in the lecture demo, but for vector data, use st_transform()
 
 ```{r or-crs}
+st_crs(oreco)
 
+
+reprojected_oreco <- st_transform(oreco, crs = 2992)
+
+st_crs(reprojected_oreco)
 ```
 
 - 4c. Plot all of the data together (the rasters and vector data). You can layer on geom_sf into ggplot with the other rasters just like you would add another raster. 
 
 ```{r plot-projected-raster-withmap}
-
+# rasters
+ggplot() +
+  geom_tile(
+    data = all_fires_df, 
+    aes(x = x, y = y, fill = severity) 
+  ) +
+# ecoregions
+geom_sf(
+  data = reprojected_oreco, 
+  fill = NA, 
+  color = "blue"
+) + 
+  scale_fill_brewer(palette = "Spectral", direction = -1) +
+ coord_sf() +
+  theme_classic() +
+  labs(
+    title = "fire and ecoregions",
+    fill = "Severity Class"
+  )
 ```
 We could get fancy and zoom into the correct region using extent, which we will cover next week. For now, this looks pretty good. 
 
@@ -304,13 +351,25 @@ We could get fancy and zoom into the correct region using extent, which we will 
 HINT: Rather annoyingly, you will need to convert the layer values to factors again to get fill to recognize them. EX: fill=as.factor(Layer_1)
 
 ```{r plot-hist}
-
+ggplot(all_fires_df, aes(
+  x = (Layer_1), 
+  y = (..count..) / sum(..count..), 
+  fill = as.factor(Layer_1)
+)) +
+  geom_bar() +
+  scale_fill_brewer(palette = "Spectral", direction = -1) +
+  ylab("Proportion") +
+  xlab("Fire Severity") +
+  labs(fill = "fire category") +
+  theme_classic()
 
 
 ```
 
 -5b. What do you notice about the frequency of different severity classes when you compare these barplots. How does this relate to the Haldofsky reading?
 ANSWER: 
+It shows that the proportion of cat. 3 fires is significantly higher that any of the fire categories, cat. 2 fires are up there as well, but the positive part is that there is a lower amount of cat.4 fires. The concern as well is that cat. 4 fires are higher cat. 1. 
+This relates to Haldofsky's reading because the concern in haldofsky is how climate change will increase fire severity, and coverage. I feel llike looking at this graph we see an increase in fire severity. this is a concern in my opinion, that fire cat.1 is the lowest out of the four. I feel like looking at this graph we can see an increase in fire severity due to climate change. 
 
 Also, if the legend label bothers you (as it does for me)
 Check out this tutorial:
